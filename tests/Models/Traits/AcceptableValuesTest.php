@@ -3,7 +3,7 @@
 namespace Necowebs\Destiny\Models\Traits;
 
 /**
- * Class AcceptableValues
+ * Class AcceptableValuesTest
  * @package Necowebs\Destiny\Models\Traits
  */
 class AcceptableValuesTest extends \PHPUnit_Framework_TestCase
