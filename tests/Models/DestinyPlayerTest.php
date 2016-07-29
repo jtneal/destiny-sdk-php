@@ -2,8 +2,15 @@
 
 namespace Necowebs\Destiny\Models;
 
+/**
+ * Class DestinyPlayerTest
+ * @package Necowebs\Destiny\Models
+ */
 class DestinyPlayerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Test Getters and Setters
+     */
     public function testGettersAndSetters()
     {
         $player = (new DestinyPlayer())

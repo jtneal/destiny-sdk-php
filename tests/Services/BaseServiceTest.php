@@ -2,8 +2,15 @@
 
 namespace Necowebs\Destiny\Services;
 
+/**
+ * Class BaseServiceTest
+ * @package Necowebs\Destiny\Services
+ */
 class BaseServiceTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Test Get
+     */
     public function testGet()
     {
         $body = (new BaseService())->get('SearchDestinyPlayer/2/Hochi_oD');

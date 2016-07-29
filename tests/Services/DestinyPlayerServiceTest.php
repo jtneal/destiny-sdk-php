@@ -4,8 +4,15 @@ namespace Necowebs\Destiny\Services;
 
 use Necowebs\Destiny\Models\DestinyPlayer;
 
+/**
+ * Class DestinyPlayerServiceTest
+ * @package Necowebs\Destiny\Services
+ */
 class DestinyPlayerServiceTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Test Search
+     */
     public function testSearch()
     {
         $player = (new DestinyPlayerService())->search('Hochi_oD', '2');
@@ -19,6 +26,9 @@ class DestinyPlayerServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $player);
     }
 
+    /**
+     * Test Search Exception
+     */
     public function testSearchException()
     {
         $this->expectException('\Exception');

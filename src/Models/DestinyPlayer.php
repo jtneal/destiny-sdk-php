@@ -2,6 +2,10 @@
 
 namespace Necowebs\Destiny\Models;
 
+/**
+ * Class DestinyPlayer
+ * @package Necowebs\Destiny\Models
+ */
 class DestinyPlayer
 {
     /**

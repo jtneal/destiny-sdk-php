@@ -4,6 +4,10 @@ namespace Necowebs\Destiny\Services;
 
 use GuzzleHttp\Client;
 
+/**
+ * Class BaseService
+ * @package Necowebs\Destiny\Services
+ */
 class BaseService
 {
     /**

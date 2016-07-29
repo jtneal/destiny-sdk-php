@@ -5,6 +5,10 @@ namespace Necowebs\Destiny\Services;
 use GuzzleHttp\Client;
 use Necowebs\Destiny\Models\DestinyPlayer;
 
+/**
+ * Class DestinyPlayerService
+ * @package Necowebs\Destiny\Services
+ */
 class DestinyPlayerService extends BaseService
 {
     /**
