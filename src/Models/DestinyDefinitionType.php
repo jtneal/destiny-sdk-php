@@ -18,7 +18,7 @@ class DestinyDefinitionType
      */
     public function __construct($value)
     {
-        $this->acceptableValues = [
+        $this->setAcceptableValues([
             'None',
             'Activity',
             'ActivityType',
@@ -42,7 +42,7 @@ class DestinyDefinitionType
             'ArtDyeChannel',
             'ActivityBundle',
             'GearAsset'
-        ];
+        ]);
 
         $this->validateValue($value);
     }

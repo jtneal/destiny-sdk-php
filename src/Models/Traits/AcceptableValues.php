@@ -35,4 +35,15 @@ trait AcceptableValues
     {
         return $this->value;
     }
+
+    /**
+     * @param array $values
+     * @return AcceptableValues
+     */
+    public function setAcceptableValues(array $values)
+    {
+        $this->acceptableValues = $values;
+
+        return $this;
+    }
 }
