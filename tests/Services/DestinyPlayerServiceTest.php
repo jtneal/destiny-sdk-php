@@ -18,4 +18,11 @@ class DestinyPlayerServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $player);
     }
+
+    public function testSearchException()
+    {
+        $player = (new DestinyPlayerService())->search('Fail', 'X');
+
+        $this->expectException('\Exception');
+    }
 }
