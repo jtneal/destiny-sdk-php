@@ -21,11 +21,11 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
             ->setHash(4088006058)
             ->setIndex(0);
 
-        $this->assetEquals(4088006058, $place->getPlaceHash());
-        $this->assetEquals('The Crucible', $place->getPlaceName());
-        $this->assetEquals('Hone your skills and win glory in battle against other Guardians.', $place->getPlaceDescription());
-        $this->assetEquals('/img/misc/missing_icon.png', $place->getIcon());
-        $this->assetEquals(4088006058, $place->getHash());
-        $this->assetEquals(0, $place->getIndex());
+        $this->assertEquals(4088006058, $place->getPlaceHash());
+        $this->assertEquals('The Crucible', $place->getPlaceName());
+        $this->assertEquals('Hone your skills and win glory in battle against other Guardians.', $place->getPlaceDescription());
+        $this->assertEquals('/img/misc/missing_icon.png', $place->getIcon());
+        $this->assertEquals(4088006058, $place->getHash());
+        $this->assertEquals(0, $place->getIndex());
     }
 }
