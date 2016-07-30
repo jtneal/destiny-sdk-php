@@ -1,12 +1,14 @@
 <?php
 
-namespace Necowebs\Destiny\Services;
+namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Models\InventoryItem;
+use Necowebs\Destiny\Exceptions\InventoryItemNotFoundException;
+use Necowebs\Destiny\Models\Manifest\InventoryItem;
+use Necowebs\Destiny\Services\BaseService;
 
 /**
  * Class InventoryItemService
- * @package Necowebs\Destiny\Services
+ * @package Necowebs\Destiny\Services\Manifest
  */
 class InventoryItemService extends BaseService
 {
@@ -20,7 +22,7 @@ class InventoryItemService extends BaseService
         $body = $this->get('Manifest/InventoryItem/' . $itemHash);
 
         if (!isset($body['Response'])) {
-            throw new \Exception('Item not found.');
+            throw new InventoryItemNotFoundException;
         }
 
         $item = $body['Response']['data']['inventoryItem'];

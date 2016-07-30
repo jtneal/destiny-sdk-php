@@ -1,12 +1,14 @@
 <?php
 
-namespace Necowebs\Destiny\Services;
+namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Models\Place;
+use Necowebs\Destiny\Exceptions\PlaceNotFoundException;
+use Necowebs\Destiny\Models\Manifest\Place;
+use Necowebs\Destiny\Services\BaseService;
 
 /**
  * Class PlaceService
- * @package Necowebs\Destiny\Services
+ * @package Necowebs\Destiny\Services\Manifest
  */
 class PlaceService extends BaseService
 {
@@ -20,7 +22,7 @@ class PlaceService extends BaseService
         $body = $this->get('Manifest/Place/' . $placeHash);
 
         if (!isset($body['Response'])) {
-            throw new \Exception('Place not found.');
+            throw new PlaceNotFoundException;
         }
 
         $place = $body['Response']['data']['place'];

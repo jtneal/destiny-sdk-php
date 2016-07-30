@@ -2,6 +2,7 @@
 
 namespace Necowebs\Destiny\Services;
 
+use Necowebs\Destiny\Exceptions\DestinyPlayerNotFoundException;
 use Necowebs\Destiny\Models\DestinyPlayer;
 
 /**
@@ -31,7 +32,7 @@ class DestinyPlayerServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchException()
     {
-        $this->expectException('\Exception');
+        $this->expectException(DestinyPlayerNotFoundException::class);
 
         $player = (new DestinyPlayerService())->search('Fail', 'X');
     }

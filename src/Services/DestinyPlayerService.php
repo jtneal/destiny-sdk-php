@@ -2,6 +2,7 @@
 
 namespace Necowebs\Destiny\Services;
 
+use Necowebs\Destiny\Exceptions\DestinyPlayerNotFoundException;
 use Necowebs\Destiny\Models\DestinyPlayer;
 
 /**
@@ -21,7 +22,7 @@ class DestinyPlayerService extends BaseService
         $body = $this->get('SearchDestinyPlayer/' . $membershipType . '/' . $displayName);
 
         if (!isset($body['Response'][0])) {
-            throw new \Exception('Player not found.');
+            throw new DestinyPlayerNotFoundException;
         }
 
         $player = $body['Response'][0];

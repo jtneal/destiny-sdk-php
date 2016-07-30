@@ -1,6 +1,6 @@
 <?php
 
-namespace Necowebs\Destiny\Models;
+namespace Necowebs\Destiny\Models\Manifest;
 
 /**
  * Class InventoryBucketTest

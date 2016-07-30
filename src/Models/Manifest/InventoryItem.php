@@ -1,10 +1,10 @@
 <?php
 
-namespace Necowebs\Destiny\Models;
+namespace Necowebs\Destiny\Models\Manifest;
 
 /**
  * Class InventoryItem
- * @package Necowebs\Destiny\Models
+ * @package Necowebs\Destiny\Models\Manifest
  */
 class InventoryItem
 {

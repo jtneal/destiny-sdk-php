@@ -1,12 +1,14 @@
 <?php
 
-namespace Necowebs\Destiny\Services;
+namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Models\Destination;
+use Necowebs\Destiny\Exceptions\DestinationNotFoundException;
+use Necowebs\Destiny\Models\Manifest\Destination;
+use Necowebs\Destiny\Services\BaseService;
 
 /**
  * Class DestinationService
- * @package Necowebs\Destiny\Services
+ * @package Necowebs\Destiny\Services\Manifest
  */
 class DestinationService extends BaseService
 {
@@ -20,7 +22,7 @@ class DestinationService extends BaseService
         $body = $this->get('Manifest/Destination/' . $destinationHash);
 
         if (!isset($body['Response'])) {
-            throw new \Exception('Destination not found.');
+            throw new DestinationNotFoundException;
         }
 
         $destination = $body['Response']['data']['destination'];

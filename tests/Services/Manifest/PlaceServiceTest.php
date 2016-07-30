@@ -1,8 +1,9 @@
 <?php
 
-namespace Necowebs\Destiny\Services;
+namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Models\Place;
+use Necowebs\Destiny\Exceptions\PlaceNotFoundException;
+use Necowebs\Destiny\Models\Manifest\Place;
 
 /**
  * Class PlaceServiceTest
@@ -33,7 +34,7 @@ class PlaceServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPlaceException()
     {
-        $this->expectException('\Exception');
+        $this->expectException(PlaceNotFoundException::class);
 
         $place = (new PlaceService())->getPlace('Fail');
     }

@@ -1,12 +1,14 @@
 <?php
 
-namespace Necowebs\Destiny\Services;
+namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Models\InventoryBucket;
+use Necowebs\Destiny\Exceptions\InventoryBucketNotFoundException;
+use Necowebs\Destiny\Models\Manifest\InventoryBucket;
+use Necowebs\Destiny\Services\BaseService;
 
 /**
  * Class InventoryBucketService
- * @package Necowebs\Destiny\Services
+ * @package Necowebs\Destiny\Services\Manifest
  */
 class InventoryBucketService extends BaseService
 {
@@ -20,7 +22,7 @@ class InventoryBucketService extends BaseService
         $body = $this->get('Manifest/InventoryBucket/' . $bucketHash);
 
         if (!isset($body['Response'])) {
-            throw new \Exception('Bucket not found.');
+            throw new InventoryBucketNotFoundException;
         }
 
         $bucket = $body['Response']['data']['inventoryBucket'];

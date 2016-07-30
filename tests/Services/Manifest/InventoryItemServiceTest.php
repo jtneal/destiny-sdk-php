@@ -1,9 +1,10 @@
 <?php
 
-namespace Necowebs\Destiny\Services;
+namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Models\InventoryBucket;
-use Necowebs\Destiny\Models\InventoryItem;
+use Necowebs\Destiny\Exceptions\InventoryItemNotFoundException;
+use Necowebs\Destiny\Models\Manifest\InventoryBucket;
+use Necowebs\Destiny\Models\Manifest\InventoryItem;
 
 /**
  * Class InventoryItemServiceTest
@@ -52,7 +53,7 @@ class InventoryItemServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetItemException()
     {
-        $this->expectException('\Exception');
+        $this->expectException(InventoryItemNotFoundException::class);
 
         $item = (new InventoryItemService())->getItem('Fail');
     }
