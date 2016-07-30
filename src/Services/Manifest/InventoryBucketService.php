@@ -5,6 +5,7 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\InventoryBucketNotFoundException;
 use Necowebs\Destiny\Models\Manifest\InventoryBucket;
 use Necowebs\Destiny\Services\BaseService;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class InventoryBucketService
@@ -15,7 +16,7 @@ class InventoryBucketService extends BaseService
     /**
      * @param int $bucketHash
      * @return InventoryBucket
-     * @throws \Exception
+     * @throws InventoryBucketNotFoundException
      */
     public function getBucket($bucketHash)
     {
@@ -27,19 +28,21 @@ class InventoryBucketService extends BaseService
 
         $bucket = $body['Response']['data']['inventoryBucket'];
 
-        return (new InventoryBucket())
-            ->setBucketHash($bucket['bucketHash'])
-            ->setBucketName($bucket['bucketName'])
-            ->setBucketDescription($bucket['bucketDescription'])
-            ->setScope($bucket['scope'])
-            ->setCategory($bucket['category'])
-            ->setBucketOrder($bucket['bucketOrder'])
-            ->setBucketIdentifier($bucket['bucketIdentifier'])
-            ->setItemCount($bucket['itemCount'])
-            ->setLocation($bucket['location'])
-            ->setHasTransferDestination($bucket['hasTransferDestination'])
-            ->setEnabled($bucket['enabled'])
-            ->setHash($bucket['hash'])
-            ->setIndex($bucket['index']);
+        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\InventoryBucket'))
+            ->add('bucketHash')
+            ->add('bucketName')
+            ->add('bucketDescription')
+            ->add('scope')
+            ->add('category')
+            ->add('bucketOrder')
+            ->add('bucketIdentifier')
+            ->add('itemCount')
+            ->add('location')
+            ->add('hasTransferDestination')
+            ->add('enabled')
+            ->add('hash')
+            ->add('index');
+
+        return $mapper->map($bucket);
     }
 }

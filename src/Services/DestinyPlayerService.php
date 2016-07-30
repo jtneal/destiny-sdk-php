@@ -4,6 +4,7 @@ namespace Necowebs\Destiny\Services;
 
 use Necowebs\Destiny\Exceptions\DestinyPlayerNotFoundException;
 use Necowebs\Destiny\Models\DestinyPlayer;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class DestinyPlayerService
@@ -15,7 +16,7 @@ class DestinyPlayerService extends BaseService
      * @param string $displayName
      * @param string $membershipType
      * @return DestinyPlayer
-     * @throws \Exception
+     * @throws DestinyPlayerNotFoundException
      */
     public function search($displayName, $membershipType = 'All')
     {
@@ -27,10 +28,12 @@ class DestinyPlayerService extends BaseService
 
         $player = $body['Response'][0];
 
-        return (new DestinyPlayer())
-            ->setIconPath($player['iconPath'])
-            ->setMembershipType($player['membershipType'])
-            ->setMembershipId($player['membershipId'])
-            ->setDisplayName($player['displayName']);
+        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\DestinyPlayer'))
+            ->add('iconPath')
+            ->add('membershipType')
+            ->add('membershipId')
+            ->add('displayName');
+
+        return $mapper->map($player);
     }
 }

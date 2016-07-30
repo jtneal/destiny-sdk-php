@@ -5,6 +5,7 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\PlaceNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Place;
 use Necowebs\Destiny\Services\BaseService;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class PlaceService
@@ -15,7 +16,7 @@ class PlaceService extends BaseService
     /**
      * @param int $placeHash
      * @return Place
-     * @throws \Exception
+     * @throws PlaceNotFoundException
      */
     public function getPlace($placeHash)
     {
@@ -27,12 +28,14 @@ class PlaceService extends BaseService
 
         $place = $body['Response']['data']['place'];
 
-        return (new Place())
-            ->setPlaceHash($place['placeHash'])
-            ->setPlaceName($place['placeName'])
-            ->setPlaceDescription($place['placeDescription'])
-            ->setIcon($place['icon'])
-            ->setHash($place['hash'])
-            ->setIndex($place['index']);
+        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Place'))
+            ->add('placeHash')
+            ->add('placeName')
+            ->add('placeDescription')
+            ->add('icon')
+            ->add('hash')
+            ->add('index');
+
+        return $mapper->map($place);
     }
 }

@@ -4,9 +4,49 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "292c9bd93cca65e426f63ba75f849781",
-    "content-hash": "dac78d73eb9cada423dff3742aaba487",
+    "hash": "fe5a821587a53eb5d6979d6d73b86116",
+    "content-hash": "e43ac2a1975033eee0a18c32d65bc159",
     "packages": [
+        {
+            "name": "danielgsims/php-collections",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/danielgsims/php-collections.git",
+                "reference": "7a61faf6d6ac990541bd205a7787749bd39657f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/danielgsims/php-collections/zipball/7a61faf6d6ac990541bd205a7787749bd39657f2",
+                "reference": "7a61faf6d6ac990541bd205a7787749bd39657f2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.3",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Collections\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel G Sims",
+                    "email": "danielgarthsims@gmail.com"
+                }
+            ],
+            "description": "Collection classes for PHP",
+            "time": "2016-07-15 15:46:56"
+        },
         {
             "name": "guzzlehttp/guzzle",
             "version": "6.2.1",

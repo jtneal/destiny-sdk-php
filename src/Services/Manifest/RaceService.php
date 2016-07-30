@@ -5,6 +5,7 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\RaceNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Race;
 use Necowebs\Destiny\Services\BaseService;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class RaceService
@@ -15,7 +16,7 @@ class RaceService extends BaseService
     /**
      * @param int $raceHash
      * @return Race
-     * @throws \Exception
+     * @throws RaceNotFoundException
      */
     public function getRace($raceHash)
     {
@@ -27,14 +28,16 @@ class RaceService extends BaseService
 
         $race = $body['Response']['data']['race'];
 
-        return (new Race())
-            ->setRaceHash($race['raceHash'])
-            ->setRaceType($race['raceType'])
-            ->setRaceName($race['raceName'])
-            ->setRaceNameMale($race['raceNameMale'])
-            ->setRaceNameFemale($race['raceNameFemale'])
-            ->setRaceDescription($race['raceDescription'])
-            ->setHash($race['hash'])
-            ->setIndex($race['index']);
+        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Race'))
+            ->add('raceHash')
+            ->add('raceType')
+            ->add('raceName')
+            ->add('raceNameMale')
+            ->add('raceNameFemale')
+            ->add('raceDescription')
+            ->add('hash')
+            ->add('index');
+
+        return $mapper->map($race);
     }
 }

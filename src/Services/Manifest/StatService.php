@@ -5,6 +5,7 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\StatNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Stat;
 use Necowebs\Destiny\Services\BaseService;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class StatService
@@ -15,7 +16,7 @@ class StatService extends BaseService
     /**
      * @param int $statHash
      * @return Stat
-     * @throws \Exception
+     * @throws StatNotFoundException
      */
     public function getStat($statHash)
     {
@@ -27,14 +28,16 @@ class StatService extends BaseService
 
         $stat = $body['Response']['data']['stat'];
 
-        return (new Stat())
-            ->setStatHash($stat['statHash'])
-            ->setStatName($stat['statName'])
-            ->setStatDescription($stat['statDescription'])
-            ->setIcon($stat['icon'])
-            ->setStatIdentifier($stat['statIdentifier'])
-            ->setInterpolate($stat['interpolate'])
-            ->setHash($stat['hash'])
-            ->setIndex($stat['index']);
+        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Stat'))
+            ->add('statHash')
+            ->add('statName')
+            ->add('statDescription')
+            ->add('icon')
+            ->add('statIdentifier')
+            ->add('interpolate')
+            ->add('hash')
+            ->add('index');
+
+        return $mapper->map($stat);
     }
 }

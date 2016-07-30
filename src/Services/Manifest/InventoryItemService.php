@@ -5,6 +5,7 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\InventoryItemNotFoundException;
 use Necowebs\Destiny\Models\Manifest\InventoryItem;
 use Necowebs\Destiny\Services\BaseService;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class InventoryItemService
@@ -15,7 +16,7 @@ class InventoryItemService extends BaseService
     /**
      * @param int $itemHash
      * @return InventoryItem
-     * @throws \Exception
+     * @throws InventoryItemNotFoundException
      */
     public function getItem($itemHash)
     {
@@ -27,16 +28,20 @@ class InventoryItemService extends BaseService
 
         $item = $body['Response']['data']['inventoryItem'];
 
-        return (new InventoryItem())
-            ->setItemHash($item['itemHash'])
-            ->setItemName($item['itemName'])
-            ->setItemDescription($item['itemDescription'])
-            ->setIcon($item['icon'])
-            ->setHasIcon($item['hasIcon'])
-            ->setSecondaryIcon($item['secondaryIcon'])
-            ->setTierTypeName($item['tierTypeName'])
-            ->setTierType($item['tierType'])
-            ->setItemTypeName($item['itemTypeName'])
-            ->setBucket((new InventoryBucketService())->getBucket($item['bucketTypeHash']));
+        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\InventoryItem'))
+            ->add('itemHash')
+            ->add('itemName')
+            ->add('itemDescription')
+            ->add('icon')
+            ->add('hasIcon')
+            ->add('secondaryIcon')
+            ->add('tierTypeName')
+            ->add('tierType')
+            ->add('itemTypeName')
+            ->add('bucketTypeHash', 'setBucket', function ($obj, $val) {
+                return (new InventoryBucketService())->getBucket($val);
+            });
+
+        return $mapper->map($item);
     }
 }

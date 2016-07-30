@@ -5,6 +5,7 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\DestinationNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Destination;
 use Necowebs\Destiny\Services\BaseService;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class DestinationService
@@ -15,7 +16,7 @@ class DestinationService extends BaseService
     /**
      * @param int $destinationHash
      * @return Destination
-     * @throws \Exception
+     * @throws DestinationNotFoundException
      */
     public function getDestination($destinationHash)
     {
@@ -27,14 +28,19 @@ class DestinationService extends BaseService
 
         $destination = $body['Response']['data']['destination'];
 
-        return (new Destination())
-            ->setDestinationHash($destination['destinationHash'])
-            ->setDestinationName($destination['destinationName'])
-            ->setDestinationDescription($destination['destinationDescription'])
-            ->setIcon($destination['icon'])
-            ->setPlace((new PlaceService())->getPlace($destination['placeHash']))
-            ->setDestinationIdentifier($destination['destinationIdentifier'])
-            ->setHash($destination['hash'])
-            ->setIndex($destination['index']);
+        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Destination'))
+            ->add('destinationHash')
+            ->add('destinationName')
+            ->add('destinationDescription')
+            ->add('icon')
+            ->add('placeHash', 'setPlace', function ($obj, $val) {
+                return (new PlaceService())->getPlace($val);
+            })
+            ->add('destinationIdentifier')
+            ->add('mentorVendorIdentifier')
+            ->add('hash')
+            ->add('index');
+
+        return $mapper->map($destination);
     }
 }

@@ -5,6 +5,7 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\ArtDyeChannelNotFoundException;
 use Necowebs\Destiny\Models\Manifest\ArtDyeChannel;
 use Necowebs\Destiny\Services\BaseService;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class ArtDyeChannelService
@@ -15,7 +16,7 @@ class ArtDyeChannelService extends BaseService
     /**
      * @param int $channelHash
      * @return ArtDyeChannel
-     * @throws \Exception
+     * @throws ArtDyeChannelNotFoundException
      */
     public function getArtDyeChannel($channelHash)
     {
@@ -27,10 +28,12 @@ class ArtDyeChannelService extends BaseService
 
         $channel = $body['Response']['data']['artDyeChannel'];
 
-        return (new ArtDyeChannel())
-            ->setChannelHash($channel['channelHash'])
-            ->setIndex($channel['index'])
-            ->setChannelName($channel['channelName'])
-            ->setHash($channel['hash']);
+        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\ArtDyeChannel'))
+            ->add('channelHash')
+            ->add('index')
+            ->add('channelName')
+            ->add('hash');
+
+        return $mapper->map($channel);
     }
 }

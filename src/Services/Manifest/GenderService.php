@@ -5,6 +5,7 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\GenderNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Gender;
 use Necowebs\Destiny\Services\BaseService;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class GenderService
@@ -15,7 +16,7 @@ class GenderService extends BaseService
     /**
      * @param int $genderHash
      * @return Gender
-     * @throws \Exception
+     * @throws GenderNotFoundException
      */
     public function getGender($genderHash)
     {
@@ -27,12 +28,14 @@ class GenderService extends BaseService
 
         $gender = $body['Response']['data']['gender'];
 
-        return (new Gender())
-            ->setGenderHash($gender['genderHash'])
-            ->setGenderType($gender['genderType'])
-            ->setGenderName($gender['genderName'])
-            ->setGenderDescription($gender['genderDescription'])
-            ->setHash($gender['hash'])
-            ->setIndex($gender['index']);
+        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Gender'))
+            ->add('genderHash')
+            ->add('genderType')
+            ->add('genderName')
+            ->add('genderDescription')
+            ->add('hash')
+            ->add('index');
+
+        return $mapper->map($gender);
     }
 }
