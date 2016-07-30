@@ -3,17 +3,17 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 /**
- * Class CharacterClassTest
+ * Class ClassDefinitionTest
  * @package Necowebs\Destiny\Models\Manifest
  */
-class CharacterClassTest extends \PHPUnit_Framework_TestCase
+class ClassDefinitionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test Getters and Setters
      */
     public function testGettersAndSetters()
     {
-        $class = (new CharacterClass())
+        $class = (new ClassDefinition())
             ->setClassHash(2271682572)
             ->setClassType(2)
             ->setClassName('Warlock')

@@ -2,32 +2,32 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\CharacterClassNotFoundException;
-use Necowebs\Destiny\Models\Manifest\CharacterClass;
+use Necowebs\Destiny\Exceptions\ClassDefinitionNotFoundException;
+use Necowebs\Destiny\Models\Manifest\ClassDefinition;
 use Necowebs\Destiny\Services\BaseService;
 
 /**
- * Class CharacterClassService
+ * Class ClassDefinitionService
  * @package Necowebs\Destiny\Services\Manifest
  */
-class CharacterClassService extends BaseService
+class ClassDefinitionService extends BaseService
 {
     /**
      * @param int $classHash
-     * @return CharacterClass
+     * @return ClassDefinition
      * @throws \Exception
      */
-    public function getClass($classHash)
+    public function getClassDefinition($classHash)
     {
         $body = $this->get('Manifest/Class/' . $classHash);
 
         if (!isset($body['Response'])) {
-            throw new CharacterClassNotFoundException;
+            throw new ClassDefinitionNotFoundException;
         }
 
         $class = $body['Response']['data']['classDefinition'];
 
-        return (new CharacterClass())
+        return (new ClassDefinition())
             ->setClassHash($class['classHash'])
             ->setClassType($class['classType'])
             ->setClassName($class['className'])

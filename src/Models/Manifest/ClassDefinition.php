@@ -3,10 +3,10 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 /**
- * Class CharacterClass
+ * Class ClassDefinition
  * @package Necowebs\Destiny\Models\Manifest
  */
-class CharacterClass
+class ClassDefinition
 {
     /**
      * @var int
@@ -63,7 +63,7 @@ class CharacterClass
 
     /**
      * @param int $classHash
-     * @return CharacterClass
+     * @return ClassDefinition
      */
     public function setClassHash($classHash)
     {
@@ -81,7 +81,7 @@ class CharacterClass
 
     /**
      * @param int $classType
-     * @return CharacterClass
+     * @return ClassDefinition
      */
     public function setClassType($classType)
     {
@@ -99,7 +99,7 @@ class CharacterClass
 
     /**
      * @param string $className
-     * @return CharacterClass
+     * @return ClassDefinition
      */
     public function setClassName($className)
     {
@@ -117,7 +117,7 @@ class CharacterClass
 
     /**
      * @param string $classNameMale
-     * @return CharacterClass
+     * @return ClassDefinition
      */
     public function setClassNameMale($classNameMale)
     {
@@ -135,7 +135,7 @@ class CharacterClass
 
     /**
      * @param string $classNameFemale
-     * @return CharacterClass
+     * @return ClassDefinition
      */
     public function setClassNameFemale($classNameFemale)
     {
@@ -153,7 +153,7 @@ class CharacterClass
 
     /**
      * @param string $classIdentifier
-     * @return CharacterClass
+     * @return ClassDefinition
      */
     public function setClassIdentifier($classIdentifier)
     {
@@ -171,7 +171,7 @@ class CharacterClass
 
     /**
      * @param string $mentorVendorIdentifier
-     * @return CharacterClass
+     * @return ClassDefinition
      */
     public function setMentorVendorIdentifier($mentorVendorIdentifier)
     {
@@ -189,7 +189,7 @@ class CharacterClass
 
     /**
      * @param int $hash
-     * @return CharacterClass
+     * @return ClassDefinition
      */
     public function setHash($hash)
     {
@@ -207,7 +207,7 @@ class CharacterClass
 
     /**
      * @param int $index
-     * @return CharacterClass
+     * @return ClassDefinition
      */
     public function setIndex($index)
     {

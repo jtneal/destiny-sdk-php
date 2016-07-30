@@ -5,9 +5,9 @@ namespace Necowebs\Destiny\Exceptions;
 use OutOfBoundsException as BaseException;
 
 /**
- * Class CharacterClassNotFoundException
+ * Class ClassDefinitionNotFoundException
  * @package Necowebs\Destiny\Exceptions
  */
-class CharacterClassNotFoundException extends BaseException
+class ClassDefinitionNotFoundException extends BaseException
 {
 }

@@ -2,23 +2,23 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\CharacterClassNotFoundException;
-use Necowebs\Destiny\Models\Manifest\CharacterClass;
+use Necowebs\Destiny\Exceptions\ClassDefinitionNotFoundException;
+use Necowebs\Destiny\Models\Manifest\ClassDefinition;
 
 /**
- * Class CharacterClassServiceTest
+ * Class ClassDefinitionServiceTest
  * @package Necowebs\Destiny\Services\Manifest
  */
-class CharacterClassServiceTest extends \PHPUnit_Framework_TestCase
+class ClassDefinitionServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test Get Class
+     * Test Get Class Definition
      */
-    public function testGetClass()
+    public function testGetClassDefinition()
     {
-        $class = (new CharacterClassService())->getClass(2271682572);
+        $class = (new ClassDefinitionService())->getClassDefinition(2271682572);
 
-        $expected = (new CharacterClass())
+        $expected = (new ClassDefinition())
             ->setClassHash(2271682572)
             ->setClassType(2)
             ->setClassName('Warlock')
@@ -33,12 +33,12 @@ class CharacterClassServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Get Class Exception
+     * Test Get Class Definition Exception
      */
     public function testGetClassException()
     {
-        $this->expectException(CharacterClassNotFoundException::class);
+        $this->expectException(ClassDefinitionNotFoundException::class);
 
-        $class = (new CharacterClassService())->getClass('Fail');
+        $class = (new ClassDefinitionService())->getClassDefinition('Fail');
     }
 }
