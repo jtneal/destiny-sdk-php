@@ -35,6 +35,6 @@ class InventoryItemService extends BaseService
             ->setTierTypeName($item['tierTypeName'])
             ->setTierType($item['tierType'])
             ->setItemTypeName($item['itemTypeName'])
-            ->setBucket((new InventoryBucketService())->getBucket($item['bucket']));
+            ->setBucket((new InventoryBucketService())->getBucket($item['bucketTypeHash']));
     }
 }

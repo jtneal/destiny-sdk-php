@@ -8,3 +8,7 @@
 [![License](https://poser.pugx.org/necowebs/destiny-sdk-php/license)](https://packagist.org/packages/necowebs/destiny-sdk-php)
 
 A PHP Client/SDK/API Wrapper for the BungieNet.Platform.DestinyServices
+
+## License
+
+The Destiny API SDK for PHP is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
