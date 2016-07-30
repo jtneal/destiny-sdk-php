@@ -2,7 +2,6 @@
 
 namespace Necowebs\Destiny\Services;
 
-use GuzzleHttp\Client;
 use Necowebs\Destiny\Models\DestinyPlayer;
 
 /**

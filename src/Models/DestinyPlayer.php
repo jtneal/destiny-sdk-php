@@ -42,7 +42,7 @@ class DestinyPlayer
      */
     public function setIconPath($iconPath)
     {
-        $this->iconPath = $iconPath;
+        $this->iconPath = (string) $iconPath;
         return $this;
     }
 
@@ -60,7 +60,7 @@ class DestinyPlayer
      */
     public function setMembershipType($membershipType)
     {
-        $this->membershipType = $membershipType;
+        $this->membershipType = (int) $membershipType;
         return $this;
     }
 
@@ -78,7 +78,7 @@ class DestinyPlayer
      */
     public function setMembershipId($membershipId)
     {
-        $this->membershipId = $membershipId;
+        $this->membershipId = (string) $membershipId;
         return $this;
     }
 
@@ -96,7 +96,7 @@ class DestinyPlayer
      */
     public function setDisplayName($displayName)
     {
-        $this->displayName = $displayName;
+        $this->displayName = (string) $displayName;
         return $this;
     }
 }
