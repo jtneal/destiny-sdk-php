@@ -4,7 +4,7 @@ namespace Necowebs\Destiny\Models\Manifest;
 
 /**
  * Class PlaceTest
- * @package Necowebs\Destiny\Models
+ * @package Necowebs\Destiny\Models\Manifest
  */
 class PlaceTest extends \PHPUnit_Framework_TestCase
 {

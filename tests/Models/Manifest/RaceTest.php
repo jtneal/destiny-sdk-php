@@ -4,7 +4,7 @@ namespace Necowebs\Destiny\Models\Manifest;
 
 /**
  * Class RaceTest
- * @package Necowebs\Destiny\Models
+ * @package Necowebs\Destiny\Models\Manifest
  */
 class RaceTest extends \PHPUnit_Framework_TestCase
 {

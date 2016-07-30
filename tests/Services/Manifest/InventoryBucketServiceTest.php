@@ -7,7 +7,7 @@ use Necowebs\Destiny\Models\Manifest\InventoryBucket;
 
 /**
  * Class InventoryBucketServiceTest
- * @package Necowebs\Destiny\Services
+ * @package Necowebs\Destiny\Services\Manifest
  */
 class InventoryBucketServiceTest extends \PHPUnit_Framework_TestCase
 {

@@ -4,7 +4,7 @@ namespace Necowebs\Destiny\Models\Manifest;
 
 /**
  * Class DestinationTest
- * @package Necowebs\Destiny\Models
+ * @package Necowebs\Destiny\Models\Manifest
  */
 class DestinationTest extends \PHPUnit_Framework_TestCase
 {

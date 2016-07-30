@@ -4,7 +4,7 @@ namespace Necowebs\Destiny\Models\Manifest;
 
 /**
  * Class InventoryBucketTest
- * @package Necowebs\Destiny\Models
+ * @package Necowebs\Destiny\Models\Manifest
  */
 class InventoryBucketTest extends \PHPUnit_Framework_TestCase
 {

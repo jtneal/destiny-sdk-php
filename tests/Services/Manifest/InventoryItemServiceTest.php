@@ -8,7 +8,7 @@ use Necowebs\Destiny\Models\Manifest\InventoryItem;
 
 /**
  * Class InventoryItemServiceTest
- * @package Necowebs\Destiny\Services
+ * @package Necowebs\Destiny\Services\Manifest
  */
 class InventoryItemServiceTest extends \PHPUnit_Framework_TestCase
 {

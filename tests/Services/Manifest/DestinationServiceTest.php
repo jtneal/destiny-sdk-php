@@ -8,7 +8,7 @@ use Necowebs\Destiny\Models\Manifest\Place;
 
 /**
  * Class DestinationServiceTest
- * @package Necowebs\Destiny\Services
+ * @package Necowebs\Destiny\Services\Manifest
  */
 class DestinationServiceTest extends \PHPUnit_Framework_TestCase
 {

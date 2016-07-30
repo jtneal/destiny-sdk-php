@@ -7,7 +7,7 @@ use Necowebs\Destiny\Models\Manifest\Race;
 
 /**
  * Class RaceServiceTest
- * @package Necowebs\Destiny\Services
+ * @package Necowebs\Destiny\Services\Manifest
  */
 class RaceServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,6 +37,7 @@ class RaceServiceTest extends \PHPUnit_Framework_TestCase
     public function testGetRaceException()
     {
         $this->expectException(RaceNotFoundException::class);
+
         $race = (new RaceService())->getRace('Fail');
     }
 }
