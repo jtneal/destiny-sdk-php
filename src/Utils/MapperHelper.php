@@ -88,4 +88,23 @@ class MapperHelper
     {
         return new Collection('int', $val);
     }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToMaterialRequirementItems($obj, array $val)
+    {
+        $items = [];
+        foreach ($val as $item) {
+            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\MaterialRequirementItem'))
+                ->add('itemHash')
+                ->add('deleteOnAction')
+                ->add('count')
+                ->add('omitFromRequirements');
+            $items[] = $mapper->map($item);
+        }
+        return new Collection('Necowebs\Destiny\Models\Manifest\MaterialRequirementItem', $items);
+    }
 }

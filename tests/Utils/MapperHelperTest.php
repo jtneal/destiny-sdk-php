@@ -3,6 +3,7 @@
 namespace Necowebs\Destiny\Utils;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Manifest\MaterialRequirementItem;
 use Necowebs\Destiny\Models\Manifest\ProgressionStep;
 use Necowebs\Destiny\Models\Manifest\Reward;
 use Necowebs\Destiny\Models\Manifest\RewardItem;
@@ -192,5 +193,42 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
         $expected = new Collection('int', []);
 
         $this->assertEquals($expected, $ints);
+    }
+
+    /**
+     * Test Map Array To Material Requirement Items
+     */
+    public function testMapArrayToMaterialRequirementItems()
+    {
+        $items = MapperHelper::mapArrayToMaterialRequirementItems(null, [
+            [
+                'itemHash' => 2254123540,
+                'deleteOnAction' => true,
+                'count' => 5,
+                'omitFromRequirements' => false
+            ]
+        ]);
+
+        $expected = new Collection('Necowebs\Destiny\Models\Manifest\MaterialRequirementItem', [
+            (new MaterialRequirementItem())
+                ->setItemHash(2254123540)
+                ->setDeleteOnAction(true)
+                ->setCount(5)
+                ->setOmitFromRequirements(false)
+        ]);
+
+        $this->assertEquals($expected, $items);
+    }
+
+    /**
+     * Test Map Empty Array To Material Requirement Items
+     */
+    public function testMapEmptyArrayToMaterialRequirementItems()
+    {
+        $items = MapperHelper::mapArrayToMaterialRequirementItems(null, []);
+
+        $expected = new Collection('Necowebs\Destiny\Models\Manifest\MaterialRequirementItem', []);
+
+        $this->assertEquals($expected, $items);
     }
 }
