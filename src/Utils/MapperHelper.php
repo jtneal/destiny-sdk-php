@@ -78,4 +78,14 @@ class MapperHelper
         }
         return new Collection('Necowebs\Destiny\Models\Manifest\Skull', $skulls);
     }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToInts($obj, array $val)
+    {
+        return new Collection('int', $val);
+    }
 }
