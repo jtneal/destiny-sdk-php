@@ -1,6 +1,7 @@
 <?php
 
 namespace Necowebs\Destiny\Models\Manifest;
+
 use Collections\Collection;
 
 /**
