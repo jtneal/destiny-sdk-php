@@ -5,38 +5,15 @@ namespace Necowebs\Destiny\Models\Manifest;
 use Collections\Collection;
 
 /**
- * Class ProgressionStep
+ * Class Reward
  * @package Necowebs\Destiny\Models\Manifest
  */
-class ProgressionStep
+class Reward
 {
-    /**
-     * @var int
-     */
-    private $progressTotal;
-
     /**
      * @var Collection
      */
     private $rewardItems;
-
-    /**
-     * @return int
-     */
-    public function getProgressTotal()
-    {
-        return $this->progressTotal;
-    }
-
-    /**
-     * @param int $progressTotal
-     * @return ProgressionStep
-     */
-    public function setProgressTotal($progressTotal)
-    {
-        $this->progressTotal = (int) $progressTotal;
-        return $this;
-    }
 
     /**
      * @return Collection
@@ -48,7 +25,7 @@ class ProgressionStep
 
     /**
      * @param Collection $rewardItems
-     * @return ProgressionStep
+     * @return Reward
      */
     public function setRewardItems(Collection $rewardItems)
     {

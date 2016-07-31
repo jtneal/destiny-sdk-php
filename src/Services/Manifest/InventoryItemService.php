@@ -38,9 +38,7 @@ class InventoryItemService extends BaseService
             ->add('tierTypeName')
             ->add('tierType')
             ->add('itemTypeName')
-            ->add('bucketTypeHash', 'setBucket', function ($obj, $val) {
-                return (new InventoryBucketService())->getBucket($val);
-            });
+            ->add('bucketTypeHash');
 
         return $mapper->map($item);
     }

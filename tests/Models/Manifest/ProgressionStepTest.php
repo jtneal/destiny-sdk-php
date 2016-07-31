@@ -1,6 +1,7 @@
 <?php
 
 namespace Necowebs\Destiny\Models\Manifest;
+use Collections\Collection;
 
 /**
  * Class ProgressionStepTest
@@ -13,11 +14,13 @@ class ProgressionStepTest extends \PHPUnit_Framework_TestCase
      */
     public function testGettersAndSetters()
     {
+        $rewardItem = (new RewardItem())->setItemHash(1772473720)->setValue(0);
+
         $step = (new ProgressionStep())
             ->setProgressTotal(9000)
-            ->setRewardItems(['test']);
+            ->setRewardItems(new Collection('Necowebs\Destiny\Models\Manifest\RewardItem', [$rewardItem]));
 
         $this->assertEquals(9000, $step->getProgressTotal());
-        $this->assertEquals(['test'], $step->getRewardItems());
+        $this->assertEquals(new Collection('Necowebs\Destiny\Models\Manifest\RewardItem', [$rewardItem]), $step->getRewardItems());
     }
 }

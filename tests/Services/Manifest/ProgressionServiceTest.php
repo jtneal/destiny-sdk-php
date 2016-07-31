@@ -25,12 +25,11 @@ class ProgressionServiceTest extends \PHPUnit_Framework_TestCase
             ->setName('terminals')
             ->setScope(1)
             ->setRepeatLastStep(true)
-            ->setSteps((new Collection('Necowebs\Destiny\Models\Manifest\ProgressionStep'))
-                ->add((new ProgressionStep())
+            ->setSteps(new Collection('Necowebs\Destiny\Models\Manifest\ProgressionStep', [
+                (new ProgressionStep())
                     ->setProgressTotal(1)
-                    ->setRewardItems([])
-                )
-            )
+                    ->setRewardItems(new Collection('Necowebs\Destiny\Models\Manifest\RewardItem'))
+            ]))
             ->setVisible(true)
             ->setHash(45089664)
             ->setIndex(0);

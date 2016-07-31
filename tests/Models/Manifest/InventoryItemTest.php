@@ -23,7 +23,7 @@ class InventoryItemTest extends \PHPUnit_Framework_TestCase
             ->setTierTypeName('Exotic')
             ->setTierType(6)
             ->setItemTypeName('Rocket Launcher')
-            ->setBucket(new InventoryBucket());
+            ->setBucketTypeHash(953998645);
 
         $this->assertEquals(1274330687, $item->getItemHash());
         $this->assertEquals('Gjallarhorn', $item->getItemName());
@@ -34,6 +34,6 @@ class InventoryItemTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Exotic', $item->getTierTypeName());
         $this->assertEquals(6, $item->getTierType());
         $this->assertEquals('Rocket Launcher', $item->getItemTypeName());
-        $this->assertEquals(new InventoryBucket(), $item->getBucket());
+        $this->assertEquals(953998645, $item->getBucketTypeHash());
     }
 }

@@ -54,9 +54,9 @@ class InventoryItem
     private $itemTypeName;
 
     /**
-     * @var InventoryBucket
+     * @var int
      */
-    private $bucket;
+    private $bucketTypeHash;
 
     /**
      * @return int
@@ -221,20 +221,20 @@ class InventoryItem
     }
 
     /**
-     * @return InventoryBucket
+     * @return int
      */
-    public function getBucket()
+    public function getBucketTypeHash()
     {
-        return $this->bucket;
+        return $this->bucketTypeHash;
     }
 
     /**
-     * @param InventoryBucket $bucket
+     * @param int $bucketTypeHash
      * @return InventoryItem
      */
-    public function setBucket(InventoryBucket $bucket)
+    public function setBucketTypeHash($bucketTypeHash)
     {
-        $this->bucket = $bucket;
+        $this->bucketTypeHash = (int) $bucketTypeHash;
         return $this;
     }
 }

@@ -35,16 +35,7 @@ class ProgressionService extends BaseService
             ->add('scope')
             ->add('repeatLastStep')
             ->add('identifier')
-            ->add('steps', 'setSteps', function ($obj, $val) {
-                $steps = new Collection('Necowebs\Destiny\Models\Manifest\ProgressionStep');
-                foreach ($val as $step) {
-                    $stepMapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\ProgressionStep'))
-                        ->add('progressTotal')
-                        ->add('rewardItems');
-                    $steps = $steps->add($stepMapper->map($step));
-                }
-                return $steps;
-            })
+            ->add('steps', 'setSteps', 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToProgressionSteps')
             ->add('visible')
             ->add('hash')
             ->add('index');

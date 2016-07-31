@@ -29,9 +29,9 @@ class Destination
     private $icon;
 
     /**
-     * @var Place
+     * @var int
      */
-    private $place;
+    private $placeHash;
 
     /**
      * @var string
@@ -121,20 +121,20 @@ class Destination
     }
 
     /**
-     * @return Place
+     * @return int
      */
-    public function getPlace()
+    public function getPlaceHash()
     {
-        return $this->place;
+        return $this->placeHash;
     }
 
     /**
-     * @param Place $place
+     * @param int $placeHash
      * @return Destination
      */
-    public function setPlace(Place $place)
+    public function setPlaceHash($placeHash)
     {
-        $this->place = $place;
+        $this->placeHash = (int) $placeHash;
         return $this;
     }
 

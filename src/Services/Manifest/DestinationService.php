@@ -33,9 +33,7 @@ class DestinationService extends BaseService
             ->add('destinationName')
             ->add('destinationDescription')
             ->add('icon')
-            ->add('placeHash', 'setPlace', function ($obj, $val) {
-                return (new PlaceService())->getPlace($val);
-            })
+            ->add('placeHash')
             ->add('destinationIdentifier')
             ->add('mentorVendorIdentifier')
             ->add('hash')

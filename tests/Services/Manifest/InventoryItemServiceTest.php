@@ -29,21 +29,7 @@ class InventoryItemServiceTest extends \PHPUnit_Framework_TestCase
             ->setTierTypeName('Exotic')
             ->setTierType(6)
             ->setItemTypeName('Rocket Launcher')
-            ->setBucket((new InventoryBucket())
-                ->setBucketHash(953998645)
-                ->setBucketName('Heavy Weapons')
-                ->setBucketDescription('Machine guns and rocket launchers.')
-                ->setScope(0)
-                ->setCategory(3)
-                ->setBucketOrder(40)
-                ->setBucketIdentifier('BUCKET_HEAVY_WEAPON')
-                ->setItemCount(10)
-                ->setLocation(1)
-                ->setHasTransferDestination(true)
-                ->setEnabled(true)
-                ->setHash(953998645)
-                ->setIndex(0)
-            );
+            ->setBucketTypeHash(953998645);
 
         $this->assertEquals($expected, $item);
     }
