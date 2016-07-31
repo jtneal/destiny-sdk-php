@@ -36,13 +36,13 @@ class ProgressionService extends BaseService
             ->add('scope')
             ->add('repeatLastStep')
             ->add('identifier')
-            ->add('steps', null, function ($obj, $val) {
+            ->add('steps', 'setSteps', function ($obj, $val) {
                 $steps = new Collection('Necowebs\Destiny\Models\Manifest\ProgressionStep');
                 foreach ($val as $step) {
-                    $steps->add((new ProgressionStep())
-                        ->setProgressTotal($step['progressTotal'])
-                        ->setRewardItems($step['rewardItems'])
-                    );
+                    $stepMapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\ProgressionStep'))
+                        ->add('progressTotal')
+                        ->add('rewardItems');
+                    $steps = $steps->add($stepMapper->map($step));
                 }
                 return $steps;
             })

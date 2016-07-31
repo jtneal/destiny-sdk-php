@@ -5,6 +5,7 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Collections\Collection;
 use Necowebs\Destiny\Exceptions\ProgressionNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Progression;
+use Necowebs\Destiny\Models\Manifest\ProgressionStep;
 
 /**
  * Class ProgressionServiceTest
@@ -17,16 +18,21 @@ class ProgressionServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetProgression()
     {
-        $progression = (new ProgressionService())->getProgression(1149018548);
+        $progression = (new ProgressionService())->getProgression(45089664);
 
         $expected = (new Progression())
-            ->setProgressionHash(1149018548)
-            ->setName('actual_level')
-            ->setScope(4)
-            ->setRepeatLastStep(false)
-            ->setSteps(new Collection('Necowebs\Destiny\Models\Manifest\ProgressionStep'))
+            ->setProgressionHash(45089664)
+            ->setName('terminals')
+            ->setScope(1)
+            ->setRepeatLastStep(true)
+            ->setSteps((new Collection('Necowebs\Destiny\Models\Manifest\ProgressionStep'))
+                ->add((new ProgressionStep())
+                    ->setProgressTotal(1)
+                    ->setRewardItems([])
+                )
+            )
             ->setVisible(true)
-            ->setHash(1149018548)
+            ->setHash(45089664)
             ->setIndex(0);
 
         $this->assertEquals($expected, $progression);
