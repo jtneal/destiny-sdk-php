@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\ClassDefinitionNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\ClassDefinition;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
@@ -16,14 +16,14 @@ class ClassDefinitionService extends BaseService
     /**
      * @param int $classHash
      * @return ClassDefinition
-     * @throws ClassDefinitionNotFoundException
+     * @throws ManifestObjectNotFoundException
      */
     public function getClassDefinition($classHash)
     {
         $body = $this->get('Manifest/Class/' . $classHash);
 
         if (!isset($body['Response'])) {
-            throw new ClassDefinitionNotFoundException;
+            throw new ManifestObjectNotFoundException;
         }
 
         $class = $body['Response']['data']['classDefinition'];

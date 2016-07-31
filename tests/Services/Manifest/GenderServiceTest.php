@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\GenderNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Gender;
 
 /**
@@ -34,7 +34,7 @@ class GenderServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetGenderException()
     {
-        $this->expectException(GenderNotFoundException::class);
+        $this->expectException(ManifestObjectNotFoundException::class);
 
         $gender = (new GenderService())->getGender('Fail');
     }

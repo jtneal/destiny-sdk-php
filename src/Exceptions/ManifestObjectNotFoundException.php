@@ -5,9 +5,9 @@ namespace Necowebs\Destiny\Exceptions;
 use OutOfBoundsException as BaseException;
 
 /**
- * Class GenderNotFoundException
+ * Class ManifestObjectNotFoundException
  * @package Necowebs\Destiny\Exceptions
  */
-class GenderNotFoundException extends BaseException
+class ManifestObjectNotFoundException extends BaseException
 {
 }

@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\DestinationNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Destination;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
@@ -16,14 +16,14 @@ class DestinationService extends BaseService
     /**
      * @param int $destinationHash
      * @return Destination
-     * @throws DestinationNotFoundException
+     * @throws ManifestObjectNotFoundException
      */
     public function getDestination($destinationHash)
     {
         $body = $this->get('Manifest/Destination/' . $destinationHash);
 
         if (!isset($body['Response'])) {
-            throw new DestinationNotFoundException;
+            throw new ManifestObjectNotFoundException;
         }
 
         $destination = $body['Response']['data']['destination'];

@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\PlaceNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Place;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
@@ -16,14 +16,14 @@ class PlaceService extends BaseService
     /**
      * @param int $placeHash
      * @return Place
-     * @throws PlaceNotFoundException
+     * @throws ManifestObjectNotFoundException
      */
     public function getPlace($placeHash)
     {
         $body = $this->get('Manifest/Place/' . $placeHash);
 
         if (!isset($body['Response'])) {
-            throw new PlaceNotFoundException;
+            throw new ManifestObjectNotFoundException;
         }
 
         $place = $body['Response']['data']['place'];

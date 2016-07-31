@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\GenderNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Gender;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
@@ -16,14 +16,14 @@ class GenderService extends BaseService
     /**
      * @param int $genderHash
      * @return Gender
-     * @throws GenderNotFoundException
+     * @throws ManifestObjectNotFoundException
      */
     public function getGender($genderHash)
     {
         $body = $this->get('Manifest/Gender/' . $genderHash);
 
         if (!isset($body['Response'])) {
-            throw new GenderNotFoundException;
+            throw new ManifestObjectNotFoundException;
         }
 
         $gender = $body['Response']['data']['gender'];

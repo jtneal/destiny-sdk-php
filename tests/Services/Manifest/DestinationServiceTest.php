@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\DestinationNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Destination;
 use Necowebs\Destiny\Models\Manifest\Place;
 
@@ -44,7 +44,7 @@ class DestinationServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDestinationException()
     {
-        $this->expectException(DestinationNotFoundException::class);
+        $this->expectException(ManifestObjectNotFoundException::class);
 
         $destination = (new DestinationService())->getDestination('Fail');
     }

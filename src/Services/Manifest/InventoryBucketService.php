@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\InventoryBucketNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\InventoryBucket;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
@@ -16,14 +16,14 @@ class InventoryBucketService extends BaseService
     /**
      * @param int $bucketHash
      * @return InventoryBucket
-     * @throws InventoryBucketNotFoundException
+     * @throws ManifestObjectNotFoundException
      */
     public function getBucket($bucketHash)
     {
         $body = $this->get('Manifest/InventoryBucket/' . $bucketHash);
 
         if (!isset($body['Response'])) {
-            throw new InventoryBucketNotFoundException;
+            throw new ManifestObjectNotFoundException;
         }
 
         $bucket = $body['Response']['data']['inventoryBucket'];

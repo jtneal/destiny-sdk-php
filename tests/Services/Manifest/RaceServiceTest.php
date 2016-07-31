@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\RaceNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Race;
 
 /**
@@ -36,7 +36,7 @@ class RaceServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetRaceException()
     {
-        $this->expectException(RaceNotFoundException::class);
+        $this->expectException(ManifestObjectNotFoundException::class);
 
         $race = (new RaceService())->getRace('Fail');
     }

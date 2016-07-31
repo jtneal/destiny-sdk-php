@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\InventoryBucketNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\InventoryBucket;
 
 /**
@@ -41,7 +41,7 @@ class InventoryBucketServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetBucketException()
     {
-        $this->expectException(InventoryBucketNotFoundException::class);
+        $this->expectException(ManifestObjectNotFoundException::class);
 
         $bucket = (new InventoryBucketService())->getBucket('Fail');
     }

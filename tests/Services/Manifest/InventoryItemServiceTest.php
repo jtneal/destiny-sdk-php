@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\InventoryItemNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\InventoryBucket;
 use Necowebs\Destiny\Models\Manifest\InventoryItem;
 
@@ -53,7 +53,7 @@ class InventoryItemServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetItemException()
     {
-        $this->expectException(InventoryItemNotFoundException::class);
+        $this->expectException(ManifestObjectNotFoundException::class);
 
         $item = (new InventoryItemService())->getItem('Fail');
     }

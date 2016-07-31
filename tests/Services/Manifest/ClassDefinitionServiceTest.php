@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\ClassDefinitionNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\ClassDefinition;
 
 /**
@@ -37,7 +37,7 @@ class ClassDefinitionServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetClassException()
     {
-        $this->expectException(ClassDefinitionNotFoundException::class);
+        $this->expectException(ManifestObjectNotFoundException::class);
 
         $class = (new ClassDefinitionService())->getClassDefinition('Fail');
     }

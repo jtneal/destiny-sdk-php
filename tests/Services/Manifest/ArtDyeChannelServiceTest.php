@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\ArtDyeChannelNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\ArtDyeChannel;
 
 /**
@@ -32,7 +32,7 @@ class ArtDyeChannelServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetArtDyeChannelException()
     {
-        $this->expectException(ArtDyeChannelNotFoundException::class);
+        $this->expectException(ManifestObjectNotFoundException::class);
 
         $channel = (new ArtDyeChannelService())->getArtDyeChannel('Fail');
     }

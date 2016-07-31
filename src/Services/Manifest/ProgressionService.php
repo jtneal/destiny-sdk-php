@@ -3,9 +3,8 @@
 namespace Necowebs\Destiny\Services\Manifest;
 
 use Collections\Collection;
-use Necowebs\Destiny\Exceptions\ProgressionNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Progression;
-use Necowebs\Destiny\Models\Manifest\ProgressionStep;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
@@ -18,14 +17,14 @@ class ProgressionService extends BaseService
     /**
      * @param int $progressionHash
      * @return Progression
-     * @throws ProgressionNotFoundException
+     * @throws ManifestObjectNotFoundException
      */
     public function getProgression($progressionHash)
     {
         $body = $this->get('Manifest/Progression/' . $progressionHash);
 
         if (!isset($body['Response'])) {
-            throw new ProgressionNotFoundException;
+            throw new ManifestObjectNotFoundException;
         }
 
         $progression = $body['Response']['data']['progression'];

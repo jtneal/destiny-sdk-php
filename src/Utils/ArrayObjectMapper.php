@@ -75,7 +75,7 @@ class ArrayObjectMapper
      * @param $value
      * @return mixed
      */
-    public function determineValue($obj, array $entry, $value)
+    public function evaluate($obj, array $entry, $value)
     {
         if ($entry['type'] && isset($value)) {
             $type = $entry['type'];
@@ -102,7 +102,7 @@ class ArrayObjectMapper
 
         foreach ($this->list as $entry) {
             if (isset($data[$entry['field']])) {
-                $value = $this->determineValue($obj, $entry, $data[$entry['field']]);
+                $value = $this->evaluate($obj, $entry, $data[$entry['field']]);
 
                 if (method_exists($obj, $entry['method'])) {
                     $obj->{$entry['method']}($value);

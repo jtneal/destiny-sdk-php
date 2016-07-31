@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\StatNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Stat;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
@@ -16,14 +16,14 @@ class StatService extends BaseService
     /**
      * @param int $statHash
      * @return Stat
-     * @throws StatNotFoundException
+     * @throws ManifestObjectNotFoundException
      */
     public function getStat($statHash)
     {
         $body = $this->get('Manifest/Stat/' . $statHash);
 
         if (!isset($body['Response'])) {
-            throw new StatNotFoundException;
+            throw new ManifestObjectNotFoundException;
         }
 
         $stat = $body['Response']['data']['stat'];

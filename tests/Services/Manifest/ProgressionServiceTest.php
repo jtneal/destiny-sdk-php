@@ -3,7 +3,7 @@
 namespace Necowebs\Destiny\Services\Manifest;
 
 use Collections\Collection;
-use Necowebs\Destiny\Exceptions\ProgressionNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Progression;
 use Necowebs\Destiny\Models\Manifest\ProgressionStep;
 
@@ -43,7 +43,7 @@ class ProgressionServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetProgressionException()
     {
-        $this->expectException(ProgressionNotFoundException::class);
+        $this->expectException(ManifestObjectNotFoundException::class);
 
         $progression = (new ProgressionService())->getProgression('Fail');
     }

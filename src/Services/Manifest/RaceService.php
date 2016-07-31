@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\RaceNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Race;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
@@ -16,14 +16,14 @@ class RaceService extends BaseService
     /**
      * @param int $raceHash
      * @return Race
-     * @throws RaceNotFoundException
+     * @throws ManifestObjectNotFoundException
      */
     public function getRace($raceHash)
     {
         $body = $this->get('Manifest/Race/' . $raceHash);
 
         if (!isset($body['Response'])) {
-            throw new RaceNotFoundException;
+            throw new ManifestObjectNotFoundException;
         }
 
         $race = $body['Response']['data']['race'];

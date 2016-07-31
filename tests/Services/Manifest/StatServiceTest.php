@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\StatNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Stat;
 
 /**
@@ -36,7 +36,7 @@ class StatServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetStatException()
     {
-        $this->expectException(StatNotFoundException::class);
+        $this->expectException(ManifestObjectNotFoundException::class);
 
         $stat = (new StatService())->getStat('Fail');
     }

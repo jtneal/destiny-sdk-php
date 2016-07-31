@@ -2,7 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Necowebs\Destiny\Exceptions\InventoryItemNotFoundException;
+use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\InventoryItem;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
@@ -16,14 +16,14 @@ class InventoryItemService extends BaseService
     /**
      * @param int $itemHash
      * @return InventoryItem
-     * @throws InventoryItemNotFoundException
+     * @throws ManifestObjectNotFoundException
      */
     public function getItem($itemHash)
     {
         $body = $this->get('Manifest/InventoryItem/' . $itemHash);
 
         if (!isset($body['Response'])) {
-            throw new InventoryItemNotFoundException;
+            throw new ManifestObjectNotFoundException;
         }
 
         $item = $body['Response']['data']['inventoryItem'];
