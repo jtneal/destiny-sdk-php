@@ -3,7 +3,6 @@
 namespace Necowebs\Destiny\Services\Manifest;
 
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
-use Necowebs\Destiny\Models\Manifest\ArtDyeChannel;
 
 /**
  * Class ArtDyeChannelServiceTest
@@ -18,13 +17,10 @@ class ArtDyeChannelServiceTest extends \PHPUnit_Framework_TestCase
     {
         $channel = (new ArtDyeChannelService())->getArtDyeChannel(662199250);
 
-        $expected = (new ArtDyeChannel())
-            ->setChannelHash(662199250)
-            ->setIndex(0)
-            ->setChannelName('armor')
-            ->setHash(662199250);
-
-        $this->assertEquals($expected, $channel);
+        $this->assertEquals(662199250, $channel->getChannelHash());
+        $this->assertEquals(0, $channel->getIndex());
+        $this->assertEquals('armor', $channel->getChannelName());
+        $this->assertEquals(662199250, $channel->getHash());
     }
 
     /**

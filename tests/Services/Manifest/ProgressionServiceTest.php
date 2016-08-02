@@ -2,9 +2,7 @@
 
 namespace Necowebs\Destiny\Services\Manifest;
 
-use Collections\Collection;
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
-use Necowebs\Destiny\Models\Manifest\Progression;
 use Necowebs\Destiny\Models\Manifest\ProgressionStep;
 
 /**
@@ -20,21 +18,14 @@ class ProgressionServiceTest extends \PHPUnit_Framework_TestCase
     {
         $progression = (new ProgressionService())->getProgression(45089664);
 
-        $expected = (new Progression())
-            ->setProgressionHash(45089664)
-            ->setName('terminals')
-            ->setScope(1)
-            ->setRepeatLastStep(true)
-            ->setSteps(new Collection('Necowebs\Destiny\Models\Manifest\ProgressionStep', [
-                (new ProgressionStep())
-                    ->setProgressTotal(1)
-                    ->setRewardItems(new Collection('Necowebs\Destiny\Models\Manifest\RewardItem'))
-            ]))
-            ->setVisible(true)
-            ->setHash(45089664)
-            ->setIndex(0);
-
-        $this->assertEquals($expected, $progression);
+        $this->assertEquals(45089664, $progression->getProgressionHash());
+        $this->assertEquals('terminals', $progression->getName());
+        $this->assertEquals(1, $progression->getScope());
+        $this->assertEquals(true, $progression->getRepeatLastStep());
+        $this->assertContainsOnlyInstancesOf(ProgressionStep::class, $progression->getSteps());
+        $this->assertEquals(true, $progression->getVisible());
+        $this->assertEquals(45089664, $progression->getHash());
+        $this->assertEquals(0, $progression->getIndex());
     }
 
     /**

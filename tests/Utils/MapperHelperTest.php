@@ -3,6 +3,11 @@
 namespace Necowebs\Destiny\Utils;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Manifest\DirectorBookConnection;
+use Necowebs\Destiny\Models\Manifest\DirectorBookExpression;
+use Necowebs\Destiny\Models\Manifest\DirectorBookExpressionStep;
+use Necowebs\Destiny\Models\Manifest\DirectorBookNode;
+use Necowebs\Destiny\Models\Manifest\DirectorBookNodeState;
 use Necowebs\Destiny\Models\Manifest\MaterialRequirementItem;
 use Necowebs\Destiny\Models\Manifest\ProgressionStep;
 use Necowebs\Destiny\Models\Manifest\Reward;
@@ -38,26 +43,14 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\ProgressionStep', [
+        $expected = new Collection(ProgressionStep::class, [
             (new ProgressionStep())
                 ->setProgressTotal(0)
-                ->setRewardItems(new Collection('Necowebs\Destiny\Models\Manifest\RewardItem')),
+                ->setRewardItems(new Collection(RewardItem::class)),
             (new ProgressionStep())
                 ->setProgressTotal(9000)
-                ->setRewardItems(new Collection('Necowebs\Destiny\Models\Manifest\RewardItem'))
+                ->setRewardItems(new Collection(RewardItem::class))
         ]);
-
-        $this->assertEquals($expected, $steps);
-    }
-
-    /**
-     * Test Map Empty Array To Progression Steps
-     */
-    public function testMapEmptyArrayToProgressionSteps()
-    {
-        $steps = MapperHelper::mapArrayToProgressionSteps(null, []);
-
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\ProgressionStep', []);
 
         $this->assertEquals($expected, $steps);
     }
@@ -82,25 +75,13 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\Reward', [
+        $expected = new Collection(Reward::class, [
             (new Reward())
-                ->setRewardItems((new Collection('Necowebs\Destiny\Models\Manifest\RewardItem'))
+                ->setRewardItems((new Collection(RewardItem::class))
                     ->add((new RewardItem())->setItemHash(1772473720)->setValue(0))
                     ->add((new RewardItem())->setItemHash(1743040968)->setValue(0))
                 )
         ]);
-
-        $this->assertEquals($expected, $rewards);
-    }
-
-    /**
-     * Test Map Empty Array To Rewards
-     */
-    public function testMapEmptyArrayToRewards()
-    {
-        $rewards = MapperHelper::mapArrayToRewards(null, []);
-
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\Reward', []);
 
         $this->assertEquals($expected, $rewards);
     }
@@ -121,24 +102,12 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\RewardItem', [
+        $expected = new Collection(RewardItem::class, [
             (new RewardItem())
                 ->setItemHash(1772473720)->setValue(0),
             (new RewardItem())
                 ->setItemHash(1743040968)->setValue(0)
         ]);
-
-        $this->assertEquals($expected, $items);
-    }
-
-    /**
-     * Test Map Empty Array To Reward Items
-     */
-    public function testMapEmptyArrayToRewardItems()
-    {
-        $items = MapperHelper::mapArrayToRewardItems(null, []);
-
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\RewardItem', []);
 
         $this->assertEquals($expected, $items);
     }
@@ -156,24 +125,12 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\Skull', [
+        $expected = new Collection(Skull::class, [
             (new Skull())
                 ->setDisplayName('Heroic')
                 ->setDescription('Enemies appear in greater numbers and are more aggressive.')
                 ->setIcon('/common/destiny_content/icons/b6e2de98abc156752c751060fd0f3255.png')
         ]);
-
-        $this->assertEquals($expected, $skulls);
-    }
-
-    /**
-     * Test Map Empty Array To Skulls
-     */
-    public function testMapEmptyArrayToSkulls()
-    {
-        $skulls = MapperHelper::mapArrayToSkulls(null, []);
-
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\Skull', []);
 
         $this->assertEquals($expected, $skulls);
     }
@@ -191,18 +148,6 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Map Empty Array To Ints
-     */
-    public function testMapEmptyArrayToInts()
-    {
-        $ints = MapperHelper::mapArrayToInts(null, []);
-
-        $expected = new Collection('int', []);
-
-        $this->assertEquals($expected, $ints);
-    }
-
-    /**
      * Test Map Array To Strings
      */
     public function testMapArrayToStrings()
@@ -210,18 +155,6 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
         $strings = MapperHelper::mapArrayToStrings(null, ['one', 'two', 'three', 'four']);
 
         $expected = new Collection('string', ['one', 'two', 'three', 'four']);
-
-        $this->assertEquals($expected, $strings);
-    }
-
-    /**
-     * Test Map Empty Array To Strings
-     */
-    public function testMapEmptyArrayToStrings()
-    {
-        $strings = MapperHelper::mapArrayToStrings(null, []);
-
-        $expected = new Collection('string', []);
 
         $this->assertEquals($expected, $strings);
     }
@@ -240,25 +173,13 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\MaterialRequirementItem', [
+        $expected = new Collection(MaterialRequirementItem::class, [
             (new MaterialRequirementItem())
                 ->setItemHash(2254123540)
                 ->setDeleteOnAction(true)
                 ->setCount(5)
                 ->setOmitFromRequirements(false)
         ]);
-
-        $this->assertEquals($expected, $items);
-    }
-
-    /**
-     * Test Map Empty Array To Material Requirement Items
-     */
-    public function testMapEmptyArrayToMaterialRequirementItems()
-    {
-        $items = MapperHelper::mapArrayToMaterialRequirementItems(null, []);
-
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\MaterialRequirementItem', []);
 
         $this->assertEquals($expected, $items);
     }
@@ -273,24 +194,12 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
             ['nodeIndexes' => [5, 6, 7, 8]]
         ]);
 
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet', [
+        $expected = new Collection(TalentGridExclusiveSet::class, [
             (new TalentGridExclusiveSet())
                 ->setNodeIndexes(new Collection('int', [1, 2, 3, 4])),
             (new TalentGridExclusiveSet())
                 ->setNodeIndexes(new Collection('int', [5, 6, 7, 8]))
         ]);
-
-        $this->assertEquals($expected, $sets);
-    }
-
-    /**
-     * Test Map Empty Array To Talent Grid Exclusive Sets
-     */
-    public function testMapEmptyArrayToTalentGridExclusiveSets()
-    {
-        $sets = MapperHelper::mapArrayToTalentGridExclusiveSets(null, []);
-
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet', []);
 
         $this->assertEquals($expected, $sets);
     }
@@ -319,7 +228,7 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\TalentGridNode', [
+        $expected = new Collection(TalentGridNode::class, [
             (new TalentGridNode())
                 ->setNodeIndex(0)
                 ->setNodeHash(0)
@@ -331,23 +240,11 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
                 ->setLastStepRepeats(false)
                 ->setIsRandom(false)
                 ->setIsRandomRepurchasable(false)
-                ->setSteps(new Collection('Necowebs\Destiny\Models\Manifest\TalentGridStep'))
+                ->setSteps(new Collection(TalentGridStep::class))
                 ->setExlusiveWithNodes(new Collection('int', [5, 6, 7, 8]))
                 ->setRandomStartProgressionBarAtProgression(0)
                 ->setOriginalNodeHash(0)
         ]);
-
-        $this->assertEquals($expected, $nodes);
-    }
-
-    /**
-     * Test Map Empty Array To Talent Grid Nodes
-     */
-    public function testMapEmptyArrayToTalentGridNodes()
-    {
-        $nodes = MapperHelper::mapArrayToTalentGridNodes(null, []);
-
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\TalentGridNode', []);
 
         $this->assertEquals($expected, $nodes);
     }
@@ -391,7 +288,7 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\TalentGridStep', [
+        $expected = new Collection(TalentGridStep::class, [
             (new TalentGridStep())
                 ->setStepIndex(0)
                 ->setNodeStepHash(3528431156)
@@ -428,18 +325,6 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Map Empty Array To Talent Grid Steps
-     */
-    public function testMapEmptyArrayToTalentGridSteps()
-    {
-        $steps = MapperHelper::mapArrayToTalentGridSteps(null, []);
-
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\TalentGridStep', []);
-
-        $this->assertEquals($expected, $steps);
-    }
-
-    /**
      * Test Map Array To Talent Grid Activation Requirement
      */
     public function testMapArrayToTalentGridActivationRequirement()
@@ -452,18 +337,6 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
         $expected = (new TalentGridActivationRequirement())
             ->setGridLevel(3)
             ->setMaterialRequirementHashes(new Collection('int', [2627491173, 2627491172, 2627491175, 2627491174]));
-
-        $this->assertEquals($expected, $requirement);
-    }
-
-    /**
-     * Test Map Empty Array To Talent Grid Activation Requirement
-     */
-    public function testMapEmptyArrayToTalentGridActivationRequirement()
-    {
-        $requirement = MapperHelper::mapArrayToTalentGridActivationRequirement(null, []);
-
-        $expected = new TalentGridActivationRequirement();
 
         $this->assertEquals($expected, $requirement);
     }
@@ -487,18 +360,6 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
             ->setGuardianAttributes(3)
             ->setLightAbilities(4)
             ->setDamageTypes(5);
-
-        $this->assertEquals($expected, $group);
-    }
-
-    /**
-     * Test Map Empty Array To Sandbox Perk Group
-     */
-    public function testMapEmptyArrayToSandboxPerkGroup()
-    {
-        $group = MapperHelper::mapArrayToSandboxPerkGroup(null, []);
-
-        $expected = new SandboxPerkGroup();
 
         $this->assertEquals($expected, $group);
     }
@@ -581,18 +442,6 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Map Empty Array To Vendor Summary
-     */
-    public function testMapEmptyArrayToVendorSummary()
-    {
-        $summary = MapperHelper::mapArrayToVendorSummary(null, []);
-
-        $expected = new VendorSummary();
-
-        $this->assertEquals($expected, $summary);
-    }
-
-    /**
      * Test Map Array To Vendor Categories
      */
     public function testMapArrayToVendorCategories()
@@ -630,7 +479,7 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\VendorCategory', [
+        $expected = new Collection(VendorCategory::class, [
             (new VendorCategory())
                 ->setCategoryHash(3788886265)
                 ->setDisplayTitle('Mission Reward')
@@ -665,14 +514,172 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Map Empty Array To Vendor Categories
+     * Test Map Array To Director Book Nodes
      */
-    public function testMapEmptyArrayToVendorCategories()
+    public function testMapArrayToDirectorBookNodes()
     {
-        $categories = MapperHelper::mapArrayToVendorCategories(null, []);
+        $nodes = MapperHelper::mapArrayToDirectorBookNodes(null, [
+            [
+                'nodeDefinitionHash' => 2925505302,
+                'styleHash' => 2166136261,
+                'positionX' => 821,
+                'positionY' => 722,
+                'positionZ' => 0,
+                'activityBundleHashes' => [],
+                'states' => [
+                    [
+                        'state' => 0
+                    ],
+                    [
+                        'state' => 4
+                    ]
+                ],
+                'uiModifier' => 0
+            ]
+        ]);
 
-        $expected = new Collection('Necowebs\Destiny\Models\Manifest\VendorCategory', []);
+        $expected = new Collection(DirectorBookNode::class, [
+            (new DirectorBookNode())
+                ->setNodeDefinitionHash(2925505302)
+                ->setStyleHash(2166136261)
+                ->setPositionX(821)
+                ->setPositionY(722)
+                ->setPositionZ(0)
+                ->setActivityBundleHashes(new Collection('int'))
+                ->setStates(new Collection(DirectorBookNodeState::class, [
+                    (new DirectorBookNodeState())->setState(0),
+                    (new DirectorBookNodeState())->setState(4)
+                ]))
+                ->setUiModifier(0)
+        ]);
 
-        $this->assertEquals($expected, $categories);
+        $this->assertEquals($expected, $nodes);
+    }
+
+    /**
+     * Test Map Array To Director Book Node States
+     */
+    public function testMapArrayToDirectorBookNodeStates()
+    {
+        $states = MapperHelper::mapArrayToDirectorBookNodeStates(null, [
+            [
+                'state' => 0
+            ],
+            [
+                'state' => 4
+            ]
+        ]);
+
+        $expected = new Collection(DirectorBookNodeState::class, [
+            (new DirectorBookNodeState())
+                ->setState(0),
+            (new DirectorBookNodeState())
+                ->setState(4)
+        ]);
+
+        $this->assertEquals($expected, $states);
+    }
+
+    /**
+     * Test Map Array To Director Book Connections
+     */
+    public function testMapArrayToDirectorBookConnections()
+    {
+        $connections = MapperHelper::mapArrayToDirectorBookConnections(null, [
+            [
+                'sourceNodeIndex' => 9,
+                'destinationNodeIndex' => 5
+            ],
+            [
+                'sourceNodeIndex' => 3,
+                'destinationNodeIndex' => 2
+            ]
+        ]);
+
+        $expected = new Collection(DirectorBookConnection::class, [
+            (new DirectorBookConnection())
+                ->setSourceNodeIndex(9)
+                ->setDestinationNodeIndex(5),
+            (new DirectorBookConnection())
+                ->setSourceNodeIndex(3)
+                ->setDestinationNodeIndex(2)
+        ]);
+
+        $this->assertEquals($expected, $connections);
+    }
+
+    /**
+     * Test Map Array To Director Book Expression
+     */
+    public function testMapArrayToDirectorBookExpression()
+    {
+        $expression = MapperHelper::mapArrayToDirectorBookExpression(null, [
+            'steps' => [
+                [
+                    'stepOperator' => 1,
+                    'flagHash' => 2748347740,
+                    'valueHash' => 0,
+                    'value' => 3585
+                ],
+                [
+                    'stepOperator' => 1,
+                    'flagHash' => 2388787017,
+                    'valueHash' => 0,
+                    'value' => 170
+                ]
+            ]
+        ]);
+
+        $expected = (new DirectorBookExpression())
+            ->setSteps(new Collection(DirectorBookExpressionStep::class, [
+                (new DirectorBookExpressionStep())
+                    ->setStepOperator(1)
+                    ->setFlagHash(2748347740)
+                    ->setValueHash(0)
+                    ->setValue(3585),
+                (new DirectorBookExpressionStep())
+                    ->setStepOperator(1)
+                    ->setFlagHash(2388787017)
+                    ->setValueHash(0)
+                    ->setValue(170)
+            ]));
+
+        $this->assertEquals($expected, $expression);
+    }
+
+    /**
+     * Test Map Array To Director Book Expression Steps
+     */
+    public function testMapArrayToDirectorBookExpressionSteps()
+    {
+        $steps = MapperHelper::mapArrayToDirectorBookExpressionSteps(null, [
+            [
+                'stepOperator' => 1,
+                'flagHash' => 2748347740,
+                'valueHash' => 0,
+                'value' => 3585
+            ],
+            [
+                'stepOperator' => 1,
+                'flagHash' => 2388787017,
+                'valueHash' => 0,
+                'value' => 170
+            ]
+        ]);
+
+        $expected = new Collection(DirectorBookExpressionStep::class, [
+            (new DirectorBookExpressionStep())
+                ->setStepOperator(1)
+                ->setFlagHash(2748347740)
+                ->setValueHash(0)
+                ->setValue(3585),
+            (new DirectorBookExpressionStep())
+                ->setStepOperator(1)
+                ->setFlagHash(2388787017)
+                ->setValueHash(0)
+                ->setValue(170)
+        ]);
+
+        $this->assertEquals($expected, $steps);
     }
 }

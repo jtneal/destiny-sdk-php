@@ -3,7 +3,6 @@
 namespace Necowebs\Destiny\Services\Manifest;
 
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
-use Necowebs\Destiny\Models\Manifest\UnlockFlag;
 
 /**
  * Class UnlockFlagServiceTest
@@ -18,14 +17,11 @@ class UnlockFlagServiceTest extends \PHPUnit_Framework_TestCase
     {
         $flag = (new UnlockFlagService())->getUnlockFlag(2100359368);
 
-        $expected = (new UnlockFlag())
-            ->setFlagHash(2100359368)
-            ->setIsOffer(false)
-            ->setUnlockType(0)
-            ->setHash(2100359368)
-            ->setIndex(0);
-
-        $this->assertEquals($expected, $flag);
+        $this->assertEquals(2100359368, $flag->getFlagHash());
+        $this->assertEquals(false, $flag->getIsOffer());
+        $this->assertEquals(0, $flag->getUnlockType());
+        $this->assertEquals(2100359368, $flag->getHash());
+        $this->assertEquals(0, $flag->getIndex());
     }
 
     /**

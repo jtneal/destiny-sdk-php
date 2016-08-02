@@ -33,8 +33,8 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
             ->setActivityTypeHash(2043403989)
             ->setTier(2)
             ->setPgcrImage('/img/theme/destiny/bgs/pgcrs/raid_vault_of_glass.jpg')
-            ->setRewards(new Collection('Necowebs\Destiny\Models\Manifest\Reward'))
-            ->setSkulls(new Collection('Necowebs\Destiny\Models\Manifest\Skull'))
+            ->setRewards(new Collection(Reward::class))
+            ->setSkulls(new Collection(Skull::class))
             ->setIsPlaylist(false)
             ->setIsMatchmade(false)
             ->setHash(2659248068)
@@ -57,8 +57,8 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2043403989, $activity->getActivityTypeHash());
         $this->assertEquals(2, $activity->getTier());
         $this->assertEquals('/img/theme/destiny/bgs/pgcrs/raid_vault_of_glass.jpg', $activity->getPgcrImage());
-        $this->assertEquals(new Collection('Necowebs\Destiny\Models\Manifest\Reward'), $activity->getRewards());
-        $this->assertEquals(new Collection('Necowebs\Destiny\Models\Manifest\Skull'), $activity->getSkulls());
+        $this->assertEquals(new Collection(Reward::class), $activity->getRewards());
+        $this->assertEquals(new Collection(Skull::class), $activity->getSkulls());
         $this->assertEquals(false, $activity->getIsPlaylist());
         $this->assertEquals(false, $activity->getIsMatchmade());
         $this->assertEquals(2659248068, $activity->getHash());

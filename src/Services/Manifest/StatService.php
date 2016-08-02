@@ -28,7 +28,7 @@ class StatService extends BaseService
 
         $stat = $body['Response']['data']['stat'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Stat'))
+        $mapper = (new ArrayObjectMapper(Stat::class))
             ->add('statHash')
             ->add('statName')
             ->add('statDescription')

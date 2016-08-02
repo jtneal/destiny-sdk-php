@@ -28,7 +28,7 @@ class GenderService extends BaseService
 
         $gender = $body['Response']['data']['gender'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Gender'))
+        $mapper = (new ArrayObjectMapper(Gender::class))
             ->add('genderHash')
             ->add('genderType')
             ->add('genderName')

@@ -6,6 +6,7 @@ use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Activity;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class ActivityService
@@ -28,7 +29,7 @@ class ActivityService extends BaseService
 
         $activity = $body['Response']['data']['activity'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Activity'))
+        $mapper = (new ArrayObjectMapper(Activity::class))
             ->add('activityHash')
             ->add('activityName')
             ->add('activityDescription')
@@ -46,8 +47,8 @@ class ActivityService extends BaseService
             ->add('activityTypeHash')
             ->add('tier')
             ->add('pgcrImage')
-            ->add('rewards', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToRewards')
-            ->add('skulls', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToSkulls')
+            ->add('rewards', null, MapperHelper::class . '::mapArrayToRewards')
+            ->add('skulls', null, MapperHelper::class . '::mapArrayToSkulls')
             ->add('isPlaylist')
             ->add('isMatchmade')
             ->add('hash')

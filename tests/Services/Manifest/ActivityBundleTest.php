@@ -4,7 +4,6 @@ namespace Necowebs\Destiny\Services\Manifest;
 
 use Collections\Collection;
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
-use Necowebs\Destiny\Models\Manifest\ActivityBundle;
 
 /**
  * Class ActivityBundleServiceTest
@@ -19,21 +18,18 @@ class ActivityBundleServiceTest extends \PHPUnit_Framework_TestCase
     {
         $bundle = (new ActivityBundleService())->getActivityBundle(2659248071);
 
-        $expected = (new ActivityBundle())
-            ->setBundleHash(2659248071)
-            ->setActivityName('Vault of Glass')
-            ->setActivityDescription('Beneath Venus, evil stirs.')
-            ->setIcon('/img/misc/missing_icon.png')
-            ->setReleaseIcon('/img/misc/missing_icon.png')
-            ->setReleaseTime(0)
-            ->setDestinationHash(518553403)
-            ->setPlaceHash(3871070152)
-            ->setActivityTypeHash(2043403989)
-            ->setActivityHashes(new Collection('int', [2659248071, 2659248068]))
-            ->setHash(2659248071)
-            ->setIndex(0);
-
-        $this->assertEquals($expected, $bundle);
+        $this->assertEquals(2659248071, $bundle->getBundleHash());
+        $this->assertEquals('Vault of Glass', $bundle->getActivityName());
+        $this->assertEquals('Beneath Venus, evil stirs.', $bundle->getActivityDescription());
+        $this->assertEquals('/img/misc/missing_icon.png', $bundle->getIcon());
+        $this->assertEquals('/img/misc/missing_icon.png', $bundle->getReleaseIcon());
+        $this->assertEquals(0, $bundle->getReleaseTime());
+        $this->assertEquals(518553403, $bundle->getDestinationHash());
+        $this->assertEquals(3871070152, $bundle->getPlaceHash());
+        $this->assertEquals(2043403989, $bundle->getActivityTypeHash());
+        $this->assertEquals(new Collection('int', [2659248071, 2659248068]), $bundle->getActivityHashes());
+        $this->assertEquals(2659248071, $bundle->getHash());
+        $this->assertEquals(0, $bundle->getIndex());
     }
 
     /**

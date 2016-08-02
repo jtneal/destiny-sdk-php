@@ -28,7 +28,7 @@ class ActivityTypeService extends BaseService
 
         $activityType = $body['Response']['data']['activityType'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\ActivityType'))
+        $mapper = (new ArrayObjectMapper(ActivityType::class))
             ->add('activityTypeHash')
             ->add('identifier')
             ->add('activityTypeName')

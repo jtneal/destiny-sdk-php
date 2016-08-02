@@ -6,6 +6,7 @@ use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\TalentGrid;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class TalentGridService
@@ -28,16 +29,16 @@ class TalentGridService extends BaseService
 
         $grid = $body['Response']['data']['talentGrid'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\TalentGrid'))
+        $mapper = (new ArrayObjectMapper(TalentGrid::class))
             ->add('gridHash')
             ->add('maxGridLevel')
             ->add('gridLevelPerColumn')
             ->add('progressionHash')
-            ->add('nodes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToTalentGridNodes')
+            ->add('nodes', null, MapperHelper::class . '::mapArrayToTalentGridNodes')
             ->add('calcMaxGridLevel')
             ->add('calcProgressToMaxLevel')
-            ->add('exclusiveSets', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToTalentGridExclusiveSets')
-            ->add('independentNodeIndexes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+            ->add('exclusiveSets', null, MapperHelper::class . '::mapArrayToTalentGridExclusiveSets')
+            ->add('independentNodeIndexes', null, MapperHelper::class . '::mapArrayToInts')
             ->add('hash')
             ->add('index');
 

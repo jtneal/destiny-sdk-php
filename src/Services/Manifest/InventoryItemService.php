@@ -28,7 +28,7 @@ class InventoryItemService extends BaseService
 
         $item = $body['Response']['data']['inventoryItem'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\InventoryItem'))
+        $mapper = (new ArrayObjectMapper(InventoryItem::class))
             ->add('itemHash')
             ->add('itemName')
             ->add('itemDescription')

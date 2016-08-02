@@ -28,7 +28,7 @@ class UnlockFlagService extends BaseService
 
         $flag = $body['Response']['data']['unlockFlag'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\UnlockFlag'))
+        $mapper = (new ArrayObjectMapper(UnlockFlag::class))
             ->add('flagHash')
             ->add('isOffer')
             ->add('unlockType')

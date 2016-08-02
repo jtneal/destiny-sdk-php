@@ -3,7 +3,6 @@
 namespace Necowebs\Destiny\Services\Manifest;
 
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
-use Necowebs\Destiny\Models\Manifest\Race;
 
 /**
  * Class RaceServiceTest
@@ -18,17 +17,14 @@ class RaceServiceTest extends \PHPUnit_Framework_TestCase
     {
         $race = (new RaceService())->getRace(3887404748);
 
-        $expected = (new Race())
-            ->setRaceHash(3887404748)
-            ->setRaceType(0)
-            ->setRaceName('Human')
-            ->setRaceNameMale('Human Male')
-            ->setRaceNameFemale('Human Female')
-            ->setRaceDescription('Human')
-            ->setHash(3887404748)
-            ->setIndex(0);
-
-        $this->assertEquals($expected, $race);
+        $this->assertEquals(3887404748, $race->getRaceHash());
+        $this->assertEquals(0, $race->getRaceType());
+        $this->assertEquals('Human', $race->getRaceName());
+        $this->assertEquals('Human Male', $race->getRaceNameMale());
+        $this->assertEquals('Human Female', $race->getRaceNameFemale());
+        $this->assertEquals('Human', $race->getRaceDescription());
+        $this->assertEquals(3887404748, $race->getHash());
+        $this->assertEquals(0, $race->getIndex());
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace Necowebs\Destiny\Services;
 
 use Necowebs\Destiny\Exceptions\DestinyPlayerNotFoundException;
-use Necowebs\Destiny\Models\DestinyPlayer;
 
 /**
  * Class DestinyPlayerServiceTest
@@ -18,13 +17,10 @@ class DestinyPlayerServiceTest extends \PHPUnit_Framework_TestCase
     {
         $player = (new DestinyPlayerService())->search('Hochi_oD', '2');
 
-        $expected = (new DestinyPlayer())
-            ->setIconPath('/img/theme/destiny/icons/icon_psn.png')
-            ->setMembershipType(2)
-            ->setMembershipId('4611686018450406180')
-            ->setDisplayName('Hochi_oD');
-
-        $this->assertEquals($expected, $player);
+        $this->assertEquals('/img/theme/destiny/icons/icon_psn.png', $player->getIconPath());
+        $this->assertEquals(2, $player->getMembershipType());
+        $this->assertEquals('4611686018450406180', $player->getMembershipId());
+        $this->assertEquals('Hochi_oD', $player->getDisplayName());
     }
 
     /**

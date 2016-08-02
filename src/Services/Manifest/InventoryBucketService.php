@@ -28,7 +28,7 @@ class InventoryBucketService extends BaseService
 
         $bucket = $body['Response']['data']['inventoryBucket'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\InventoryBucket'))
+        $mapper = (new ArrayObjectMapper(InventoryBucket::class))
             ->add('bucketHash')
             ->add('bucketName')
             ->add('bucketDescription')

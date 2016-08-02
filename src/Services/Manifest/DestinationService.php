@@ -28,7 +28,7 @@ class DestinationService extends BaseService
 
         $destination = $body['Response']['data']['destination'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Destination'))
+        $mapper = (new ArrayObjectMapper(Destination::class))
             ->add('destinationHash')
             ->add('destinationName')
             ->add('destinationDescription')

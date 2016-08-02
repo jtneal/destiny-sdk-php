@@ -28,7 +28,7 @@ class ArtDyeChannelService extends BaseService
 
         $channel = $body['Response']['data']['artDyeChannel'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\ArtDyeChannel'))
+        $mapper = (new ArrayObjectMapper(ArtDyeChannel::class))
             ->add('channelHash')
             ->add('index')
             ->add('channelName')

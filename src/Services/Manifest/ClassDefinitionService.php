@@ -28,7 +28,7 @@ class ClassDefinitionService extends BaseService
 
         $class = $body['Response']['data']['classDefinition'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\ClassDefinition'))
+        $mapper = (new ArrayObjectMapper(ClassDefinition::class))
             ->add('classHash')
             ->add('classType')
             ->add('className')

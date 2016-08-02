@@ -27,7 +27,7 @@ class TalentGridNodeTest extends \PHPUnit_Framework_TestCase
             ->setIsRandom(false)
             ->setRandomActivationRequirement(new TalentGridActivationRequirement())
             ->setIsRandomRepurchasable(false)
-            ->setSteps(new Collection('Necowebs\Destiny\Models\Manifest\TalentGridStep'))
+            ->setSteps(new Collection(TalentGridStep::class))
             ->setExlusiveWithNodes(new Collection('int'))
             ->setRandomStartProgressionBarAtProgression(0)
             ->setOriginalNodeHash(0);
@@ -43,7 +43,7 @@ class TalentGridNodeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(false, $node->getIsRandom());
         $this->assertEquals(new TalentGridActivationRequirement(), $node->getRandomActivationRequirement());
         $this->assertEquals(false, $node->getIsRandomRepurchasable());
-        $this->assertEquals(new Collection('Necowebs\Destiny\Models\Manifest\TalentGridStep'), $node->getSteps());
+        $this->assertEquals(new Collection(TalentGridStep::class), $node->getSteps());
         $this->assertEquals(new Collection('int'), $node->getExlusiveWithNodes());
         $this->assertEquals(0, $node->getRandomStartProgressionBarAtProgression());
         $this->assertEquals(0, $node->getOriginalNodeHash());

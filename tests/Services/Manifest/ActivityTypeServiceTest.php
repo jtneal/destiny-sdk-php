@@ -3,7 +3,6 @@
 namespace Necowebs\Destiny\Services\Manifest;
 
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
-use Necowebs\Destiny\Models\Manifest\ActivityType;
 
 /**
  * Class ActivityTypeServiceTest
@@ -18,27 +17,24 @@ class ActivityTypeServiceTest extends \PHPUnit_Framework_TestCase
     {
         $activityType = (new ActivityTypeService())->getActivityType(3846426416);
 
-        $expected = (new ActivityType())
-            ->setActivityTypeHash(3846426416)
-            ->setIdentifier('ACTIVITY_TYPE_PVP_DOM')
-            ->setActivityTypeName('Control')
-            ->setActivityTypeDescription('Face your fellow Guardians in open combat. Prove your worth, and you will be rewarded.')
-            ->setIcon('/common/destiny_content/icons/icon_pvp_80209e5d3802747a308bbdbe12bee676.png')
-            ->setActiveBackgroundVirtualPath('/img/destiny_content/ActivityTypeBackground/Active/crucible.png')
-            ->setCompletedBackgroundVirtualPath('/img/destiny_content/ActivityTypeBackground/Completed/crucible.png')
-            ->setHiddenOverrideVirtualPath('/img/destiny_content/ActivityTypeBackground/Hidden/crucible.png')
-            ->setTooltipBackgroundVirtualPath('/img/destiny_content/ActivityTypeBackground/Tooltip/crucible.png')
-            ->setEnlargedActiveBackgroundVirtualPath('/img/destiny_content/ActivityTypeBackground/Active/crucible.png')
-            ->setEnlargedCompletedBackgroundVirtualPath('/img/destiny_content/ActivityTypeBackground/Completed/crucible.png')
-            ->setEnlargedHiddenOverrideVirtualPath('/img/destiny_content/ActivityTypeBackground/Hidden/crucible.png')
-            ->setEnlargedTooltipBackgroundVirtualPath('/img/destiny_content/ActivityTypeBackground/Tooltip/crucible.png')
-            ->setOrder(10)
-            ->setStatGroup('control')
-            ->setFriendlyUrlId('control')
-            ->setHash(3846426416)
-            ->setIndex(0);
-
-        $this->assertEquals($expected, $activityType);
+        $this->assertEquals(3846426416, $activityType->getActivityTypeHash());
+        $this->assertEquals('ACTIVITY_TYPE_PVP_DOM', $activityType->getIdentifier());
+        $this->assertEquals('Control', $activityType->getActivityTypeName());
+        $this->assertEquals('Face your fellow Guardians in open combat. Prove your worth, and you will be rewarded.', $activityType->getActivityTypeDescription());
+        $this->assertEquals('/common/destiny_content/icons/icon_pvp_80209e5d3802747a308bbdbe12bee676.png', $activityType->getIcon());
+        $this->assertEquals('/img/destiny_content/ActivityTypeBackground/Active/crucible.png', $activityType->getActiveBackgroundVirtualPath());
+        $this->assertEquals('/img/destiny_content/ActivityTypeBackground/Completed/crucible.png', $activityType->getCompletedBackgroundVirtualPath());
+        $this->assertEquals('/img/destiny_content/ActivityTypeBackground/Hidden/crucible.png', $activityType->getHiddenOverrideVirtualPath());
+        $this->assertEquals('/img/destiny_content/ActivityTypeBackground/Tooltip/crucible.png', $activityType->getTooltipBackgroundVirtualPath());
+        $this->assertEquals('/img/destiny_content/ActivityTypeBackground/Active/crucible.png', $activityType->getEnlargedActiveBackgroundVirtualPath());
+        $this->assertEquals('/img/destiny_content/ActivityTypeBackground/Completed/crucible.png', $activityType->getEnlargedCompletedBackgroundVirtualPath());
+        $this->assertEquals('/img/destiny_content/ActivityTypeBackground/Hidden/crucible.png', $activityType->getEnlargedHiddenOverrideVirtualPath());
+        $this->assertEquals('/img/destiny_content/ActivityTypeBackground/Tooltip/crucible.png', $activityType->getEnlargedTooltipBackgroundVirtualPath());
+        $this->assertEquals(10, $activityType->getOrder());
+        $this->assertEquals('control', $activityType->getStatGroup());
+        $this->assertEquals('control', $activityType->getFriendlyUrlId());
+        $this->assertEquals(3846426416, $activityType->getHash());
+        $this->assertEquals(0, $activityType->getIndex());
     }
 
     /**

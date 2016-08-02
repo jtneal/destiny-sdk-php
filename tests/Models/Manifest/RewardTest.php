@@ -16,8 +16,8 @@ class RewardTest extends \PHPUnit_Framework_TestCase
     public function testGettersAndSetters()
     {
         $reward = (new Reward())
-            ->setRewardItems(new Collection('Necowebs\Destiny\Models\Manifest\RewardItem'));
+            ->setRewardItems(new Collection(RewardItem::class));
 
-        $this->assertEquals(new Collection('Necowebs\Destiny\Models\Manifest\RewardItem'), $reward->getRewardItems());
+        $this->assertEquals(new Collection(RewardItem::class), $reward->getRewardItems());
     }
 }

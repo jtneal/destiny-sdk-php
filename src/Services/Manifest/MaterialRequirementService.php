@@ -6,6 +6,7 @@ use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\MaterialRequirement;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class MaterialRequirementService
@@ -28,9 +29,9 @@ class MaterialRequirementService extends BaseService
 
         $set = $body['Response']['data']['materialRequirementSet'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\MaterialRequirement'))
+        $mapper = (new ArrayObjectMapper(MaterialRequirement::class))
             ->add('setHash')
-            ->add('materials', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToMaterialRequirementItems')
+            ->add('materials', null, MapperHelper::class . '::mapArrayToMaterialRequirementItems')
             ->add('hash')
             ->add('index');
 

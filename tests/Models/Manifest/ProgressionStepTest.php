@@ -19,9 +19,9 @@ class ProgressionStepTest extends \PHPUnit_Framework_TestCase
 
         $step = (new ProgressionStep())
             ->setProgressTotal(9000)
-            ->setRewardItems(new Collection('Necowebs\Destiny\Models\Manifest\RewardItem', [$rewardItem]));
+            ->setRewardItems(new Collection(RewardItem::class, [$rewardItem]));
 
         $this->assertEquals(9000, $step->getProgressTotal());
-        $this->assertEquals(new Collection('Necowebs\Destiny\Models\Manifest\RewardItem', [$rewardItem]), $step->getRewardItems());
+        $this->assertEquals(new Collection(RewardItem::class, [$rewardItem]), $step->getRewardItems());
     }
 }

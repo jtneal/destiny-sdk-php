@@ -3,6 +3,23 @@
 namespace Necowebs\Destiny\Utils;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Manifest\DirectorBookConnection;
+use Necowebs\Destiny\Models\Manifest\DirectorBookExpression;
+use Necowebs\Destiny\Models\Manifest\DirectorBookExpressionStep;
+use Necowebs\Destiny\Models\Manifest\DirectorBookNode;
+use Necowebs\Destiny\Models\Manifest\DirectorBookNodeState;
+use Necowebs\Destiny\Models\Manifest\MaterialRequirementItem;
+use Necowebs\Destiny\Models\Manifest\ProgressionStep;
+use Necowebs\Destiny\Models\Manifest\Reward;
+use Necowebs\Destiny\Models\Manifest\RewardItem;
+use Necowebs\Destiny\Models\Manifest\SandboxPerkGroup;
+use Necowebs\Destiny\Models\Manifest\Skull;
+use Necowebs\Destiny\Models\Manifest\TalentGridActivationRequirement;
+use Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet;
+use Necowebs\Destiny\Models\Manifest\TalentGridNode;
+use Necowebs\Destiny\Models\Manifest\TalentGridStep;
+use Necowebs\Destiny\Models\Manifest\VendorCategory;
+use Necowebs\Destiny\Models\Manifest\VendorSummary;
 
 /**
  * Class MapperHelper
@@ -19,12 +36,12 @@ class MapperHelper
     {
         $steps = [];
         foreach ($val as $step) {
-            $stepMapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\ProgressionStep'))
+            $stepMapper = (new ArrayObjectMapper(ProgressionStep::class))
                 ->add('progressTotal')
-                ->add('rewardItems', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToRewardItems');
+                ->add('rewardItems', null, self::class . '::mapArrayToRewardItems');
             $steps[] = $stepMapper->map($step);
         }
-        return new Collection('Necowebs\Destiny\Models\Manifest\ProgressionStep', $steps);
+        return new Collection(ProgressionStep::class, $steps);
     }
 
     /**
@@ -36,11 +53,11 @@ class MapperHelper
     {
         $rewards = [];
         foreach ($val as $reward) {
-            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Reward'))
-                ->add('rewardItems', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToRewardItems');
+            $mapper = (new ArrayObjectMapper(Reward::class))
+                ->add('rewardItems', null, self::class . '::mapArrayToRewardItems');
             $rewards[] = $mapper->map($reward);
         }
-        return new Collection('Necowebs\Destiny\Models\Manifest\Reward', $rewards);
+        return new Collection(Reward::class, $rewards);
 
     }
 
@@ -53,12 +70,12 @@ class MapperHelper
     {
         $rewardItems = [];
         foreach ($val as $rewardItem) {
-            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\RewardItem'))
+            $mapper = (new ArrayObjectMapper(RewardItem::class))
                 ->add('itemHash')
                 ->add('value');
             $rewardItems[] = $mapper->map($rewardItem);
         }
-        return new Collection('Necowebs\Destiny\Models\Manifest\RewardItem', $rewardItems);
+        return new Collection(RewardItem::class, $rewardItems);
     }
 
     /**
@@ -70,13 +87,13 @@ class MapperHelper
     {
         $skulls = [];
         foreach ($val as $skull) {
-            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Skull'))
+            $mapper = (new ArrayObjectMapper(Skull::class))
                 ->add('displayName')
                 ->add('description')
                 ->add('icon');
             $skulls[] = $mapper->map($skull);
         }
-        return new Collection('Necowebs\Destiny\Models\Manifest\Skull', $skulls);
+        return new Collection(Skull::class, $skulls);
     }
 
     /**
@@ -108,14 +125,14 @@ class MapperHelper
     {
         $items = [];
         foreach ($val as $item) {
-            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\MaterialRequirementItem'))
+            $mapper = (new ArrayObjectMapper(MaterialRequirementItem::class))
                 ->add('itemHash')
                 ->add('deleteOnAction')
                 ->add('count')
                 ->add('omitFromRequirements');
             $items[] = $mapper->map($item);
         }
-        return new Collection('Necowebs\Destiny\Models\Manifest\MaterialRequirementItem', $items);
+        return new Collection(MaterialRequirementItem::class, $items);
     }
 
     /**
@@ -127,11 +144,11 @@ class MapperHelper
     {
         $sets = [];
         foreach ($val as $set) {
-            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet'))
-                ->add('nodeIndexes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts');
+            $mapper = (new ArrayObjectMapper(TalentGridExclusiveSet::class))
+                ->add('nodeIndexes', null, self::class . '::mapArrayToInts');
             $sets[] = $mapper->map($set);
         }
-        return new Collection('Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet', $sets);
+        return new Collection(TalentGridExclusiveSet::class, $sets);
     }
 
     /**
@@ -143,25 +160,25 @@ class MapperHelper
     {
         $nodes = [];
         foreach ($val as $node) {
-            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\TalentGridNode'))
+            $mapper = (new ArrayObjectMapper(TalentGridNode::class))
                 ->add('nodeIndex')
                 ->add('nodeHash')
                 ->add('row')
                 ->add('column')
-                ->add('prerequisiteNodeIndexes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+                ->add('prerequisiteNodeIndexes', null, self::class . '::mapArrayToInts')
                 ->add('binaryPairNodeIndex')
                 ->add('autoUnlocks')
                 ->add('lastStepRepeats')
                 ->add('isRandom')
-                ->add('randomActivationRequirement', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToTalentGridActivationRequirement')
+                ->add('randomActivationRequirement', null, self::class . '::mapArrayToTalentGridActivationRequirement')
                 ->add('isRandomRepurchasable')
-                ->add('steps', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToTalentGridSteps')
-                ->add('exlusiveWithNodes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+                ->add('steps', null, self::class . '::mapArrayToTalentGridSteps')
+                ->add('exlusiveWithNodes', null, self::class . '::mapArrayToInts')
                 ->add('randomStartProgressionBarAtProgression')
                 ->add('originalNodeHash');
             $nodes[] = $mapper->map($node);
         }
-        return new Collection('Necowebs\Destiny\Models\Manifest\TalentGridNode', $nodes);
+        return new Collection(TalentGridNode::class, $nodes);
     }
 
     /**
@@ -173,7 +190,7 @@ class MapperHelper
     {
         $steps = [];
         foreach ($val as $step) {
-            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\TalentGridStep'))
+            $mapper = (new ArrayObjectMapper(TalentGridStep::class))
                 ->add('stepIndex')
                 ->add('nodeStepHash')
                 ->add('nodeStepName')
@@ -182,21 +199,21 @@ class MapperHelper
                 ->add('icon')
                 ->add('damageType')
                 ->add('damageTypeHash')
-                ->add('activationRequirement', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToTalentGridActivationRequirement')
+                ->add('activationRequirement', null, self::class . '::mapArrayToTalentGridActivationRequirement')
                 ->add('canActivateNextStep')
                 ->add('nextStepIndex')
                 ->add('isNextStepRandom')
-                ->add('perkHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+                ->add('perkHashes', null, self::class . '::mapArrayToInts')
                 ->add('startProgressionBarAtProgress')
-                ->add('statHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+                ->add('statHashes', null, self::class . '::mapArrayToInts')
                 ->add('affectsQuality')
-                ->add('stepGroups', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToSandboxPerkGroup')
+                ->add('stepGroups', null, self::class . '::mapArrayToSandboxPerkGroup')
                 ->add('trueStepIndex')
                 ->add('truePropertyIndex')
                 ->add('affectsLevel');
             $steps[] = $mapper->map($step);
         }
-        return new Collection('Necowebs\Destiny\Models\Manifest\TalentGridStep', $steps);
+        return new Collection(TalentGridStep::class, $steps);
     }
 
     /**
@@ -206,9 +223,9 @@ class MapperHelper
      */
     public static function mapArrayToTalentGridActivationRequirement($obj, array $val)
     {
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\TalentGridActivationRequirement'))
+        $mapper = (new ArrayObjectMapper(TalentGridActivationRequirement::class))
             ->add('gridLevel')
-            ->add('materialRequirementHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts');
+            ->add('materialRequirementHashes', null, self::class . '::mapArrayToInts');
         return $mapper->map($val);
     }
 
@@ -219,7 +236,7 @@ class MapperHelper
      */
     public static function mapArrayToSandboxPerkGroup($obj, array $val)
     {
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\SandboxPerkGroup'))
+        $mapper = (new ArrayObjectMapper(SandboxPerkGroup::class))
             ->add('weaponPerformance')
             ->add('impactEffects')
             ->add('guardianAttributes')
@@ -235,7 +252,7 @@ class MapperHelper
      */
     public static function mapArrayToVendorSummary($obj, array $val)
     {
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\VendorSummary'))
+        $mapper = (new ArrayObjectMapper(VendorSummary::class))
             ->add('vendorHash')
             ->add('vendorName')
             ->add('vendorDescription')
@@ -257,15 +274,15 @@ class MapperHelper
             ->add('buyString')
             ->add('vendorPortrait')
             ->add('vendorBanner')
-            ->add('unlockFlagHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
-            ->add('enabledUnlockFlagHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+            ->add('unlockFlagHashes', null, self::class . '::mapArrayToInts')
+            ->add('enabledUnlockFlagHashes', null, self::class . '::mapArrayToInts')
             ->add('mapSectionIdentifier')
             ->add('mapSectionName')
             ->add('mapSectionOrder')
             ->add('showOnMap')
             ->add('eventHash')
             ->add('vendorCategoryHash')
-            ->add('vendorCategoryHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+            ->add('vendorCategoryHashes', null, self::class . '::mapArrayToInts')
             ->add('vendorSubcategoryHash')
             ->add('inhibitBuying');
         return $mapper->map($val);
@@ -279,8 +296,8 @@ class MapperHelper
     public static function mapArrayToVendorCategories($obj, array $val)
     {
         $categories = [];
-        foreach ($val as $step) {
-            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\VendorCategory'))
+        foreach ($val as $category) {
+            $mapper = (new ArrayObjectMapper(VendorCategory::class))
                 ->add('categoryHash')
                 ->add('displayTitle')
                 ->add('overlayCurrencyItemHash')
@@ -294,8 +311,95 @@ class MapperHelper
                 ->add('overlayIcon')
                 ->add('hasOverlay')
                 ->add('hideFromRegularPurchase');
-            $categories[] = $mapper->map($step);
+            $categories[] = $mapper->map($category);
         }
-        return new Collection('Necowebs\Destiny\Models\Manifest\VendorCategory', $categories);
+        return new Collection(VendorCategory::class, $categories);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToDirectorBookNodes($obj, array $val)
+    {
+        $nodes = [];
+        foreach ($val as $node) {
+            $mapper = (new ArrayObjectMapper(DirectorBookNode::class))
+                ->add('nodeDefinitionHash')
+                ->add('styleHash')
+                ->add('positionX')
+                ->add('positionY')
+                ->add('positionZ')
+                ->add('activityBundleHashes', null, self::class . '::mapArrayToInts')
+                ->add('states', null, self::class . '::mapArrayToDirectorBookNodeStates')
+                ->add('uiModifier');
+            $nodes[] = $mapper->map($node);
+        }
+        return new Collection(DirectorBookNode::class, $nodes);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToDirectorBookNodeStates($obj, array $val)
+    {
+        $states = [];
+        foreach ($val as $state) {
+            $mapper = (new ArrayObjectMapper(DirectorBookNodeState::class))
+                ->add('state');
+            $states[] = $mapper->map($state);
+        }
+        return new Collection(DirectorBookNodeState::class, $states);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToDirectorBookConnections($obj, array $val)
+    {
+        $connections = [];
+        foreach ($val as $connection) {
+            $mapper = (new ArrayObjectMapper(DirectorBookConnection::class))
+                ->add('sourceNodeIndex')
+                ->add('destinationNodeIndex');
+            $connections[] = $mapper->map($connection);
+        }
+        return new Collection(DirectorBookConnection::class, $connections);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToDirectorBookExpression($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(DirectorBookExpression::class))
+            ->add('steps', null, self::class . '::mapArrayToDirectorBookExpressionSteps');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToDirectorBookExpressionSteps($obj, array $val)
+    {
+        $steps = [];
+        foreach ($val as $step) {
+            $mapper = (new ArrayObjectMapper(DirectorBookExpressionStep::class))
+                ->add('stepOperator')
+                ->add('flagHash')
+                ->add('valueHash')
+                ->add('value');
+            $steps[] = $mapper->map($step);
+        }
+        return new Collection(DirectorBookExpressionStep::class, $steps);
     }
 }

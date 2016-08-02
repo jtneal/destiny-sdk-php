@@ -28,7 +28,7 @@ class RaceService extends BaseService
 
         $race = $body['Response']['data']['race'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Race'))
+        $mapper = (new ArrayObjectMapper(Race::class))
             ->add('raceHash')
             ->add('raceType')
             ->add('raceName')

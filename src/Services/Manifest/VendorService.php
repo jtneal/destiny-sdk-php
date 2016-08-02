@@ -6,6 +6,7 @@ use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Vendor;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class VendorService
@@ -28,10 +29,10 @@ class VendorService extends BaseService
 
         $vendor = $body['Response']['data']['vendor'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Vendor'))
-            ->add('summary', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToVendorSummary')
-            ->add('acceptedItems', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
-            ->add('categories', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToVendorCategories')
+        $mapper = (new ArrayObjectMapper(Vendor::class))
+            ->add('summary', null, MapperHelper::class . '::mapArrayToVendorSummary')
+            ->add('acceptedItems', null, MapperHelper::class . '::mapArrayToInts')
+            ->add('categories', null, MapperHelper::class . '::mapArrayToVendorCategories')
             ->add('failureStrings')
             ->add('unlockValueHash')
             ->add('hash')

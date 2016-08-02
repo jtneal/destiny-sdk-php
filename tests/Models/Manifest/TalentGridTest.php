@@ -20,10 +20,10 @@ class TalentGridTest extends \PHPUnit_Framework_TestCase
             ->setMaxGridLevel(0)
             ->setGridLevelPerColumn(0)
             ->setProgressionHash(3605101483)
-            ->setNodes(new Collection('Necowebs\Destiny\Models\Manifest\TalentGridNode'))
+            ->setNodes(new Collection(TalentGridNode::class))
             ->setCalcMaxGridLevel(0)
             ->setCalcProgressToMaxLevel(0)
-            ->setExclusiveSets(new Collection('Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet'))
+            ->setExclusiveSets(new Collection(TalentGridExclusiveSet::class))
             ->setIndependentNodeIndexes(new Collection('int'))
             ->setHash(148625784)
             ->setIndex(0);
@@ -32,10 +32,10 @@ class TalentGridTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $grid->getMaxGridLevel());
         $this->assertEquals(0, $grid->getGridLevelPerColumn());
         $this->assertEquals(3605101483, $grid->getProgressionHash());
-        $this->assertEquals(new Collection('Necowebs\Destiny\Models\Manifest\TalentGridNode'), $grid->getNodes());
+        $this->assertEquals(new Collection(TalentGridNode::class), $grid->getNodes());
         $this->assertEquals(0, $grid->getCalcMaxGridLevel());
         $this->assertEquals(0, $grid->getCalcProgressToMaxLevel());
-        $this->assertEquals(new Collection('Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet'), $grid->getExclusiveSets());
+        $this->assertEquals(new Collection(TalentGridExclusiveSet::class), $grid->getExclusiveSets());
         $this->assertEquals(new Collection('int'), $grid->getIndependentNodeIndexes());
         $this->assertEquals(148625784, $grid->getHash());
         $this->assertEquals(0, $grid->getIndex());

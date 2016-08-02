@@ -7,6 +7,7 @@ use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Progression;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class ProgressionService
@@ -29,13 +30,13 @@ class ProgressionService extends BaseService
 
         $progression = $body['Response']['data']['progression'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Progression'))
+        $mapper = (new ArrayObjectMapper(Progression::class))
             ->add('progressionHash')
             ->add('name')
             ->add('scope')
             ->add('repeatLastStep')
             ->add('identifier')
-            ->add('steps', 'setSteps', 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToProgressionSteps')
+            ->add('steps', 'setSteps', MapperHelper::class . '::mapArrayToProgressionSteps')
             ->add('visible')
             ->add('hash')
             ->add('index');

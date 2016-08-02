@@ -3,7 +3,6 @@
 namespace Necowebs\Destiny\Services\Manifest;
 
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
-use Necowebs\Destiny\Models\Manifest\Gender;
 
 /**
  * Class GenderServiceTest
@@ -18,15 +17,12 @@ class GenderServiceTest extends \PHPUnit_Framework_TestCase
     {
         $gender = (new GenderService())->getGender(2204441813);
 
-        $expected = (new Gender())
-            ->setGenderHash(2204441813)
-            ->setGenderType(1)
-            ->setGenderName('Female')
-            ->setGenderDescription('')
-            ->setHash(2204441813)
-            ->setIndex(0);
-
-        $this->assertEquals($expected, $gender);
+        $this->assertEquals(2204441813, $gender->getGenderHash());
+        $this->assertEquals(1, $gender->getGenderType());
+        $this->assertEquals('Female', $gender->getGenderName());
+        $this->assertEquals('', $gender->getGenderDescription());
+        $this->assertEquals(2204441813, $gender->getHash());
+        $this->assertEquals(0, $gender->getIndex());
     }
 
     /**

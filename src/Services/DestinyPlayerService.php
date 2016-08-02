@@ -28,7 +28,7 @@ class DestinyPlayerService extends BaseService
 
         $player = $body['Response'][0];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\DestinyPlayer'))
+        $mapper = (new ArrayObjectMapper(DestinyPlayer::class))
             ->add('iconPath')
             ->add('membershipType')
             ->add('membershipId')

@@ -28,7 +28,7 @@ class PlaceService extends BaseService
 
         $place = $body['Response']['data']['place'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\Place'))
+        $mapper = (new ArrayObjectMapper(Place::class))
             ->add('placeHash')
             ->add('placeName')
             ->add('placeDescription')

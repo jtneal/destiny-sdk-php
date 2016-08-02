@@ -15,7 +15,7 @@ class ArrayObjectMapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallable()
     {
-        $mapper = new ArrayObjectMapper('Necowebs\Destiny\Models\DestinyPlayer');
+        $mapper = new ArrayObjectMapper(DestinyPlayer::class);
         $mapper->add('displayName', 'setDisplayName', function ($obj, $val) {
             return strtoupper($val);
         });
@@ -31,7 +31,7 @@ class ArrayObjectMapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testType()
     {
-        $mapper = new ArrayObjectMapper('Necowebs\Destiny\Models\DestinyPlayer');
+        $mapper = new ArrayObjectMapper(DestinyPlayer::class);
         $mapper->add('displayName', 'setDisplayName', 'string');
         $test = $mapper->map(['displayName' => 'Hochi_oD']);
 
@@ -45,8 +45,8 @@ class ArrayObjectMapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testClass()
     {
-        $mapper = new ArrayObjectMapper('Necowebs\Destiny\Models\DestinyPlayer');
-        $mapper->add('displayName', 'setDisplayName', 'Necowebs\Destiny\Utils\StringClass');
+        $mapper = new ArrayObjectMapper(DestinyPlayer::class);
+        $mapper->add('displayName', 'setDisplayName', StringClass::class);
         $test = $mapper->map(['displayName' => 'Hochi_oD']);
 
         $expected = (new DestinyPlayer())->setDisplayName('Hochi_oD');

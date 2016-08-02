@@ -21,7 +21,7 @@ class ProgressionTest extends \PHPUnit_Framework_TestCase
             ->setScope(1)
             ->setRepeatLastStep(false)
             ->setIdentifier('PROGRESSION_CHARACTER_LEVEL')
-            ->setSteps(new Collection('Necowebs\Destiny\Models\Manifest\ProgressionStep'))
+            ->setSteps(new Collection(ProgressionStep::class))
             ->setVisible(true)
             ->setHash(1716568313)
             ->setIndex(0);
@@ -31,7 +31,7 @@ class ProgressionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $progression->getScope());
         $this->assertEquals(false, $progression->getRepeatLastStep());
         $this->assertEquals('PROGRESSION_CHARACTER_LEVEL', $progression->getIdentifier());
-        $this->assertEquals(new Collection('Necowebs\Destiny\Models\Manifest\ProgressionStep'), $progression->getSteps());
+        $this->assertEquals(new Collection(ProgressionStep::class), $progression->getSteps());
         $this->assertEquals(true, $progression->getVisible());
         $this->assertEquals(1716568313, $progression->getHash());
         $this->assertEquals(0, $progression->getIndex());

@@ -13,7 +13,7 @@ class AcceptableValuesTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateValueValid()
     {
-        $mock = $this->getMockForTrait('Necowebs\Destiny\Models\Traits\AcceptableValues');
+        $mock = $this->getMockForTrait(AcceptableValues::class);
         $mock->setAcceptableValues(['one', 'two', 'three']);
         $mock->validateValue('two');
 
@@ -25,7 +25,7 @@ class AcceptableValuesTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateValueInvalid()
     {
-        $mock = $this->getMockForTrait('Necowebs\Destiny\Models\Traits\AcceptableValues');
+        $mock = $this->getMockForTrait(AcceptableValues::class);
         $mock->setAcceptableValues(['one', 'two', 'three']);
         $mock->validateValue('four');
 

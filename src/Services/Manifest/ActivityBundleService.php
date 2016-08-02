@@ -6,6 +6,7 @@ use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\ActivityBundle;
 use Necowebs\Destiny\Services\BaseService;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class ActivityBundleService
@@ -28,7 +29,7 @@ class ActivityBundleService extends BaseService
 
         $bundle = $body['Response']['data']['activityBundle'];
 
-        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\ActivityBundle'))
+        $mapper = (new ArrayObjectMapper(ActivityBundle::class))
             ->add('bundleHash')
             ->add('activityName')
             ->add('activityDescription')
@@ -38,7 +39,7 @@ class ActivityBundleService extends BaseService
             ->add('destinationHash')
             ->add('placeHash')
             ->add('activityTypeHash')
-            ->add('activityHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+            ->add('activityHashes', null, MapperHelper::class . '::mapArrayToInts')
             ->add('hash')
             ->add('index');
 
