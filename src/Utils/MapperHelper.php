@@ -107,4 +107,114 @@ class MapperHelper
         }
         return new Collection('Necowebs\Destiny\Models\Manifest\MaterialRequirementItem', $items);
     }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToTalentGridExclusiveSets($obj, array $val)
+    {
+        $sets = [];
+        foreach ($val as $set) {
+            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet'))
+                ->add('nodeIndexes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts');
+            $sets[] = $mapper->map($set);
+        }
+        return new Collection('Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet', $sets);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToTalentGridNodes($obj, array $val)
+    {
+        $nodes = [];
+        foreach ($val as $node) {
+            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\TalentGridNode'))
+                ->add('nodeIndex')
+                ->add('nodeHash')
+                ->add('row')
+                ->add('column')
+                ->add('prerequisiteNodeIndexes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+                ->add('binaryPairNodeIndex')
+                ->add('autoUnlocks')
+                ->add('lastStepRepeats')
+                ->add('isRandom')
+                ->add('randomActivationRequirement', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToTalentGridActivationRequirement')
+                ->add('isRandomRepurchasable')
+                ->add('steps', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToTalentGridSteps')
+                ->add('exlusiveWithNodes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+                ->add('randomStartProgressionBarAtProgression')
+                ->add('originalNodeHash');
+            $nodes[] = $mapper->map($node);
+        }
+        return new Collection('Necowebs\Destiny\Models\Manifest\TalentGridNode', $nodes);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToTalentGridSteps($obj, array $val)
+    {
+        $steps = [];
+        foreach ($val as $step) {
+            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\TalentGridStep'))
+                ->add('stepIndex')
+                ->add('nodeStepHash')
+                ->add('nodeStepName')
+                ->add('nodeStepDescription')
+                ->add('interactionDescription')
+                ->add('icon')
+                ->add('damageType')
+                ->add('damageTypeHash')
+                ->add('activationRequirement', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToTalentGridActivationRequirement')
+                ->add('canActivateNextStep')
+                ->add('nextStepIndex')
+                ->add('isNextStepRandom')
+                ->add('perkHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+                ->add('startProgressionBarAtProgress')
+                ->add('statHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+                ->add('affectsQuality')
+                ->add('stepGroups', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToSandboxPerkGroup')
+                ->add('trueStepIndex')
+                ->add('truePropertyIndex')
+                ->add('affectsLevel');
+            $steps[] = $mapper->map($step);
+        }
+        return new Collection('Necowebs\Destiny\Models\Manifest\TalentGridStep', $steps);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToTalentGridActivationRequirement($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\TalentGridActivationRequirement'))
+            ->add('gridLevel')
+            ->add('materialRequirementHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToSandboxPerkGroup($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\SandboxPerkGroup'))
+            ->add('weaponPerformance')
+            ->add('impactEffects')
+            ->add('guardianAttributes')
+            ->add('lightAbilities')
+            ->add('damageTypes');
+        return $mapper->map($val);
+    }
 }

@@ -34,15 +34,7 @@ class SandboxPerkService extends BaseService
             ->add('displayDescription')
             ->add('displayIcon')
             ->add('isDisplayable')
-            ->add('perkGroups', null, function ($obj, $val) {
-                $groupMapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\SandboxPerkGroup'))
-                    ->add('weaponPerformance')
-                    ->add('impactEffects')
-                    ->add('guardianAttributes')
-                    ->add('lightAbilities')
-                    ->add('damageTypes');
-                return $groupMapper->map($val);
-            })
+            ->add('perkGroups', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToSandboxPerkGroup')
             ->add('hash')
             ->add('index');
 
