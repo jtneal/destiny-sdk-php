@@ -94,6 +94,16 @@ class MapperHelper
      * @param array $val
      * @return Collection
      */
+    public static function mapArrayToStrings($obj, array $val)
+    {
+        return new Collection('string', $val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
     public static function mapArrayToMaterialRequirementItems($obj, array $val)
     {
         $items = [];
@@ -216,5 +226,76 @@ class MapperHelper
             ->add('lightAbilities')
             ->add('damageTypes');
         return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToVendorSummary($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\VendorSummary'))
+            ->add('vendorHash')
+            ->add('vendorName')
+            ->add('vendorDescription')
+            ->add('vendorIcon')
+            ->add('vendorOrder')
+            ->add('factionName')
+            ->add('factionIcon')
+            ->add('factionHash')
+            ->add('factionDescription')
+            ->add('resetIntervalMinutes')
+            ->add('resetOffsetMinutes')
+            ->add('vendorIdentifier')
+            ->add('positionX')
+            ->add('positionY')
+            ->add('transitionNodeIdentifier')
+            ->add('visible')
+            ->add('progressionHash')
+            ->add('sellString')
+            ->add('buyString')
+            ->add('vendorPortrait')
+            ->add('vendorBanner')
+            ->add('unlockFlagHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+            ->add('enabledUnlockFlagHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+            ->add('mapSectionIdentifier')
+            ->add('mapSectionName')
+            ->add('mapSectionOrder')
+            ->add('showOnMap')
+            ->add('eventHash')
+            ->add('vendorCategoryHash')
+            ->add('vendorCategoryHashes', null, 'Necowebs\Destiny\Utils\MapperHelper::mapArrayToInts')
+            ->add('vendorSubcategoryHash')
+            ->add('inhibitBuying');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToVendorCategories($obj, array $val)
+    {
+        $categories = [];
+        foreach ($val as $step) {
+            $mapper = (new ArrayObjectMapper('Necowebs\Destiny\Models\Manifest\VendorCategory'))
+                ->add('categoryHash')
+                ->add('displayTitle')
+                ->add('overlayCurrencyItemHash')
+                ->add('quantityAvailable')
+                ->add('showUnavailableItems')
+                ->add('hideIfNoCurrency')
+                ->add('buyStringOverride')
+                ->add('overlayTitle')
+                ->add('overlayDescription')
+                ->add('overlayChoice')
+                ->add('overlayIcon')
+                ->add('hasOverlay')
+                ->add('hideFromRegularPurchase');
+            $categories[] = $mapper->map($step);
+        }
+        return new Collection('Necowebs\Destiny\Models\Manifest\VendorCategory', $categories);
     }
 }

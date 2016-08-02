@@ -13,6 +13,8 @@ use Necowebs\Destiny\Models\Manifest\TalentGridActivationRequirement;
 use Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet;
 use Necowebs\Destiny\Models\Manifest\TalentGridNode;
 use Necowebs\Destiny\Models\Manifest\TalentGridStep;
+use Necowebs\Destiny\Models\Manifest\VendorCategory;
+use Necowebs\Destiny\Models\Manifest\VendorSummary;
 
 /**
  * Class MapperHelperTest
@@ -198,6 +200,30 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
         $expected = new Collection('int', []);
 
         $this->assertEquals($expected, $ints);
+    }
+
+    /**
+     * Test Map Array To Strings
+     */
+    public function testMapArrayToStrings()
+    {
+        $strings = MapperHelper::mapArrayToStrings(null, ['one', 'two', 'three', 'four']);
+
+        $expected = new Collection('string', ['one', 'two', 'three', 'four']);
+
+        $this->assertEquals($expected, $strings);
+    }
+
+    /**
+     * Test Map Empty Array To Strings
+     */
+    public function testMapEmptyArrayToStrings()
+    {
+        $strings = MapperHelper::mapArrayToStrings(null, []);
+
+        $expected = new Collection('string', []);
+
+        $this->assertEquals($expected, $strings);
     }
 
     /**
@@ -475,5 +501,178 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
         $expected = new SandboxPerkGroup();
 
         $this->assertEquals($expected, $group);
+    }
+
+    /**
+     * Test Map Array To Vendor Summary
+     */
+    public function testMapArrayToVendorSummary()
+    {
+        $summary = MapperHelper::mapArrayToVendorSummary(null, [
+            'vendorHash' => 1575820975,
+            'vendorName' => 'Warlock Vanguard',
+            'vendorDescription' => 'Respected among all Orders, Ikora Rey tutors new Warlocks with a lifetime of hard-earned knowledge.',
+            'vendorIcon' => '/common/destiny_content/icons/627c0986dd67898d292e9da6414d6d2e.png',
+            'vendorOrder' => 90,
+            'factionName' => 'Vanguard Reputation',
+            'factionIcon' => '/common/destiny_content/icons/be454db6edaa4900c9f154909a2fd174.png',
+            'factionHash' => 468098704,
+            'factionDescription' => 'Complete Vanguard Bounties to unlock powerful gear for purchase.\n\nAchieve high Rank to earn rewards.',
+            'resetIntervalMinutes' => 180,
+            'resetOffsetMinutes' => 32640,
+            'vendorIdentifier' => 'VENDOR_WARLOCK_MENTOR',
+            'positionX' => 1116,
+            'positionY' => 367,
+            'transitionNodeIdentifier' => 'TOWER_NODE',
+            'visible' => true,
+            'progressionHash' => 3233510749,
+            'sellString' => 'Acquire',
+            'buyString' => 'Acquire',
+            'vendorPortrait' => '/img/destiny_content/vendor/bbffb19be8ea4c18b2d5e68a4ba305bc.png',
+            'vendorBanner' => '/img/destiny_content/vendor/VendorBanner.png',
+            'unlockFlagHashes' => [],
+            'enabledUnlockFlagHashes' => [2678892537],
+            'mapSectionIdentifier' => 'VANGUARD',
+            'mapSectionName' => 'Vanguard',
+            'mapSectionOrder' => 2,
+            'showOnMap' => true,
+            'eventHash' => 0,
+            'vendorCategoryHash' => 2,
+            'vendorCategoryHashes' => [2],
+            'vendorSubcategoryHash' => 300,
+            'inhibitBuying' => false
+        ]);
+
+        $expected = (new VendorSummary())
+            ->setVendorHash(1575820975)
+            ->setVendorName('Warlock Vanguard')
+            ->setVendorDescription('Respected among all Orders, Ikora Rey tutors new Warlocks with a lifetime of hard-earned knowledge.')
+            ->setVendorIcon('/common/destiny_content/icons/627c0986dd67898d292e9da6414d6d2e.png')
+            ->setVendorOrder(90)
+            ->setFactionName('Vanguard Reputation')
+            ->setFactionIcon('/common/destiny_content/icons/be454db6edaa4900c9f154909a2fd174.png')
+            ->setFactionHash(468098704)
+            ->setFactionDescription('Complete Vanguard Bounties to unlock powerful gear for purchase.\n\nAchieve high Rank to earn rewards.')
+            ->setResetIntervalMinutes(180)
+            ->setResetOffsetMinutes(32640)
+            ->setVendorIdentifier('VENDOR_WARLOCK_MENTOR')
+            ->setPositionX(1116)
+            ->setPositionY(367)
+            ->setTransitionNodeIdentifier('TOWER_NODE')
+            ->setVisible(true)
+            ->setProgressionHash(3233510749)
+            ->setSellString('Acquire')
+            ->setBuyString('Acquire')
+            ->setVendorPortrait('/img/destiny_content/vendor/bbffb19be8ea4c18b2d5e68a4ba305bc.png')
+            ->setVendorBanner('/img/destiny_content/vendor/VendorBanner.png')
+            ->setUnlockFlagHashes(new Collection('int'))
+            ->setEnabledUnlockFlagHashes(new Collection('int', [2678892537]))
+            ->setMapSectionIdentifier('VANGUARD')
+            ->setMapSectionName('Vanguard')
+            ->setMapSectionOrder(2)
+            ->setShowOnMap(true)
+            ->setEventHash(0)
+            ->setVendorCategoryHash(2)
+            ->setVendorCategoryHashes(new Collection('int', [2]))
+            ->setVendorSubcategoryHash(300)
+            ->setInhibitBuying(false);
+
+        $this->assertEquals($expected, $summary);
+    }
+
+    /**
+     * Test Map Empty Array To Vendor Summary
+     */
+    public function testMapEmptyArrayToVendorSummary()
+    {
+        $summary = MapperHelper::mapArrayToVendorSummary(null, []);
+
+        $expected = new VendorSummary();
+
+        $this->assertEquals($expected, $summary);
+    }
+
+    /**
+     * Test Map Array To Vendor Categories
+     */
+    public function testMapArrayToVendorCategories()
+    {
+        $categories = MapperHelper::mapArrayToVendorCategories(null, [
+            [
+                'categoryHash' => 3788886265,
+                'displayTitle' => 'Mission Reward',
+                'overlayCurrencyItemHash' => 4187908026,
+                'quantityAvailable' => 0,
+                'showUnavailableItems' => false,
+                'hideIfNoCurrency' => true,
+                'buyStringOverride' => 'Select',
+                'overlayTitle' => 'Mission Reward',
+                'overlayDescription' => 'Your renown grows. The city factions have been asking for you by name.',
+                'overlayChoice' => 'Select a reward:',
+                'overlayIcon' => '/img/misc/missing_icon.png',
+                'hasOverlay' => true,
+                'hideFromRegularPurchase' => false
+            ],
+            [
+                'categoryHash' => 3788886266,
+                'displayTitle' => 'Factions of the City',
+                'overlayCurrencyItemHash' => 4187908025,
+                'quantityAvailable' => 0,
+                'showUnavailableItems' => false,
+                'hideIfNoCurrency' => true,
+                'buyStringOverride' => 'Accept',
+                'overlayTitle' => 'Factions of the City',
+                'overlayDescription' => 'You met the full force of the Vex - and you turned them back. Incredible.',
+                'overlayChoice' => 'Accept gift:',
+                'overlayIcon' => '/img/misc/missing_icon.png',
+                'hasOverlay' => true,
+                'hideFromRegularPurchase' => false
+            ]
+        ]);
+
+        $expected = new Collection('Necowebs\Destiny\Models\Manifest\VendorCategory', [
+            (new VendorCategory())
+                ->setCategoryHash(3788886265)
+                ->setDisplayTitle('Mission Reward')
+                ->setOverlayCurrencyItemHash(4187908026)
+                ->setQuantityAvailable(0)
+                ->setShowUnavailableItems(false)
+                ->setHideIfNoCurrency(true)
+                ->setBuyStringOverride('Select')
+                ->setOverlayTitle('Mission Reward')
+                ->setOverlayDescription('Your renown grows. The city factions have been asking for you by name.')
+                ->setOverlayChoice('Select a reward:')
+                ->setOverlayIcon('/img/misc/missing_icon.png')
+                ->setHasOverlay(true)
+                ->setHideFromRegularPurchase(false),
+            (new VendorCategory())
+                ->setCategoryHash(3788886266)
+                ->setDisplayTitle('Factions of the City')
+                ->setOverlayCurrencyItemHash(4187908025)
+                ->setQuantityAvailable(0)
+                ->setShowUnavailableItems(false)
+                ->setHideIfNoCurrency(true)
+                ->setBuyStringOverride('Accept')
+                ->setOverlayTitle('Factions of the City')
+                ->setOverlayDescription('You met the full force of the Vex - and you turned them back. Incredible.')
+                ->setOverlayChoice('Accept gift:')
+                ->setOverlayIcon('/img/misc/missing_icon.png')
+                ->setHasOverlay(true)
+                ->setHideFromRegularPurchase(false)
+        ]);
+
+        $this->assertEquals($expected, $categories);
+    }
+
+    /**
+     * Test Map Empty Array To Vendor Categories
+     */
+    public function testMapEmptyArrayToVendorCategories()
+    {
+        $categories = MapperHelper::mapArrayToVendorCategories(null, []);
+
+        $expected = new Collection('Necowebs\Destiny\Models\Manifest\VendorCategory', []);
+
+        $this->assertEquals($expected, $categories);
     }
 }
