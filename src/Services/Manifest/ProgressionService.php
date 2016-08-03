@@ -36,7 +36,7 @@ class ProgressionService extends BaseService
             ->add('scope')
             ->add('repeatLastStep')
             ->add('identifier')
-            ->add('steps', 'setSteps', MapperHelper::class . '::mapArrayToProgressionSteps')
+            ->add('steps', null, MapperHelper::class . '::mapArrayToProgressionSteps')
             ->add('visible')
             ->add('hash')
             ->add('index');

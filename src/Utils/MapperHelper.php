@@ -8,12 +8,20 @@ use Necowebs\Destiny\Models\Manifest\DirectorBookExpression;
 use Necowebs\Destiny\Models\Manifest\DirectorBookExpressionStep;
 use Necowebs\Destiny\Models\Manifest\DirectorBookNode;
 use Necowebs\Destiny\Models\Manifest\DirectorBookNodeState;
+use Necowebs\Destiny\Models\Manifest\InventoryItemDye;
+use Necowebs\Destiny\Models\Manifest\InventoryItemEquippingBlock;
+use Necowebs\Destiny\Models\Manifest\InventoryItemEquippingBlockArrangement;
+use Necowebs\Destiny\Models\Manifest\InventoryItemSource;
+use Necowebs\Destiny\Models\Manifest\InventoryItemStat;
 use Necowebs\Destiny\Models\Manifest\MaterialRequirementItem;
 use Necowebs\Destiny\Models\Manifest\ProgressionStep;
 use Necowebs\Destiny\Models\Manifest\Reward;
 use Necowebs\Destiny\Models\Manifest\RewardItem;
 use Necowebs\Destiny\Models\Manifest\SandboxPerkGroup;
 use Necowebs\Destiny\Models\Manifest\Skull;
+use Necowebs\Destiny\Models\Manifest\StatGroupOverride;
+use Necowebs\Destiny\Models\Manifest\StatGroupScaledStat;
+use Necowebs\Destiny\Models\Manifest\StatGroupScaledStatInterpolation;
 use Necowebs\Destiny\Models\Manifest\TalentGridActivationRequirement;
 use Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet;
 use Necowebs\Destiny\Models\Manifest\TalentGridNode;
@@ -401,5 +409,157 @@ class MapperHelper
             $steps[] = $mapper->map($step);
         }
         return new Collection(DirectorBookExpressionStep::class, $steps);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToInventoryItemStats($obj, array $val)
+    {
+        $stats = [];
+        foreach ($val as $stat) {
+            $mapper = (new ArrayObjectMapper(InventoryItemStat::class))
+                ->add('statHash')
+                ->add('value')
+                ->add('minimum')
+                ->add('maximum');
+            $stats[] = $mapper->map($stat);
+        }
+        return new Collection(InventoryItemStat::class, $stats);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToInventoryItemEquippingBlock($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(InventoryItemEquippingBlock::class))
+            ->add('weaponSandboxPatternIndex')
+            ->add('gearArtArrangementIndex')
+            ->add('defaultDyes', null, self::class . '::mapArrayToInventoryItemDyes')
+            ->add('lockedDyes', null, self::class . '::mapArrayToInventoryItemDyes')
+            ->add('customDyes', null, self::class . '::mapArrayToInventoryItemDyes')
+            ->add('customDyeExpression', null, self::class . '::mapArrayToDirectorBookExpression')
+            ->add('weaponPatternHash')
+            ->add('arrangements', null, self::class . '::mapArrayToInventoryItemEquippingBlockArrangements');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToInventoryItemDyes($obj, array $val)
+    {
+        $dyes = [];
+        foreach ($val as $dye) {
+            $mapper = (new ArrayObjectMapper(InventoryItemDye::class))
+                ->add('channelHash')
+                ->add('dyeHash');
+            $dyes[] = $mapper->map($dye);
+        }
+        return new Collection(InventoryItemDye::class, $dyes);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToInventoryItemEquippingBlockArrangements($obj, array $val)
+    {
+        $arrangements = [];
+        foreach ($val as $arrangement) {
+            $mapper = (new ArrayObjectMapper(InventoryItemEquippingBlockArrangement::class))
+                ->add('classHash')
+                ->add('gearArtArrangementIndex');
+            $arrangements[] = $mapper->map($arrangement);
+        }
+        return new Collection(InventoryItemEquippingBlockArrangement::class, $arrangements);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToInventoryItemSources($obj, array $val)
+    {
+        $sources = [];
+        foreach ($val as $source) {
+            $mapper = (new ArrayObjectMapper(InventoryItemSource::class))
+                ->add('expansionIndex')
+                ->add('level')
+                ->add('minQuality')
+                ->add('maxQuality')
+                ->add('minLevelRequired')
+                ->add('maxLevelRequired')
+                ->add('exclusivity')
+                ->add('computedStats', null, self::class . '::mapArrayToInventoryItemStats')
+                ->add('sourceHashes', null, self::class . '::mapArrayToInts')
+                ->add('spawnIndexes', null, self::class . '::mapArrayToInts');
+            $sources[] = $mapper->map($source);
+        }
+        return new Collection(InventoryItemSource::class, $sources);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToStatGroupScaledStats($obj, array $val)
+    {
+        $stats = [];
+        foreach ($val as $stat) {
+            $mapper = (new ArrayObjectMapper(StatGroupScaledStat::class))
+                ->add('statHash')
+                ->add('maximumValue')
+                ->add('displayAsNumeric')
+                ->add('displayInterpolation', null, self::class . '::mapArrayToStatGroupScaledStatInterpolations');
+            $stats[] = $mapper->map($stat);
+        }
+        return new Collection(StatGroupScaledStat::class, $stats);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToStatGroupScaledStatInterpolations($obj, array $val)
+    {
+        $interpolations = [];
+        foreach ($val as $interpolation) {
+            $mapper = (new ArrayObjectMapper(StatGroupScaledStatInterpolation::class))
+                ->add('value')
+                ->add('weight');
+            $interpolations[] = $mapper->map($interpolation);
+        }
+        return new Collection(StatGroupScaledStatInterpolation::class, $interpolations);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToStatGroupOverrides($obj, array $val)
+    {
+        $overrides = [];
+        foreach ($val as $override) {
+            $mapper = (new ArrayObjectMapper(StatGroupOverride::class))
+                ->add('statHash')
+                ->add('displayName')
+                ->add('displayDescription')
+                ->add('displayIcon');
+            $overrides[] = $mapper->map($override);
+        }
+        return new Collection(StatGroupOverride::class, $overrides);
     }
 }

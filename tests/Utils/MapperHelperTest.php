@@ -8,12 +8,21 @@ use Necowebs\Destiny\Models\Manifest\DirectorBookExpression;
 use Necowebs\Destiny\Models\Manifest\DirectorBookExpressionStep;
 use Necowebs\Destiny\Models\Manifest\DirectorBookNode;
 use Necowebs\Destiny\Models\Manifest\DirectorBookNodeState;
+use Necowebs\Destiny\Models\Manifest\InventoryItem;
+use Necowebs\Destiny\Models\Manifest\InventoryItemDye;
+use Necowebs\Destiny\Models\Manifest\InventoryItemEquippingBlock;
+use Necowebs\Destiny\Models\Manifest\InventoryItemEquippingBlockArrangement;
+use Necowebs\Destiny\Models\Manifest\InventoryItemSource;
+use Necowebs\Destiny\Models\Manifest\InventoryItemStat;
 use Necowebs\Destiny\Models\Manifest\MaterialRequirementItem;
 use Necowebs\Destiny\Models\Manifest\ProgressionStep;
 use Necowebs\Destiny\Models\Manifest\Reward;
 use Necowebs\Destiny\Models\Manifest\RewardItem;
 use Necowebs\Destiny\Models\Manifest\SandboxPerkGroup;
 use Necowebs\Destiny\Models\Manifest\Skull;
+use Necowebs\Destiny\Models\Manifest\StatGroupOverride;
+use Necowebs\Destiny\Models\Manifest\StatGroupScaledStat;
+use Necowebs\Destiny\Models\Manifest\StatGroupScaledStatInterpolation;
 use Necowebs\Destiny\Models\Manifest\TalentGridActivationRequirement;
 use Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet;
 use Necowebs\Destiny\Models\Manifest\TalentGridNode;
@@ -648,8 +657,8 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Map Array To Director Book Expression Steps
-     */
+ * Test Map Array To Director Book Expression Steps
+ */
     public function testMapArrayToDirectorBookExpressionSteps()
     {
         $steps = MapperHelper::mapArrayToDirectorBookExpressionSteps(null, [
@@ -681,5 +690,355 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertEquals($expected, $steps);
+    }
+
+    /**
+     * Test Map Array To Inventory Item Stats
+     */
+    public function testMapArrayToInventoryItemStats()
+    {
+        $stats = MapperHelper::mapArrayToInventoryItemStats(null, [
+            '155624089' => [
+                'statHash' => 155624089,
+                'value' => 53,
+                'minimum' => 53,
+                'maximum' => 68
+            ],
+            '368428387' => [
+                'statHash' => 368428387,
+                'value' => 155,
+                'minimum' => 135,
+                'maximum' => 155
+            ]
+        ]);
+
+        $expected = new Collection(InventoryItemStat::class, [
+            (new InventoryItemStat())
+                ->setStatHash(155624089)
+                ->setValue(53)
+                ->setMinimum(53)
+                ->setMaximum(68),
+            (new InventoryItemStat())
+                ->setStatHash(368428387)
+                ->setValue(155)
+                ->setMinimum(135)
+                ->setMaximum(155)
+        ]);
+
+        $this->assertEquals($expected, $stats);
+    }
+
+    /**
+     * Test Map Array To Inventory Item Equipping Block
+     */
+    public function testMapArrayToInventoryItemEquippingBlock()
+    {
+        $stats = MapperHelper::mapArrayToInventoryItemEquippingBlock(null, [
+            'weaponSandboxPatternIndex' => 39,
+            'gearArtArrangementIndex' => 1229,
+            'defaultDyes' => [
+                [
+                    'channelHash' => 1667433271,
+                    'dyeHash' => 2215029961
+                ],
+                [
+                    'channelHash' => 1667433272,
+                    'dyeHash' => 2215029962
+                ]
+            ],
+            'lockedDyes' => [
+                [
+                    'channelHash' => 1667433273,
+                    'dyeHash' => 2215029963
+                ],
+                [
+                    'channelHash' => 1667433274,
+                    'dyeHash' => 2215029964
+                ]
+            ],
+            'customDyes' => [
+                [
+                    'channelHash' => 1667433275,
+                    'dyeHash' => 2215029965
+                ],
+                [
+                    'channelHash' => 1667433276,
+                    'dyeHash' => 2215029966
+                ]
+            ],
+            'customDyeExpression' => [
+                'steps' => [
+                    [
+                        'stepOperator' => 1,
+                        'flagHash' => 1680320212,
+                        'valueHash' => 0,
+                        'value' => 2313
+                    ]
+                ]
+            ],
+            'weaponPatternHash' => 2786088834,
+            'arrangements' => [
+                [
+                    'classHash' => 0,
+                    'gearArtArrangementIndex' => 1229
+                ]
+            ]
+        ]);
+
+        $expected = (new InventoryItemEquippingBlock())
+            ->setWeaponSandboxPatternIndex(39)
+            ->setGearArtArrangementIndex(1229)
+            ->setDefaultDyes(new Collection(InventoryItemDye::class, [
+                (new InventoryItemDye())->setChannelHash(1667433271)->setDyeHash(2215029961),
+                (new InventoryItemDye())->setChannelHash(1667433272)->setDyeHash(2215029962)
+            ]))
+            ->setLockedDyes(new Collection(InventoryItemDye::class, [
+                (new InventoryItemDye())->setChannelHash(1667433273)->setDyeHash(2215029963),
+                (new InventoryItemDye())->setChannelHash(1667433274)->setDyeHash(2215029964)
+            ]))
+            ->setCustomDyes(new Collection(InventoryItemDye::class, [
+                (new InventoryItemDye())->setChannelHash(1667433275)->setDyeHash(2215029965),
+                (new InventoryItemDye())->setChannelHash(1667433276)->setDyeHash(2215029966)
+            ]))
+            ->setCustomDyeExpression((new DirectorBookExpression())
+                ->setSteps(new Collection(DirectorBookExpressionStep::class, [
+                    (new DirectorBookExpressionStep())
+                        ->setStepOperator(1)
+                        ->setFlagHash(1680320212)
+                        ->setValueHash(0)
+                        ->setValue(2313)
+                ]))
+            )
+            ->setWeaponPatternHash(2786088834)
+            ->setArrangements(new Collection(InventoryItemEquippingBlockArrangement::class, [
+                (new InventoryItemEquippingBlockArrangement())
+                    ->setClassHash(0)
+                    ->setGearArtArrangementIndex(1229)
+            ]));
+
+
+        $this->assertEquals($expected, $stats);
+    }
+
+    /**
+     * Test Map Array To Inventory Item Dyes
+     */
+    public function testMapArrayToInventoryItemDyes()
+    {
+        $dyes = MapperHelper::mapArrayToInventoryItemDyes(null, [
+            [
+                'channelHash' => 218592586,
+                'dyeHash' => 310687106
+            ],
+            [
+                'channelHash' => 218592587,
+                'dyeHash' => 310687107
+            ]
+        ]);
+
+        $expected = new Collection(InventoryItemDye::class, [
+            (new InventoryItemDye())
+                ->setChannelHash(218592586)
+                ->setDyeHash(310687106),
+            (new InventoryItemDye())
+                ->setChannelHash(218592587)
+                ->setDyeHash(310687107)
+        ]);
+
+        $this->assertEquals($expected, $dyes);
+    }
+
+    /**
+     * Test Map Array To Inventory Item Equipping Block Arrangements
+     */
+    public function testMapArrayToInventoryItemEquippingBlockArrangements()
+    {
+        $arrangements = MapperHelper::mapArrayToInventoryItemEquippingBlockArrangements(null, [
+            [
+                'classHash' => 0,
+                'gearArtArrangementIndex' => 2983
+            ]
+        ]);
+
+        $expected = new Collection(InventoryItemEquippingBlockArrangement::class, [
+            (new InventoryItemEquippingBlockArrangement())
+                ->setClassHash(0)
+                ->setGearArtArrangementIndex(2983)
+        ]);
+
+        $this->assertEquals($expected, $arrangements);
+    }
+
+    /**
+ * Test Map Array To Inventory Item Sources
+ */
+    public function testMapArrayToInventoryItemSources()
+    {
+        $sources = MapperHelper::mapArrayToInventoryItemSources(null, [
+            [
+                'expansionIndex' => 0,
+                'level' => 50,
+                'minQuality' => 0,
+                'maxQuality' => 35,
+                'minLevelRequired' => 40,
+                'maxLevelRequired' => 40,
+                'exclusivity' => 0,
+                'computedStats' => [
+                    '144602215' => [
+                        'statHash' => 144602215,
+                        'value' => 30,
+                        'minimum' => 30,
+                        'maximum' => 60
+                    ],
+                    '1735777505' => [
+                        'statHash' => 1735777505,
+                        'value' => 30,
+                        'minimum' => 60,
+                        'maximum' => 60
+                    ]
+                ],
+                'sourceHashes' => [1882189853, 460228854],
+                'spawnIndexes' => [0, 1, 2, 3, 4, 5]
+            ]
+        ]);
+
+        $expected = new Collection(InventoryItemSource::class, [
+            (new InventoryItemSource())
+                ->setExpansionIndex(0)
+                ->setLevel(50)
+                ->setMinQuality(0)
+                ->setMaxQuality(35)
+                ->setMinLevelRequired(40)
+                ->setMaxLevelRequired(40)
+                ->setExclusivity(0)
+                ->setComputedStats(new Collection(InventoryItemStat::class, [
+                    (new InventoryItemStat())->setStatHash(144602215)->setValue(30)->setMinimum(30)->setMaximum(60),
+                    (new InventoryItemStat())->setStatHash(1735777505)->setValue(30)->setMinimum(60)->setMaximum(60)
+                ]))
+                ->setSourceHashes(new Collection('int', [1882189853, 460228854]))
+                ->setSpawnIndexes(new Collection('int', [0, 1, 2, 3, 4, 5]))
+        ]);
+
+        $this->assertEquals($expected, $sources);
+    }
+
+    /**
+     * Test Map Array To Stat Group Scaled Stats
+     */
+    public function testMapArrayToStatGroupScaledStats()
+    {
+        $stats = MapperHelper::mapArrayToStatGroupScaledStats(null, [
+            [
+                'statHash' => 392767087,
+                'maximumValue' => 11,
+                'displayAsNumeric' => false,
+                'displayInterpolation' => [
+                    [
+                        'value' => 0,
+                        'weight' => 0
+                    ],
+                    [
+                        'value' => 100,
+                        'weight' => 100
+                    ]
+                ]
+            ],
+            [
+                'statHash' => 1943323491,
+                'maximumValue' => 11,
+                'displayAsNumeric' => false,
+                'displayInterpolation' => [
+                    [
+                        'value' => 0,
+                        'weight' => 0
+                    ],
+                    [
+                        'value' => 100,
+                        'weight' => 100
+                    ]
+                ]
+            ]
+        ]);
+
+        $expected = new Collection(StatGroupScaledStat::class, [
+            (new StatGroupScaledStat())
+                ->setStatHash(392767087)
+                ->setMaximumValue(11)
+                ->setDisplayAsNumeric(false)
+                ->setDisplayInterpolation(new Collection(StatGroupScaledStatInterpolation::class, [
+                    (new StatGroupScaledStatInterpolation())->setValue(0)->setWeight(0),
+                    (new StatGroupScaledStatInterpolation())->setValue(100)->setWeight(100)
+                ])),
+            (new StatGroupScaledStat())
+                ->setStatHash(1943323491)
+                ->setMaximumValue(11)
+                ->setDisplayAsNumeric(false)
+                ->setDisplayInterpolation(new Collection(StatGroupScaledStatInterpolation::class, [
+                    (new StatGroupScaledStatInterpolation())->setValue(0)->setWeight(0),
+                    (new StatGroupScaledStatInterpolation())->setValue(100)->setWeight(100)
+                ]))
+        ]);
+
+        $this->assertEquals($expected, $stats);
+    }
+
+    /**
+     * Test Map Array To Stat Group Scaled Stat Interpolations
+     */
+    public function testMapArrayToStatGroupScaledStatInterpolations()
+    {
+        $interpolations = MapperHelper::mapArrayToStatGroupScaledStatInterpolations(null, [
+            [
+                'value' => 0,
+                'weight' => 0
+            ],
+            [
+                'value' => 100,
+                'weight' => 100
+            ]
+        ]);
+
+        $expected = new Collection(StatGroupScaledStatInterpolation::class, [
+            (new StatGroupScaledStatInterpolation())->setValue(0)->setWeight(0),
+            (new StatGroupScaledStatInterpolation())->setValue(100)->setWeight(100)
+        ]);
+
+        $this->assertEquals($expected, $interpolations);
+    }
+
+    /**
+     * Test Map Array To Stat Group Overrides
+     */
+    public function testMapArrayToStatGroupOverrides()
+    {
+        $overrides = MapperHelper::mapArrayToStatGroupOverrides(null, [
+            '144602215' => [
+                'statHash' => 144602215,
+                'displayName' => '',
+                'displayDescription' => '',
+                'displayIcon' => '/img/misc/missing_icon.png'
+            ],
+            '1735777505' => [
+                'statHash' => 1735777505,
+                'displayName' => '',
+                'displayDescription' => '',
+                'displayIcon' => '/img/misc/missing_icon.png'
+            ]
+        ]);
+
+        $expected = new Collection(StatGroupOverride::class, [
+            (new StatGroupOverride())
+                ->setStatHash(144602215)
+                ->setDisplayName('')
+                ->setDisplayDescription('')
+                ->setDisplayIcon('/img/misc/missing_icon.png'),
+            (new StatGroupOverride())
+                ->setStatHash(1735777505)
+                ->setDisplayName('')
+                ->setDisplayDescription('')
+                ->setDisplayIcon('/img/misc/missing_icon.png')
+        ]);
+
+        $this->assertEquals($expected, $overrides);
     }
 }
