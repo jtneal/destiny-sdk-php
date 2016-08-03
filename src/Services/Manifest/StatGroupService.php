@@ -27,7 +27,7 @@ class StatGroupService extends BaseService
             throw new ManifestObjectNotFoundException;
         }
 
-        $group = $body['Response']['data']['stat'];
+        $group = $body['Response']['data']['statGroup'];
 
         $mapper = (new ArrayObjectMapper(StatGroup::class))
             ->add('statGroupHash')
