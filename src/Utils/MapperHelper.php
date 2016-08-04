@@ -3,6 +3,16 @@
 namespace Necowebs\Destiny\Utils;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Account\SummaryCharacter;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBase;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBaseCustomization;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBasePeerView;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBasePeerViewEquipment;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBaseStat;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBaseStats;
+use Necowebs\Destiny\Models\Account\SummaryCharacterLevelProgression;
+use Necowebs\Destiny\Models\Account\SummaryInventory;
+use Necowebs\Destiny\Models\Account\SummaryInventoryCurrency;
 use Necowebs\Destiny\Models\Manifest\DirectorBookConnection;
 use Necowebs\Destiny\Models\Manifest\DirectorBookExpression;
 use Necowebs\Destiny\Models\Manifest\DirectorBookExpressionStep;
@@ -561,5 +571,198 @@ class MapperHelper
             $overrides[] = $mapper->map($override);
         }
         return new Collection(StatGroupOverride::class, $overrides);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToSummaryCharacters($obj, array $val)
+    {
+        $currencies = [];
+        foreach ($val as $currency) {
+            $mapper = (new ArrayObjectMapper(SummaryCharacter::class))
+                ->add('characterBase', null, self::class . '::mapArrayToSummaryCharacterBase')
+                ->add('levelProgression', null, self::class . '::mapArrayToSummaryCharacterLevelProgression')
+                ->add('emblemPath')
+                ->add('backgroundPath')
+                ->add('emblemHash')
+                ->add('characterLevel')
+                ->add('baseCharacterLevel')
+                ->add('isPrestigeLevel')
+                ->add('percentToNextLevel');
+            $currencies[] = $mapper->map($currency);
+        }
+        return new Collection(SummaryCharacter::class, $currencies);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToSummaryCharacterBase($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(SummaryCharacterBase::class))
+            ->add('membershipId')
+            ->add('membershipType')
+            ->add('characterId')
+            ->add('dateLastPlayed')
+            ->add('minutesPlayedThisSession')
+            ->add('minutesPlayedTotal')
+            ->add('powerLevel')
+            ->add('raceHash')
+            ->add('genderHash')
+            ->add('classHash')
+            ->add('currentActivityHash')
+            ->add('lastCompletedStoryHash')
+            ->add('stats', null, self::class . '::mapArrayToSummaryCharacterBaseStats')
+            ->add('customization', null, self::class . '::mapArrayToSummaryCharacterBaseCustomization')
+            ->add('grimoireScore')
+            ->add('peerView', null, self::class . '::mapArrayToSummaryCharacterBasePeerView')
+            ->add('genderType')
+            ->add('classType')
+            ->add('buildStatGroupHash');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToSummaryCharacterBaseStats($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(SummaryCharacterBaseStats::class))
+            ->add('STAT_DEFENSE', 'setDefense', self::class . '::mapArrayToSummaryCharacterBaseStat')
+            ->add('STAT_INTELLECT', 'setIntellect', self::class . '::mapArrayToSummaryCharacterBaseStat')
+            ->add('STAT_DISCIPLINE', 'setDiscipline', self::class . '::mapArrayToSummaryCharacterBaseStat')
+            ->add('STAT_STRENGTH', 'setStrength', self::class . '::mapArrayToSummaryCharacterBaseStat')
+            ->add('STAT_LIGHT', 'setLight', self::class . '::mapArrayToSummaryCharacterBaseStat')
+            ->add('STAT_ARMOR', 'setArmor', self::class . '::mapArrayToSummaryCharacterBaseStat')
+            ->add('STAT_AGILITY', 'setAgility', self::class . '::mapArrayToSummaryCharacterBaseStat')
+            ->add('STAT_RECOVERY', 'setRecovery', self::class . '::mapArrayToSummaryCharacterBaseStat')
+            ->add('STAT_OPTICS', 'setOptics', self::class . '::mapArrayToSummaryCharacterBaseStat')
+            ->add('STAT_ATTACK_SPEED', 'setAttackSpeed', self::class . '::mapArrayToSummaryCharacterBaseStat')
+            ->add('STAT_DAMAGE_REDUCTION', 'setDamageReduction', self::class . '::mapArrayToSummaryCharacterBaseStat')
+            ->add('STAT_ATTACK_EFFICIENCY', 'setAttackEfficiency', self::class . '::mapArrayToSummaryCharacterBaseStat')
+            ->add('STAT_ATTACK_ENERGY', 'setAttackEnergy', self::class . '::mapArrayToSummaryCharacterBaseStat');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToSummaryCharacterBaseStat($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(SummaryCharacterBaseStat::class))
+            ->add('statHash')
+            ->add('value')
+            ->add('maximumValue');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToSummaryCharacterBasePeerView($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(SummaryCharacterBasePeerView::class))
+            ->add('equipment', null, self::class . '::mapArrayToSummaryCharacterBasePeerViewEquipments');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToSummaryCharacterBasePeerViewEquipments($obj, array $val)
+    {
+        $equipments = [];
+        foreach ($val as $equipment) {
+            $mapper = (new ArrayObjectMapper(SummaryCharacterBasePeerViewEquipment::class))
+                ->add('itemHash')
+                ->add('dyes', null, self::class . '::mapArrayToInventoryItemDyes');
+            $equipments[] = $mapper->map($equipment);
+        }
+        return new Collection(SummaryCharacterBasePeerViewEquipment::class, $equipments);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToSummaryCharacterBaseCustomization($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(SummaryCharacterBaseCustomization::class))
+            ->add('personality')
+            ->add('face')
+            ->add('skinColor')
+            ->add('lipColor')
+            ->add('eyeColor')
+            ->add('hairColor')
+            ->add('featureColor')
+            ->add('decalColor')
+            ->add('wearHelmet')
+            ->add('hairIndex')
+            ->add('featureIndex')
+            ->add('decalIndex');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToSummaryCharacterLevelProgression($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(SummaryCharacterLevelProgression::class))
+            ->add('dailyProgress')
+            ->add('weeklyProgress')
+            ->add('currentProgress')
+            ->add('level')
+            ->add('step')
+            ->add('progressToNextLevel')
+            ->add('nextLevelAt')
+            ->add('progressionHash');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToSummaryInventory($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(SummaryInventory::class))
+            ->add('items', null, self::class . '::mapArrayToInts')
+            ->add('currencies', null, self::class . '::mapArrayToSummaryInventoryCurrencies');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToSummaryInventoryCurrencies($obj, array $val)
+    {
+        $currencies = [];
+        foreach ($val as $currency) {
+            $mapper = (new ArrayObjectMapper(SummaryInventoryCurrency::class))
+                ->add('itemHash')
+                ->add('value');
+            $currencies[] = $mapper->map($currency);
+        }
+        return new Collection(SummaryInventoryCurrency::class, $currencies);
     }
 }

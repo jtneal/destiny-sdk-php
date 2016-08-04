@@ -3,12 +3,21 @@
 namespace Necowebs\Destiny\Utils;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Account\SummaryCharacter;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBase;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBaseCustomization;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBasePeerView;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBasePeerViewEquipment;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBaseStat;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBaseStats;
+use Necowebs\Destiny\Models\Account\SummaryCharacterLevelProgression;
+use Necowebs\Destiny\Models\Account\SummaryInventory;
+use Necowebs\Destiny\Models\Account\SummaryInventoryCurrency;
 use Necowebs\Destiny\Models\Manifest\DirectorBookConnection;
 use Necowebs\Destiny\Models\Manifest\DirectorBookExpression;
 use Necowebs\Destiny\Models\Manifest\DirectorBookExpressionStep;
 use Necowebs\Destiny\Models\Manifest\DirectorBookNode;
 use Necowebs\Destiny\Models\Manifest\DirectorBookNodeState;
-use Necowebs\Destiny\Models\Manifest\InventoryItem;
 use Necowebs\Destiny\Models\Manifest\InventoryItemDye;
 use Necowebs\Destiny\Models\Manifest\InventoryItemEquippingBlock;
 use Necowebs\Destiny\Models\Manifest\InventoryItemEquippingBlockArrangement;
@@ -1040,5 +1049,574 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertEquals($expected, $overrides);
+    }
+
+    /**
+     * Test Map Array To Summary Characters
+     */
+    public function testMapArrayToSummaryCharacters()
+    {
+        $characters = MapperHelper::mapArrayToSummaryCharacters(null, [
+            [
+                'characterBase' => [
+                    'membershipId' => '4611686018450406180',
+                    'membershipType' => 2,
+                    'characterId' => '2305843009310128298',
+                    'dateLastPlayed' => '2016-07-26T02:17:08Z',
+                    'minutesPlayedThisSession' => '22',
+                    'minutesPlayedTotal' => '32256',
+                    'powerLevel' => 335,
+                    'raceHash' => 3887404748,
+                    'genderHash' => 2204441813,
+                    'classHash' => 2271682572,
+                    'currentActivityHash' => 0,
+                    'lastCompletedStoryHash' => 0,
+                    'stats' => [],
+                    'customization' => [],
+                    'grimoireScore' => 4620,
+                    'peerView' => [],
+                    'genderType' => 1,
+                    'classType' => 2,
+                    'buildStatGroupHash' => 1997970403
+                ],
+                'levelProgression' => [
+                    'dailyProgress' => 0,
+                    'weeklyProgress' => 0,
+                    'currentProgress' => 346000,
+                    'level' => 40,
+                    'step' => 0,
+                    'progressToNextLevel' => 0,
+                    'nextLevelAt' => 0,
+                    'progressionHash' => 1716568313
+                ],
+                'emblemPath' => '/common/destiny_content/icons/f2c6a2edc3e5b89092a43e29695e8539.jpg',
+                'backgroundPath' => '/common/destiny_content/icons/1ee9dd7b47105a319e579b16c7520920.jpg',
+                'emblemHash' => 2596665931,
+                'characterLevel' => 40,
+                'baseCharacterLevel' => 40,
+                'isPrestigeLevel' => false,
+                'percentToNextLevel' => 0
+            ]
+        ]);
+
+        $expected = new Collection(SummaryCharacter::class, [
+            (new SummaryCharacter())
+                ->setCharacterBase((new SummaryCharacterBase())
+                    ->setMembershipId('4611686018450406180')
+                    ->setMembershipType(2)
+                    ->setCharacterId('2305843009310128298')
+                    ->setDateLastPlayed('2016-07-26T02:17:08Z')
+                    ->setMinutesPlayedThisSession('22')
+                    ->setMinutesPlayedTotal('32256')
+                    ->setPowerLevel(335)
+                    ->setRaceHash(3887404748)
+                    ->setGenderHash(2204441813)
+                    ->setClassHash(2271682572)
+                    ->setCurrentActivityHash(0)
+                    ->setLastCompletedStoryHash(0)
+                    ->setStats(new SummaryCharacterBaseStats())
+                    ->setCustomization(new SummaryCharacterBaseCustomization())
+                    ->setGrimoireScore(4620)
+                    ->setPeerView(new SummaryCharacterBasePeerView())
+                    ->setGenderType(1)
+                    ->setClassType(2)
+                    ->setBuildStatGroupHash(1997970403)
+                )
+                ->setLevelProgression((new SummaryCharacterLevelProgression())
+                    ->setDailyProgress(0)
+                    ->setWeeklyProgress(0)
+                    ->setCurrentProgress(346000)
+                    ->setLevel(40)
+                    ->setStep(0)
+                    ->setProgressToNextLevel(0)
+                    ->setNextLevelAt(0)
+                    ->setProgressionHash(1716568313)
+                )
+                ->setEmblemPath('/common/destiny_content/icons/f2c6a2edc3e5b89092a43e29695e8539.jpg')
+                ->setBackgroundPath('/common/destiny_content/icons/1ee9dd7b47105a319e579b16c7520920.jpg')
+                ->setEmblemHash(2596665931)
+                ->setCharacterLevel(40)
+                ->setBaseCharacterLevel(40)
+                ->setIsPrestigeLevel(false)
+                ->setPercentToNextLevel(0)
+        ]);
+
+        $this->assertEquals($expected, $characters);
+    }
+
+    /**
+     * Test Map Array To Summary Character Base
+     */
+    public function testMapArrayToSummaryCharacterBase()
+    {
+        $base = MapperHelper::mapArrayToSummaryCharacterBase(null, [
+            'membershipId' => '4611686018450406180',
+            'membershipType' => 2,
+            'characterId' => '2305843009310128298',
+            'dateLastPlayed' => '2016-07-26T02:17:08Z',
+            'minutesPlayedThisSession' => '22',
+            'minutesPlayedTotal' => '32256',
+            'powerLevel' => 335,
+            'raceHash' => 3887404748,
+            'genderHash' => 2204441813,
+            'classHash' => 2271682572,
+            'currentActivityHash' => 0,
+            'lastCompletedStoryHash' => 0,
+            'stats' => [
+                'STAT_DEFENSE' => [
+                    'statHash' => 3897883278,
+                    'value' => 0,
+                    'maximumValue' => 0
+                ],
+                'STAT_INTELLECT' => [
+                    'statHash' => 144602215,
+                    'value' => 300,
+                    'maximumValue' => 0
+                ],
+                'STAT_DISCIPLINE' => [
+                    'statHash' => 1735777505,
+                    'value' => 197,
+                    'maximumValue' => 0
+                ],
+                'STAT_STRENGTH' => [
+                    'statHash' => 4244567218,
+                    'value' => 187,
+                    'maximumValue' => 0
+                ],
+                'STAT_LIGHT' => [
+                    'statHash' => 2391494160,
+                    'value' => 335,
+                    'maximumValue' => 0
+                ],
+                'STAT_ARMOR' => [
+                    'statHash' => 392767087,
+                    'value' => 7,
+                    'maximumValue' => 0
+                ],
+                'STAT_AGILITY' => [
+                    'statHash' => 2996146975,
+                    'value' => 1,
+                    'maximumValue' => 0
+                ],
+                'STAT_RECOVERY' => [
+                    'statHash' => 1943323491,
+                    'value' => 8,
+                    'maximumValue' => 0
+                ],
+                'STAT_OPTICS' => [
+                    'statHash' => 3555269338,
+                    'value' => 85,
+                    'maximumValue' => 0
+                ],
+                'STAT_ATTACK_SPEED' => [
+                    'statHash' => 2837207746,
+                    'value' => 45,
+                    'maximumValue' => 0
+                ],
+                'STAT_DAMAGE_REDUCTION' => [
+                    'statHash' => 209426660,
+                    'value' => 50,
+                    'maximumValue' => 0
+                ],
+                'STAT_ATTACK_EFFICIENCY' => [
+                    'statHash' => 2762071195,
+                    'value' => 75,
+                    'maximumValue' => 0
+                ],
+                'STAT_ATTACK_ENERGY' => [
+                    'statHash' => 925767036,
+                    'value' => 76,
+                    'maximumValue' => 0
+                ]
+            ],
+            'customization' => [
+                'personality' => 2166136261,
+                'face' => 2132087816,
+                'skinColor' => 3045033360,
+                'lipColor' => 404671486,
+                'eyeColor' => 1194006496,
+                'hairColor' => 1063498229,
+                'featureColor' => 2166136261,
+                'decalColor' => 552943744,
+                'wearHelmet' => false,
+                'hairIndex' => 2,
+                'featureIndex' => 0,
+                'decalIndex' => 0
+            ],
+            'grimoireScore' => 4620,
+            'peerView' => [
+                'equipment' => []
+            ],
+            'genderType' => 1,
+            'classType' => 2,
+            'buildStatGroupHash' => 1997970403
+        ]);
+
+        $expected = (new SummaryCharacterBase())
+            ->setMembershipId('4611686018450406180')
+            ->setMembershipType(2)
+            ->setCharacterId('2305843009310128298')
+            ->setDateLastPlayed('2016-07-26T02:17:08Z')
+            ->setMinutesPlayedThisSession('22')
+            ->setMinutesPlayedTotal('32256')
+            ->setPowerLevel(335)
+            ->setRaceHash(3887404748)
+            ->setGenderHash(2204441813)
+            ->setClassHash(2271682572)
+            ->setCurrentActivityHash(0)
+            ->setLastCompletedStoryHash(0)
+            ->setStats((new SummaryCharacterBaseStats())
+                ->setDefense((new SummaryCharacterBaseStat())->setStatHash(3897883278)->setValue(0)->setMaximumValue(0))
+                ->setIntellect((new SummaryCharacterBaseStat())->setStatHash(144602215)->setValue(300)->setMaximumValue(0))
+                ->setDiscipline((new SummaryCharacterBaseStat())->setStatHash(1735777505)->setValue(197)->setMaximumValue(0))
+                ->setStrength((new SummaryCharacterBaseStat())->setStatHash(4244567218)->setValue(187)->setMaximumValue(0))
+                ->setLight((new SummaryCharacterBaseStat())->setStatHash(2391494160)->setValue(335)->setMaximumValue(0))
+                ->setArmor((new SummaryCharacterBaseStat())->setStatHash(392767087)->setValue(7)->setMaximumValue(0))
+                ->setAgility((new SummaryCharacterBaseStat())->setStatHash(2996146975)->setValue(1)->setMaximumValue(0))
+                ->setRecovery((new SummaryCharacterBaseStat())->setStatHash(1943323491)->setValue(8)->setMaximumValue(0))
+                ->setOptics((new SummaryCharacterBaseStat())->setStatHash(3555269338)->setValue(85)->setMaximumValue(0))
+                ->setAttackSpeed((new SummaryCharacterBaseStat())->setStatHash(2837207746)->setValue(45)->setMaximumValue(0))
+                ->setDamageReduction((new SummaryCharacterBaseStat())->setStatHash(209426660)->setValue(50)->setMaximumValue(0))
+                ->setAttackEfficiency((new SummaryCharacterBaseStat())->setStatHash(2762071195)->setValue(75)->setMaximumValue(0))
+                ->setAttackEnergy((new SummaryCharacterBaseStat())->setStatHash(925767036)->setValue(76)->setMaximumValue(0))
+            )
+            ->setCustomization((new SummaryCharacterBaseCustomization())
+                ->setPersonality(2166136261)
+                ->setFace(2132087816)
+                ->setSkinColor(3045033360)
+                ->setLipColor(404671486)
+                ->setEyeColor(1194006496)
+                ->setHairColor(1063498229)
+                ->setFeatureColor(2166136261)
+                ->setDecalColor(552943744)
+                ->setWearHelmet(false)
+                ->setHairIndex(2)
+                ->setFeatureIndex(0)
+                ->setDecalIndex(0)
+            )
+            ->setGrimoireScore(4620)
+            ->setPeerView((new SummaryCharacterBasePeerView())
+                ->setEquipment(new Collection(SummaryCharacterBasePeerViewEquipment::class))
+            )
+            ->setGenderType(1)
+            ->setClassType(2)
+            ->setBuildStatGroupHash(1997970403);
+
+        $this->assertEquals($expected, $base);
+    }
+
+    /**
+     * Test Map Array To Summary Character Base Stats
+     */
+    public function testMapArrayToSummaryCharacterBaseStats()
+    {
+        $stats = MapperHelper::mapArrayToSummaryCharacterBaseStats(null, [
+            'STAT_DEFENSE' => [
+                'statHash' => 3897883278,
+                'value' => 0,
+                'maximumValue' => 0
+            ],
+            'STAT_INTELLECT' => [
+                'statHash' => 144602215,
+                'value' => 300,
+                'maximumValue' => 0
+            ],
+            'STAT_DISCIPLINE' => [
+                'statHash' => 1735777505,
+                'value' => 197,
+                'maximumValue' => 0
+            ],
+            'STAT_STRENGTH' => [
+                'statHash' => 4244567218,
+                'value' => 187,
+                'maximumValue' => 0
+            ],
+            'STAT_LIGHT' => [
+                'statHash' => 2391494160,
+                'value' => 335,
+                'maximumValue' => 0
+            ],
+            'STAT_ARMOR' => [
+                'statHash' => 392767087,
+                'value' => 7,
+                'maximumValue' => 0
+            ],
+            'STAT_AGILITY' => [
+                'statHash' => 2996146975,
+                'value' => 1,
+                'maximumValue' => 0
+            ],
+            'STAT_RECOVERY' => [
+                'statHash' => 1943323491,
+                'value' => 8,
+                'maximumValue' => 0
+            ],
+            'STAT_OPTICS' => [
+                'statHash' => 3555269338,
+                'value' => 85,
+                'maximumValue' => 0
+            ],
+            'STAT_ATTACK_SPEED' => [
+                'statHash' => 2837207746,
+                'value' => 45,
+                'maximumValue' => 0
+            ],
+            'STAT_DAMAGE_REDUCTION' => [
+                'statHash' => 209426660,
+                'value' => 50,
+                'maximumValue' => 0
+            ],
+            'STAT_ATTACK_EFFICIENCY' => [
+                'statHash' => 2762071195,
+                'value' => 75,
+                'maximumValue' => 0
+            ],
+            'STAT_ATTACK_ENERGY' => [
+                'statHash' => 925767036,
+                'value' => 76,
+                'maximumValue' => 0
+            ]
+        ]);
+
+        $expected = (new SummaryCharacterBaseStats())
+            ->setDefense((new SummaryCharacterBaseStat())->setStatHash(3897883278)->setValue(0)->setMaximumValue(0))
+            ->setIntellect((new SummaryCharacterBaseStat())->setStatHash(144602215)->setValue(300)->setMaximumValue(0))
+            ->setDiscipline((new SummaryCharacterBaseStat())->setStatHash(1735777505)->setValue(197)->setMaximumValue(0))
+            ->setStrength((new SummaryCharacterBaseStat())->setStatHash(4244567218)->setValue(187)->setMaximumValue(0))
+            ->setLight((new SummaryCharacterBaseStat())->setStatHash(2391494160)->setValue(335)->setMaximumValue(0))
+            ->setArmor((new SummaryCharacterBaseStat())->setStatHash(392767087)->setValue(7)->setMaximumValue(0))
+            ->setAgility((new SummaryCharacterBaseStat())->setStatHash(2996146975)->setValue(1)->setMaximumValue(0))
+            ->setRecovery((new SummaryCharacterBaseStat())->setStatHash(1943323491)->setValue(8)->setMaximumValue(0))
+            ->setOptics((new SummaryCharacterBaseStat())->setStatHash(3555269338)->setValue(85)->setMaximumValue(0))
+            ->setAttackSpeed((new SummaryCharacterBaseStat())->setStatHash(2837207746)->setValue(45)->setMaximumValue(0))
+            ->setDamageReduction((new SummaryCharacterBaseStat())->setStatHash(209426660)->setValue(50)->setMaximumValue(0))
+            ->setAttackEfficiency((new SummaryCharacterBaseStat())->setStatHash(2762071195)->setValue(75)->setMaximumValue(0))
+            ->setAttackEnergy((new SummaryCharacterBaseStat())->setStatHash(925767036)->setValue(76)->setMaximumValue(0));
+
+        $this->assertEquals($expected, $stats);
+    }
+
+    /**
+     * Test Map Array To Summary Character Base Stat
+     */
+    public function testMapArrayToSummaryCharacterBaseStat()
+    {
+        $stat = MapperHelper::mapArrayToSummaryCharacterBaseStat(null, [
+            'statHash' => 3897883278,
+            'value' => 0,
+            'maximumValue' => 0
+        ]);
+
+        $expected = (new SummaryCharacterBaseStat())->setStatHash(3897883278)->setValue(0)->setMaximumValue(0);
+
+        $this->assertEquals($expected, $stat);
+    }
+
+    /**
+     * Test Map Array To Summary Character Base Peer View
+     */
+    public function testMapArrayToSummaryCharacterBasePeerView()
+    {
+        $view = MapperHelper::mapArrayToSummaryCharacterBasePeerView(null, [
+            'equipment' => [
+                [
+                    'itemHash' => 1846107924,
+                    'dyes' => [
+                        [
+                            'channelHash' => 662199250,
+                            'dyeHash' => 1765125716
+                        ],
+                        [
+                            'channelHash' => 1367384683,
+                            'dyeHash' => 3993209041
+                        ],
+                        [
+                            'channelHash' => 218592586,
+                            'dyeHash' => 3735168696
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $expected = (new SummaryCharacterBasePeerView())
+            ->setEquipment(new Collection(SummaryCharacterBasePeerViewEquipment::class, [
+                (new SummaryCharacterBasePeerViewEquipment())
+                    ->setItemHash(1846107924)
+                    ->setDyes(new Collection(InventoryItemDye::class, [
+                        (new InventoryItemDye())->setChannelHash(662199250)->setDyeHash(1765125716),
+                        (new InventoryItemDye())->setChannelHash(1367384683)->setDyeHash(3993209041),
+                        (new InventoryItemDye())->setChannelHash(218592586)->setDyeHash(3735168696)
+                    ]))
+            ]));
+
+        $this->assertEquals($expected, $view);
+    }
+
+    /**
+     * Test Map Array To Summary Character Base Peer View Equipments
+     */
+    public function testMapArrayToSummaryCharacterBasePeerViewEquipments()
+    {
+        $equipments = MapperHelper::mapArrayToSummaryCharacterBasePeerViewEquipments(null, [
+            [
+                'itemHash' => 1846107924,
+                'dyes' => [
+                    [
+                        'channelHash' => 662199250,
+                        'dyeHash' => 1765125716
+                    ],
+                    [
+                        'channelHash' => 1367384683,
+                        'dyeHash' => 3993209041
+                    ],
+                    [
+                        'channelHash' => 218592586,
+                        'dyeHash' => 3735168696
+                    ]
+                ]
+            ]
+        ]);
+
+        $expected = new Collection(SummaryCharacterBasePeerViewEquipment::class, [
+            (new SummaryCharacterBasePeerViewEquipment())
+                ->setItemHash(1846107924)
+                ->setDyes(new Collection(InventoryItemDye::class, [
+                    (new InventoryItemDye())->setChannelHash(662199250)->setDyeHash(1765125716),
+                    (new InventoryItemDye())->setChannelHash(1367384683)->setDyeHash(3993209041),
+                    (new InventoryItemDye())->setChannelHash(218592586)->setDyeHash(3735168696)
+                ]))
+        ]);
+
+        $this->assertEquals($expected, $equipments);
+    }
+
+    /**
+     * Test Map Array To Summary Character Base Customization
+     */
+    public function testMapArrayToSummaryCharacterBaseCustomization()
+    {
+        $customization = MapperHelper::mapArrayToSummaryCharacterBaseCustomization(null, [
+            'personality' => 2166136261,
+            'face' => 2132087816,
+            'skinColor' => 3045033360,
+            'lipColor' => 404671486,
+            'eyeColor' => 1194006496,
+            'hairColor' => 1063498229,
+            'featureColor' => 2166136261,
+            'decalColor' => 552943744,
+            'wearHelmet' => false,
+            'hairIndex' => 2,
+            'featureIndex' => 0,
+            'decalIndex' => 0
+        ]);
+
+        $expected = (new SummaryCharacterBaseCustomization())
+            ->setPersonality(2166136261)
+            ->setFace(2132087816)
+            ->setSkinColor(3045033360)
+            ->setLipColor(404671486)
+            ->setEyeColor(1194006496)
+            ->setHairColor(1063498229)
+            ->setFeatureColor(2166136261)
+            ->setDecalColor(552943744)
+            ->setWearHelmet(false)
+            ->setHairIndex(2)
+            ->setFeatureIndex(0)
+            ->setDecalIndex(0);
+
+        $this->assertEquals($expected, $customization);
+    }
+
+    /**
+     * Test Map Array To Summary Character Level Progression
+     */
+    public function testMapArrayToSummaryCharacterLevelProgression()
+    {
+        $progression = MapperHelper::mapArrayToSummaryCharacterLevelProgression(null, [
+            'dailyProgress' => 0,
+            'weeklyProgress' => 0,
+            'currentProgress' => 346000,
+            'level' => 40,
+            'step' => 0,
+            'progressToNextLevel' => 0,
+            'nextLevelAt' => 0,
+            'progressionHash' => 1716568313
+        ]);
+
+        $expected = (new SummaryCharacterLevelProgression())
+            ->setDailyProgress(0)
+            ->setWeeklyProgress(0)
+            ->setCurrentProgress(346000)
+            ->setLevel(40)
+            ->setStep(0)
+            ->setProgressToNextLevel(0)
+            ->setNextLevelAt(0)
+            ->setProgressionHash(1716568313);
+
+        $this->assertEquals($expected, $progression);
+    }
+
+    /**
+     * Test Map Array To Summary Inventory
+     */
+    public function testMapArrayToSummaryInventory()
+    {
+        $inventory = MapperHelper::mapArrayToSummaryInventory(null, [
+            'items' => [],
+            'currencies' => [
+                [
+                    'itemHash' => 3159615086,
+                    'value' => 0
+                ],
+                [
+                    'itemHash' => 2534352370,
+                    'value' => 0
+                ],
+                [
+                    'itemHash' => 2749350776,
+                    'value' => 0
+                ]
+            ]
+        ]);
+
+        $expected = (new SummaryInventory())
+            ->setItems(new Collection('int'))
+            ->setCurrencies(new Collection(SummaryInventoryCurrency::class, [
+                (new SummaryInventoryCurrency())->setItemHash(3159615086)->setValue(0),
+                (new SummaryInventoryCurrency())->setItemHash(2534352370)->setValue(0),
+                (new SummaryInventoryCurrency())->setItemHash(2749350776)->setValue(0)
+            ]));
+
+        $this->assertEquals($expected, $inventory);
+    }
+
+    /**
+     * Test Map Array To Summary Inventory Currencies
+     */
+    public function testMapArrayToSummaryInventoryCurrencies()
+    {
+        $inventory = MapperHelper::mapArrayToSummaryInventoryCurrencies(null, [
+            [
+                'itemHash' => 3159615086,
+                'value' => 0
+            ],
+            [
+                'itemHash' => 2534352370,
+                'value' => 0
+            ],
+            [
+                'itemHash' => 2749350776,
+                'value' => 0
+            ]
+        ]);
+
+        $expected = new Collection(SummaryInventoryCurrency::class, [
+            (new SummaryInventoryCurrency())->setItemHash(3159615086)->setValue(0),
+            (new SummaryInventoryCurrency())->setItemHash(2534352370)->setValue(0),
+            (new SummaryInventoryCurrency())->setItemHash(2749350776)->setValue(0)
+        ]);
+
+        $this->assertEquals($expected, $inventory);
     }
 }
