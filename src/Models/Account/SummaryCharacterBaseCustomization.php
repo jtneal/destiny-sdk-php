@@ -4,7 +4,7 @@ namespace Necowebs\Destiny\Models\Account;
 
 /**
  * Class SummaryCharacterBaseCustomization
- * @package Necowebs\Destiny\Models\Manifest
+ * @package Necowebs\Destiny\Models\Account
  */
 class SummaryCharacterBaseCustomization
 {

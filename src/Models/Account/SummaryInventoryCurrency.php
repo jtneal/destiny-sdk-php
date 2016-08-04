@@ -4,7 +4,7 @@ namespace Necowebs\Destiny\Models\Account;
 
 /**
  * Class SummaryInventoryCurrency
- * @package Necowebs\Destiny\Models\Manifest
+ * @package Necowebs\Destiny\Models\Account
  */
 class SummaryInventoryCurrency
 {

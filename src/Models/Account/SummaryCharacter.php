@@ -4,7 +4,7 @@ namespace Necowebs\Destiny\Models\Account;
 
 /**
  * Class SummaryCharacter
- * @package Necowebs\Destiny\Models\Manifest
+ * @package Necowebs\Destiny\Models\Account
  */
 class SummaryCharacter
 {

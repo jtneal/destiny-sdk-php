@@ -6,7 +6,7 @@ use Collections\Collection;
 
 /**
  * Class SummaryCharacterBasePeerView
- * @package Necowebs\Destiny\Models\Manifest
+ * @package Necowebs\Destiny\Models\Account
  */
 class SummaryCharacterBasePeerView
 {

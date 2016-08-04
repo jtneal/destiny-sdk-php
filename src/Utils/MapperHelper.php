@@ -38,6 +38,10 @@ use Necowebs\Destiny\Models\Manifest\TalentGridNode;
 use Necowebs\Destiny\Models\Manifest\TalentGridStep;
 use Necowebs\Destiny\Models\Manifest\VendorCategory;
 use Necowebs\Destiny\Models\Manifest\VendorSummary;
+use Necowebs\Destiny\Models\Stats\ActivityDetails;
+use Necowebs\Destiny\Models\Stats\ActivityValue;
+use Necowebs\Destiny\Models\Stats\ActivityValueBasic;
+use Necowebs\Destiny\Models\Stats\ActivityValues;
 
 /**
  * Class MapperHelper
@@ -764,5 +768,70 @@ class MapperHelper
             $currencies[] = $mapper->map($currency);
         }
         return new Collection(SummaryInventoryCurrency::class, $currencies);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToActivityDetails($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(ActivityDetails::class))
+            ->add('referenceId')
+            ->add('instanceId')
+            ->add('mode')
+            ->add('activityTypeHashOverride');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToActivityValues($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(ActivityValues::class))
+            ->add('assists', null, self::class . '::mapArrayToActivityValue')
+            ->add('kills', null, self::class . '::mapArrayToActivityValue')
+            ->add('averageScorePerKill', null, self::class . '::mapArrayToActivityValue')
+            ->add('deaths', null, self::class . '::mapArrayToActivityValue')
+            ->add('averageScorePerLife', null, self::class . '::mapArrayToActivityValue')
+            ->add('completed', null, self::class . '::mapArrayToActivityValue')
+            ->add('killsDeathsRatio', null, self::class . '::mapArrayToActivityValue')
+            ->add('killsDeathsAssists', null, self::class . '::mapArrayToActivityValue')
+            ->add('activityDurationSeconds', null, self::class . '::mapArrayToActivityValue')
+            ->add('completionReason', null, self::class . '::mapArrayToActivityValue')
+            ->add('fireTeamId', null, self::class . '::mapArrayToActivityValue')
+            ->add('playerCount', null, self::class . '::mapArrayToActivityValue')
+            ->add('leaveRemainingSeconds', null, self::class . '::mapArrayToActivityValue');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToActivityValue($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(ActivityValue::class))
+            ->add('statId')
+            ->add('basic', null, self::class . '::mapArrayToActivityValueBasic');
+        return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToActivityValueBasic($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(ActivityValueBasic::class))
+            ->add('value')
+            ->add('displayValue');
+        return $mapper->map($val);
     }
 }

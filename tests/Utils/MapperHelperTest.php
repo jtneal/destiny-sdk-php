@@ -38,6 +38,10 @@ use Necowebs\Destiny\Models\Manifest\TalentGridNode;
 use Necowebs\Destiny\Models\Manifest\TalentGridStep;
 use Necowebs\Destiny\Models\Manifest\VendorCategory;
 use Necowebs\Destiny\Models\Manifest\VendorSummary;
+use Necowebs\Destiny\Models\Stats\ActivityDetails;
+use Necowebs\Destiny\Models\Stats\ActivityValue;
+use Necowebs\Destiny\Models\Stats\ActivityValueBasic;
+use Necowebs\Destiny\Models\Stats\ActivityValues;
 
 /**
  * Class MapperHelperTest
@@ -1618,5 +1622,206 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertEquals($expected, $inventory);
+    }
+
+    /**
+     * Test Map Array To Activity Details
+     */
+    public function testMapArrayToActivityDetails()
+    {
+        $details = MapperHelper::mapArrayToActivityDetails(null, [
+            'referenceId' => 3711414564,
+            'instanceId' => '5277571041',
+            'mode' => 2,
+            'activityTypeHashOverride' => 0
+        ]);
+
+        $expected = (new ActivityDetails())
+            ->setReferenceId(3711414564)
+            ->setInstanceId('5277571041')
+            ->setMode(2)
+            ->setActivityTypeHashOverride(0);
+
+        $this->assertEquals($expected, $details);
+    }
+
+    /**
+     * Test Map Array To Activity Values
+     */
+    public function testMapArrayToActivityValues()
+    {
+        $values = MapperHelper::mapArrayToActivityValues(null, [
+            'assists' => [
+                'statId' => 'assists',
+                'basic' => [
+                    'value' => 0,
+                    'displayValue' => '0'
+                ]
+            ],
+            'kills' => [
+                'statId' => 'kills',
+                'basic' => [
+                    'value' => 128,
+                    'displayValue' => '128'
+                ]
+            ],
+            'averageScorePerKill' => [
+                'statId' => 'averageScorePerKill',
+                'basic' => [
+                    'value' => 0,
+                    'displayValue' => '0'
+                ]
+            ],
+            'deaths' => [
+                'statId' => 'deaths',
+                'basic' => [
+                    'value' => 5,
+                    'displayValue' => '5'
+                ]
+            ],
+            'averageScorePerLife' => [
+                'statId' => 'averageScorePerLife',
+                'basic' => [
+                    'value' => 0,
+                    'displayValue' => '0'
+                ]
+            ],
+            'completed' => [
+                'statId' => 'completed',
+                'basic' => [
+                    'value' => 0,
+                    'displayValue' => 'No'
+                ]
+            ],
+            'killsDeathsRatio' => [
+                'statId' => 'killsDeathsRatio',
+                'basic' => [
+                    'value' => 25.6,
+                    'displayValue' => '25.60'
+                ]
+            ],
+            'killsDeathsAssists' => [
+                'statId' => 'killsDeathsAssists',
+                'basic' => [
+                    'value' => 25.6,
+                    'displayValue' => '25.60'
+                ]
+            ],
+            'activityDurationSeconds' => [
+                'statId' => 'activityDurationSeconds',
+                'basic' => [
+                    'value' => 540,
+                    'displayValue' => '9m 0s'
+                ]
+            ],
+            'completionReason' => [
+                'statId' => 'completionReason',
+                'basic' => [
+                    'value' => 255,
+                    'displayValue' => '255'
+                ]
+            ],
+            'fireTeamId' => [
+                'statId' => 'fireTeamId',
+                'basic' => [
+                    'value' => 0,
+                    'displayValue' => ''
+                ]
+            ],
+            'playerCount' => [
+                'statId' => 'playerCount',
+                'basic' => [
+                    'value' => 1,
+                    'displayValue' => '1'
+                ]
+            ],
+            'leaveRemainingSeconds' => [
+                'statId' => 'leaveRemainingSeconds',
+                'basic' => [
+                    'value' => 0,
+                    'displayValue' => '0m 0s'
+                ]
+            ]
+        ]);
+
+        $expected = (new ActivityValues())
+            ->setAssists((new ActivityValue())
+                ->setStatId('assists')->setBasic((new ActivityValueBasic())->setValue(0)->setDisplayValue('0'))
+            )
+            ->setKills((new ActivityValue())
+                ->setStatId('kills')->setBasic((new ActivityValueBasic())->setValue(128)->setDisplayValue('128'))
+            )
+            ->setAverageScorePerKill((new ActivityValue())
+                ->setStatId('averageScorePerKill')->setBasic((new ActivityValueBasic())->setValue(0)->setDisplayValue('0'))
+            )
+            ->setDeaths((new ActivityValue())
+                ->setStatId('deaths')->setBasic((new ActivityValueBasic())->setValue(5)->setDisplayValue('5'))
+            )
+            ->setAverageScorePerLife((new ActivityValue())
+                ->setStatId('averageScorePerLife')->setBasic((new ActivityValueBasic())->setValue(0)->setDisplayValue('0'))
+            )
+            ->setCompleted((new ActivityValue())
+                ->setStatId('completed')->setBasic((new ActivityValueBasic())->setValue(0)->setDisplayValue('No'))
+            )
+            ->setKillsDeathsRatio((new ActivityValue())
+                ->setStatId('killsDeathsRatio')->setBasic((new ActivityValueBasic())->setValue(25.6)->setDisplayValue('25.60'))
+            )
+            ->setKillsDeathsAssists((new ActivityValue())
+                ->setStatId('killsDeathsAssists')->setBasic((new ActivityValueBasic())->setValue(25.6)->setDisplayValue('25.60'))
+            )
+            ->setActivityDurationSeconds((new ActivityValue())
+                ->setStatId('activityDurationSeconds')->setBasic((new ActivityValueBasic())->setValue(540)->setDisplayValue('9m 0s'))
+            )
+            ->setCompletionReason((new ActivityValue())
+                ->setStatId('completionReason')->setBasic((new ActivityValueBasic())->setValue(255)->setDisplayValue('255'))
+            )
+            ->setFireTeamId((new ActivityValue())
+                ->setStatId('fireTeamId')->setBasic((new ActivityValueBasic())->setValue(0)->setDisplayValue(''))
+            )
+            ->setPlayerCount((new ActivityValue())
+                ->setStatId('playerCount')->setBasic((new ActivityValueBasic())->setValue(1)->setDisplayValue('1'))
+            )
+            ->setLeaveRemainingSeconds((new ActivityValue())
+                ->setStatId('leaveRemainingSeconds')->setBasic((new ActivityValueBasic())->setValue(0)->setDisplayValue('0m 0s'))
+            );
+
+        $this->assertEquals($expected, $values);
+    }
+
+    /**
+     * Test Map Array To Activity Value
+     */
+    public function testMapArrayToActivityValue()
+    {
+        $value = MapperHelper::mapArrayToActivityValue(null, [
+            'statId' => 'kills',
+            'basic' => [
+                'value' => 128,
+                'displayValue' => '128'
+            ]
+        ]);
+
+        $expected = (new ActivityValue())
+            ->setStatId('kills')
+            ->setBasic((new ActivityValueBasic())->setValue(128)->setDisplayValue('128'));
+
+        $this->assertEquals($expected, $value);
+    }
+
+    /**
+     * Test Map Array To Activity Value Basic
+     */
+    public function testMapArrayToActivityValueBasic()
+    {
+        $basic = MapperHelper::mapArrayToActivityValueBasic(null, [
+            'value' => 128,
+            'displayValue' => '128'
+        ]);
+
+        $expected = (new ActivityValueBasic())
+            ->setValue(128)
+            ->setDisplayValue('128');
+
+        $this->assertEquals($expected, $basic);
     }
 }
