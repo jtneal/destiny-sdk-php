@@ -3,6 +3,10 @@
 namespace Necowebs\Destiny\Utils;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Account\AdvisorRecordBook;
+use Necowebs\Destiny\Models\Account\AdvisorRecordBookRecord;
+use Necowebs\Destiny\Models\Account\AdvisorRecordBookRecordObjective;
+use Necowebs\Destiny\Models\Account\AdvisorRecordBookSpotlight;
 use Necowebs\Destiny\Models\Account\SummaryCharacter;
 use Necowebs\Destiny\Models\Account\SummaryCharacterBase;
 use Necowebs\Destiny\Models\Account\SummaryCharacterBaseCustomization;
@@ -833,5 +837,87 @@ class MapperHelper
             ->add('value')
             ->add('displayValue');
         return $mapper->map($val);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToAdvisorRecordBooks($obj, array $val)
+    {
+        $books = [];
+        foreach ($val as $book) {
+            $mapper = (new ArrayObjectMapper(AdvisorRecordBook::class))
+                ->add('bookHash')
+                ->add('records', null, self::class . '::mapArrayToAdvisorRecordBookRecords')
+                ->add('progression', null, self::class . '::mapArrayToSummaryCharacterLevelProgression')
+                ->add('completedCount')
+                ->add('redeemedCount')
+                ->add('spotlights', null, self::class . '::mapArrayToAdvisorRecordBookSpotlights')
+                ->add('startDate')
+                ->add('expirationDate');
+            $books[] = $mapper->map($book);
+        }
+        return new Collection(AdvisorRecordBook::class, $books);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToAdvisorRecordBookRecords($obj, array $val)
+    {
+        $records = [];
+        foreach ($val as $record) {
+            $mapper = (new ArrayObjectMapper(AdvisorRecordBookRecord::class))
+                ->add('recordHash')
+                ->add('objectives', null, self::class . '::mapArrayToAdvisorRecordBookRecordObjectives')
+                ->add('status');
+            $records[] = $mapper->map($record);
+        }
+        return new Collection(AdvisorRecordBookRecord::class, $records);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToAdvisorRecordBookRecordObjectives($obj, array $val)
+    {
+        $objectives = [];
+        foreach ($val as $objective) {
+            $mapper = (new ArrayObjectMapper(AdvisorRecordBookRecordObjective::class))
+                ->add('objectiveHash')
+                ->add('destinationHash')
+                ->add('activityHash')
+                ->add('progress')
+                ->add('hasProgress')
+                ->add('isComplete')
+                ->add('displayValue');
+            $objectives[] = $mapper->map($objective);
+        }
+        return new Collection(AdvisorRecordBookRecordObjective::class, $objectives);
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Collection
+     */
+    public static function mapArrayToAdvisorRecordBookSpotlights($obj, array $val)
+    {
+        $spotlights = [];
+        foreach ($val as $spotlight) {
+            $mapper = (new ArrayObjectMapper(AdvisorRecordBookSpotlight::class))
+              ->add('rewardItemHash')
+              ->add('rewardedAtLevel')
+              ->add('quantity')
+              ->add('status');
+            $spotlights[] = $mapper->map($spotlight);
+        }
+        return new Collection(AdvisorRecordBookSpotlight::class, $spotlights);
     }
 }

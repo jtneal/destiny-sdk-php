@@ -3,6 +3,10 @@
 namespace Necowebs\Destiny\Utils;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Account\AdvisorRecordBook;
+use Necowebs\Destiny\Models\Account\AdvisorRecordBookRecord;
+use Necowebs\Destiny\Models\Account\AdvisorRecordBookRecordObjective;
+use Necowebs\Destiny\Models\Account\AdvisorRecordBookSpotlight;
 use Necowebs\Destiny\Models\Account\SummaryCharacter;
 use Necowebs\Destiny\Models\Account\SummaryCharacterBase;
 use Necowebs\Destiny\Models\Account\SummaryCharacterBaseCustomization;
@@ -670,8 +674,8 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
- * Test Map Array To Director Book Expression Steps
- */
+     * Test Map Array To Director Book Expression Steps
+     */
     public function testMapArrayToDirectorBookExpressionSteps()
     {
         $steps = MapperHelper::mapArrayToDirectorBookExpressionSteps(null, [
@@ -883,8 +887,8 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
- * Test Map Array To Inventory Item Sources
- */
+     * Test Map Array To Inventory Item Sources
+     */
     public function testMapArrayToInventoryItemSources()
     {
         $sources = MapperHelper::mapArrayToInventoryItemSources(null, [
@@ -1823,5 +1827,197 @@ class MapperHelperTest extends \PHPUnit_Framework_TestCase
             ->setDisplayValue('128');
 
         $this->assertEquals($expected, $basic);
+    }
+
+    /**
+     * Test Map Array To Advisor Record Books
+     */
+    public function testMapArrayToAdvisorRecordBooks()
+    {
+        $books = MapperHelper::mapArrayToAdvisorRecordBooks(null, [
+            '2175864601' => [
+                'bookHash' => 2175864601,
+                'records' => [
+                    '1872531696' => [
+                        'recordHash' => 1872531696,
+                        'objectives' => [
+                            [
+                                'objectiveHash' => 1872531696,
+                                'destinationHash' => 0,
+                                'activityHash' => 0,
+                                'progress' => 1,
+                                'hasProgress' => true,
+                                'isComplete' => true,
+                                'displayValue' => "1"
+                            ]
+                        ],
+                        'status' => 2
+                    ]
+                ],
+                'progression' => [
+                    'dailyProgress' => 0,
+                    'weeklyProgress' => 0,
+                    'currentProgress' => 4000,
+                    'level' => 5,
+                    'step' => 0,
+                    'progressToNextLevel' => 0,
+                    'nextLevelAt' => 0,
+                    'progressionHash' => 2175864601
+                ],
+                'completedCount' => 8,
+                'redeemedCount' => 8,
+                'spotlights' => [
+                    [
+                        'rewardItemHash' => 139252900,
+                        'rewardedAtLevel' => 2,
+                        'quantity' => 1,
+                        'status' => 2
+                    ]
+                ],
+                'startDate' => '2016-08-02T01:48:56.779Z',
+                'expirationDate' => '2016-09-20T00:00:00Z'
+            ]
+        ]);
+
+        $expected = new Collection(AdvisorRecordBook::class, [
+            (new AdvisorRecordBook())
+                ->setBookHash(2175864601)
+                ->setRecords(new Collection(AdvisorRecordBookRecord::class, [
+                    (new AdvisorRecordBookRecord())
+                        ->setRecordHash(1872531696)
+                        ->setObjectives(new Collection(AdvisorRecordBookRecordObjective::class, [
+                            (new AdvisorRecordBookRecordObjective())
+                                ->setObjectiveHash(1872531696)
+                                ->setDestinationHash(0)
+                                ->setActivityHash(0)
+                                ->setProgress(1)
+                                ->setHasProgress(true)
+                                ->setIsComplete(true)
+                                ->setDisplayValue('1')
+                        ]))
+                        ->setStatus(2)
+                ]))
+                ->setProgression((new SummaryCharacterLevelProgression())
+                    ->setDailyProgress(0)
+                    ->setWeeklyProgress(0)
+                    ->setCurrentProgress(4000)
+                    ->setLevel(5)
+                    ->setStep(0)
+                    ->setProgressToNextLevel(0)
+                    ->setNextLevelAt(0)
+                    ->setProgressionHash(2175864601)
+                )
+                ->setCompletedCount(8)
+                ->setRedeemedCount(8)
+                ->setSpotlights(new Collection(AdvisorRecordBookSpotlight::class, [
+                    (new AdvisorRecordBookSpotlight())
+                        ->setRewardItemHash(139252900)
+                        ->setRewardedAtLevel(2)
+                        ->setQuantity(1)
+                        ->setStatus(2)
+                ]))
+                ->setStartDate('2016-08-02T01:48:56.779Z')
+                ->setExpirationDate('2016-09-20T00:00:00Z')
+        ]);
+
+        $this->assertEquals($expected, $books);
+    }
+
+    /**
+     * Test Map Array To Advisor Record Book Records
+     */
+    public function testMapArrayToAdvisorRecordBookRecords()
+    {
+        $records = MapperHelper::mapArrayToAdvisorRecordBookRecords(null, [
+            '1872531696' => [
+                'recordHash' => 1872531696,
+                'objectives' => [
+                    [
+                        'objectiveHash' => 1872531696,
+                        'destinationHash' => 0,
+                        'activityHash' => 0,
+                        'progress' => 1,
+                        'hasProgress' => true,
+                        'isComplete' => true,
+                        'displayValue' => "1"
+                    ]
+                ],
+                'status' => 2
+            ]
+        ]);
+
+        $expected = new Collection(AdvisorRecordBookRecord::class, [
+            (new AdvisorRecordBookRecord())
+                ->setRecordHash(1872531696)
+                ->setObjectives(new Collection(AdvisorRecordBookRecordObjective::class, [
+                    (new AdvisorRecordBookRecordObjective())
+                        ->setObjectiveHash(1872531696)
+                        ->setDestinationHash(0)
+                        ->setActivityHash(0)
+                        ->setProgress(1)
+                        ->setHasProgress(true)
+                        ->setIsComplete(true)
+                        ->setDisplayValue('1')
+                ]))
+                ->setStatus(2)
+        ]);
+
+        $this->assertEquals($expected, $records);
+    }
+
+    /**
+     * Test Map Array To Advisor Record Book Record Objectives
+     */
+    public function testMapArrayToAdvisorRecordBookRecordObjectives()
+    {
+        $objectives = MapperHelper::mapArrayToAdvisorRecordBookRecordObjectives(null, [
+            [
+                'objectiveHash' => 1872531696,
+                'destinationHash' => 0,
+                'activityHash' => 0,
+                'progress' => 1,
+                'hasProgress' => true,
+                'isComplete' => true,
+                'displayValue' => "1"
+            ]
+        ]);
+
+        $expected = new Collection(AdvisorRecordBookRecordObjective::class, [
+            (new AdvisorRecordBookRecordObjective())
+                ->setObjectiveHash(1872531696)
+                ->setDestinationHash(0)
+                ->setActivityHash(0)
+                ->setProgress(1)
+                ->setHasProgress(true)
+                ->setIsComplete(true)
+                ->setDisplayValue('1')
+        ]);
+
+        $this->assertEquals($expected, $objectives);
+    }
+
+    /**
+     * Test Map Array To Advisor Record Book Spotlights
+     */
+    public function testMapArrayToAdvisorRecordBookSpotlights()
+    {
+        $spotlights = MapperHelper::mapArrayToAdvisorRecordBookSpotlights(null, [
+            [
+                'rewardItemHash' => 139252900,
+                'rewardedAtLevel' => 2,
+                'quantity' => 1,
+                'status' => 2
+            ]
+        ]);
+
+        $expected = new Collection(AdvisorRecordBookSpotlight::class, [
+            (new AdvisorRecordBookSpotlight())
+                ->setRewardItemHash(139252900)
+                ->setRewardedAtLevel(2)
+                ->setQuantity(1)
+                ->setStatus(2)
+        ]);
+
+        $this->assertEquals($expected, $spotlights);
     }
 }
