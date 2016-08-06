@@ -17,9 +17,9 @@ use Necowebs\Destiny\Models\Character\AdvisorCategory;
 class AdvisorsServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test Get Summary
+     * Test Get Advisors
      */
-    public function testGetSummary()
+    public function testGetAdvisors()
     {
         $advisors = (new AdvisorsService())->getAdvisors(2, '4611686018450406180', '2305843009310128298');
 
@@ -32,9 +32,9 @@ class AdvisorsServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Get Summary Exception
+     * Test Get Advisors Exception
      */
-    public function testGetSummaryException()
+    public function testGetAdvisorsException()
     {
         $this->expectException(CharacterNotFoundException::class);
 
