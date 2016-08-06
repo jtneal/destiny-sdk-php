@@ -5,7 +5,6 @@ namespace Necowebs\Destiny\Services\Stats;
 use Necowebs\Destiny\Exceptions\StatsNotFoundException;
 use Necowebs\Destiny\Models\Stats\Activity;
 
-
 /**
  * Class ActivityHistoryServiceTest
  * @package Necowebs\Destiny\Services\Stats
