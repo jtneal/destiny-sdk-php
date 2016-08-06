@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class InventoryBucket
  * @package Necowebs\Destiny\Models\Manifest
  */
 class InventoryBucket
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -305,5 +310,29 @@ class InventoryBucket
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return InventoryBucket
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('bucketHash')
+            ->add('bucketName')
+            ->add('bucketDescription')
+            ->add('scope')
+            ->add('category')
+            ->add('bucketOrder')
+            ->add('bucketIdentifier')
+            ->add('itemCount')
+            ->add('location')
+            ->add('hasTransferDestination')
+            ->add('enabled')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

@@ -3,6 +3,9 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class TalentGridStep
@@ -10,6 +13,8 @@ use Collections\Collection;
  */
 class TalentGridStep
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -468,5 +473,36 @@ class TalentGridStep
     {
         $this->affectsLevel = (bool) $affectsLevel;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return TalentGridStep
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('stepIndex')
+            ->add('nodeStepHash')
+            ->add('nodeStepName')
+            ->add('nodeStepDescription')
+            ->add('interactionDescription')
+            ->add('icon')
+            ->add('damageType')
+            ->add('damageTypeHash')
+            ->add('activationRequirement', null, TalentGridActivationRequirement::class . '::toObject')
+            ->add('canActivateNextStep')
+            ->add('nextStepIndex')
+            ->add('isNextStepRandom')
+            ->add('perkHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('startProgressionBarAtProgress')
+            ->add('statHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('affectsQuality')
+            ->add('stepGroups', null, SandboxPerkGroup::class . '::toObject')
+            ->add('trueStepIndex')
+            ->add('truePropertyIndex')
+            ->add('affectsLevel');
+        return $mapper->map($val);
     }
 }

@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class ActivityType
  * @package Necowebs\Destiny\Models\Manifest
  */
 class ActivityType
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -420,5 +425,34 @@ class ActivityType
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return ActivityType
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('activityTypeHash')
+            ->add('identifier')
+            ->add('activityTypeName')
+            ->add('activityTypeDescription')
+            ->add('icon')
+            ->add('activeBackgroundVirtualPath')
+            ->add('completedBackgroundVirtualPath')
+            ->add('hiddenOverrideVirtualPath')
+            ->add('tooltipBackgroundVirtualPath')
+            ->add('enlargedActiveBackgroundVirtualPath')
+            ->add('enlargedCompletedBackgroundVirtualPath')
+            ->add('enlargedHiddenOverrideVirtualPath')
+            ->add('enlargedTooltipBackgroundVirtualPath')
+            ->add('order')
+            ->add('statGroup')
+            ->add('friendlyUrlId')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

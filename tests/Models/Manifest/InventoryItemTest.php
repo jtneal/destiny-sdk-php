@@ -118,4 +118,234 @@ class InventoryItemTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(10673376, $item->getHash());
         $this->assertEquals(0, $item->getIndex());
     }
+
+    /**
+     * Test To Object
+     */
+    public function testToObject()
+    {
+        $object = InventoryItem::toObject(null, [
+            'itemHash' => 10673376,
+            'itemName' => 'Winged Sun Gauntlets',
+            'itemDescription' => '"Those who fly beneath the Sun do not come back unscathed." —Parables of the Allspring',
+            'icon' => '/common/destiny_content/icons/76d389cb45924ab25e8fdf245d20e1f5.jpg',
+            'hasIcon' => true,
+            'secondaryIcon' => '/img/misc/missing_icon.png',
+            'actionName' => 'Dismantle',
+            'hasAction' => true,
+            'deleteOnAction' => true,
+            'tierTypeName' => 'Legendary',
+            'tierType' => 5,
+            'itemTypeName' => 'Gauntlets',
+            'bucketTypeHash' => 3551918588,
+            'primaryBaseStatHash' => 3897883278,
+            'stats' => [],
+            'perkHashes' => [],
+            'specialItemType' => 0,
+            'talentGridHash' => 1227905893,
+            'equippingBlock' => [],
+            'hasGeometry' => true,
+            'statGroupHash' => 548191128,
+            'itemLevels' => [0],
+            'qualityLevel' => 0,
+            'equippable' => true,
+            'instanced' => true,
+            'rewardItemHash' => 0,
+            'values' => [],
+            'itemType' => 2,
+            'itemSubType' => 0,
+            'classType' => 0,
+            'sources' => [],
+            'itemCategoryHashes' => [22, 46, 20],
+            'sourceHashes' => [1882189853, 460228854],
+            'nonTransferrable' => false,
+            'exclusive' => 0,
+            'maxStackSize' => 1,
+            'itemIndex' => 0,
+            'setItemHashes' => [],
+            'tooltipStyle' => '',
+            'questlineItemHash' => 0,
+            'needsFullCompletion' => false,
+            'objectiveHashes' => [],
+            'allowActions' => true,
+            'questTrackingUnlockValueHash' => 0,
+            'bountyResetUnlockHash' => 0,
+            'uniquenessHash' => 2166136261,
+            'showActiveNodesInTooltip' => false,
+            'damageTypes' => [3],
+            'hash' => 10673376,
+            'index' => 0
+        ]);
+
+        $expected = (new InventoryItem())
+            ->setItemHash(10673376)
+            ->setItemName('Winged Sun Gauntlets')
+            ->setItemDescription('"Those who fly beneath the Sun do not come back unscathed." —Parables of the Allspring')
+            ->setIcon('/common/destiny_content/icons/76d389cb45924ab25e8fdf245d20e1f5.jpg')
+            ->setHasIcon(true)
+            ->setSecondaryIcon('/img/misc/missing_icon.png')
+            ->setActionName('Dismantle')
+            ->setHasAction(true)
+            ->setDeleteOnAction(true)
+            ->setTierTypeName('Legendary')
+            ->setTierType(5)
+            ->setItemTypeName('Gauntlets')
+            ->setBucketTypeHash(3551918588)
+            ->setPrimaryBaseStatHash(3897883278)
+            ->setStats(new Collection(InventoryItemStat::class))
+            ->setPerkHashes(new Collection('int'))
+            ->setSpecialItemType(0)
+            ->setTalentGridHash(1227905893)
+            ->setEquippingBlock(new InventoryItemEquippingBlock())
+            ->setHasGeometry(true)
+            ->setStatGroupHash(548191128)
+            ->setItemLevels(new Collection('int', [0]))
+            ->setQualityLevel(0)
+            ->setEquippable(true)
+            ->setInstanced(true)
+            ->setRewardItemHash(0)
+            ->setValues([])
+            ->setItemType(2)
+            ->setItemSubType(0)
+            ->setClassType(0)
+            ->setSources(new Collection(InventoryItemSource::class))
+            ->setItemCategoryHashes(new Collection('int', [22, 46, 20]))
+            ->setSourceHashes(new Collection('int', [1882189853, 460228854]))
+            ->setNonTransferrable(false)
+            ->setExclusive(0)
+            ->setMaxStackSize(1)
+            ->setItemIndex(0)
+            ->setSetItemHashes(new Collection('int'))
+            ->setTooltipStyle('')
+            ->setQuestlineItemHash(0)
+            ->setNeedsFullCompletion(false)
+            ->setObjectiveHashes(new Collection('int'))
+            ->setAllowActions(true)
+            ->setQuestTrackingUnlockValueHash(0)
+            ->setBountyResetUnlockHash(0)
+            ->setUniquenessHash(2166136261)
+            ->setShowActiveNodesInTooltip(false)
+            ->setDamageTypes(new Collection('int', [3]))
+            ->setHash(10673376)
+            ->setIndex(0);
+
+        $this->assertEquals($expected, $object);
+    }
+
+    /**
+     * Test To Collection
+     */
+    public function testToCollection()
+    {
+        $collection = InventoryItem::toCollection(null, [
+            [
+                'itemHash' => 10673376,
+                'itemName' => 'Winged Sun Gauntlets',
+                'itemDescription' => '"Those who fly beneath the Sun do not come back unscathed." —Parables of the Allspring',
+                'icon' => '/common/destiny_content/icons/76d389cb45924ab25e8fdf245d20e1f5.jpg',
+                'hasIcon' => true,
+                'secondaryIcon' => '/img/misc/missing_icon.png',
+                'actionName' => 'Dismantle',
+                'hasAction' => true,
+                'deleteOnAction' => true,
+                'tierTypeName' => 'Legendary',
+                'tierType' => 5,
+                'itemTypeName' => 'Gauntlets',
+                'bucketTypeHash' => 3551918588,
+                'primaryBaseStatHash' => 3897883278,
+                'stats' => [],
+                'perkHashes' => [],
+                'specialItemType' => 0,
+                'talentGridHash' => 1227905893,
+                'equippingBlock' => [],
+                'hasGeometry' => true,
+                'statGroupHash' => 548191128,
+                'itemLevels' => [0],
+                'qualityLevel' => 0,
+                'equippable' => true,
+                'instanced' => true,
+                'rewardItemHash' => 0,
+                'values' => [],
+                'itemType' => 2,
+                'itemSubType' => 0,
+                'classType' => 0,
+                'sources' => [],
+                'itemCategoryHashes' => [22, 46, 20],
+                'sourceHashes' => [1882189853, 460228854],
+                'nonTransferrable' => false,
+                'exclusive' => 0,
+                'maxStackSize' => 1,
+                'itemIndex' => 0,
+                'setItemHashes' => [],
+                'tooltipStyle' => '',
+                'questlineItemHash' => 0,
+                'needsFullCompletion' => false,
+                'objectiveHashes' => [],
+                'allowActions' => true,
+                'questTrackingUnlockValueHash' => 0,
+                'bountyResetUnlockHash' => 0,
+                'uniquenessHash' => 2166136261,
+                'showActiveNodesInTooltip' => false,
+                'damageTypes' => [3],
+                'hash' => 10673376,
+                'index' => 0
+            ]
+        ]);
+
+        $expected = new Collection(InventoryItem::class, [
+            (new InventoryItem())
+                ->setItemHash(10673376)
+                ->setItemName('Winged Sun Gauntlets')
+                ->setItemDescription('"Those who fly beneath the Sun do not come back unscathed." —Parables of the Allspring')
+                ->setIcon('/common/destiny_content/icons/76d389cb45924ab25e8fdf245d20e1f5.jpg')
+                ->setHasIcon(true)
+                ->setSecondaryIcon('/img/misc/missing_icon.png')
+                ->setActionName('Dismantle')
+                ->setHasAction(true)
+                ->setDeleteOnAction(true)
+                ->setTierTypeName('Legendary')
+                ->setTierType(5)
+                ->setItemTypeName('Gauntlets')
+                ->setBucketTypeHash(3551918588)
+                ->setPrimaryBaseStatHash(3897883278)
+                ->setStats(new Collection(InventoryItemStat::class))
+                ->setPerkHashes(new Collection('int'))
+                ->setSpecialItemType(0)
+                ->setTalentGridHash(1227905893)
+                ->setEquippingBlock(new InventoryItemEquippingBlock())
+                ->setHasGeometry(true)
+                ->setStatGroupHash(548191128)
+                ->setItemLevels(new Collection('int', [0]))
+                ->setQualityLevel(0)
+                ->setEquippable(true)
+                ->setInstanced(true)
+                ->setRewardItemHash(0)
+                ->setValues([])
+                ->setItemType(2)
+                ->setItemSubType(0)
+                ->setClassType(0)
+                ->setSources(new Collection(InventoryItemSource::class))
+                ->setItemCategoryHashes(new Collection('int', [22, 46, 20]))
+                ->setSourceHashes(new Collection('int', [1882189853, 460228854]))
+                ->setNonTransferrable(false)
+                ->setExclusive(0)
+                ->setMaxStackSize(1)
+                ->setItemIndex(0)
+                ->setSetItemHashes(new Collection('int'))
+                ->setTooltipStyle('')
+                ->setQuestlineItemHash(0)
+                ->setNeedsFullCompletion(false)
+                ->setObjectiveHashes(new Collection('int'))
+                ->setAllowActions(true)
+                ->setQuestTrackingUnlockValueHash(0)
+                ->setBountyResetUnlockHash(0)
+                ->setUniquenessHash(2166136261)
+                ->setShowActiveNodesInTooltip(false)
+                ->setDamageTypes(new Collection('int', [3]))
+                ->setHash(10673376)
+                ->setIndex(0)
+        ]);
+
+        $this->assertEquals($expected, $collection);
+    }
 }

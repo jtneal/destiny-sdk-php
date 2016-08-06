@@ -3,6 +3,9 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class TalentGridActivationRequirement
@@ -10,6 +13,8 @@ use Collections\Collection;
  */
 class TalentGridActivationRequirement
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -54,5 +59,18 @@ class TalentGridActivationRequirement
     {
         $this->materialRequirementHashes = $materialRequirementHashes;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return TalentGridActivationRequirement
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('gridLevel')
+            ->add('materialRequirementHashes', null, MapperHelper::class . '::mapArrayToCollectionInt');
+        return $mapper->map($val);
     }
 }

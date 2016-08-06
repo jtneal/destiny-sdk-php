@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class StatGroupScaledStatInterpolation
  * @package Necowebs\Destiny\Models\Manifest
  */
 class StatGroupScaledStatInterpolation
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -54,4 +59,16 @@ class StatGroupScaledStatInterpolation
         return $this;
     }
 
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return StatGroupScaledStatInterpolation
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('value')
+            ->add('weight');
+        return $mapper->map($val);
+    }
 }

@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class ClassDefinition
  * @package Necowebs\Destiny\Models\Manifest
  */
 class ClassDefinition
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -213,5 +218,25 @@ class ClassDefinition
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return ClassDefinition
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('classHash')
+            ->add('classType')
+            ->add('className')
+            ->add('classNameMale')
+            ->add('classNameFemale')
+            ->add('classIdentifier')
+            ->add('mentorVendorIdentifier')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

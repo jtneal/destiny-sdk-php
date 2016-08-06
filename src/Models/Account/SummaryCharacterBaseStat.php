@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Account;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class SummaryCharacterBaseStat
  * @package Necowebs\Destiny\Models\Account
  */
 class SummaryCharacterBaseStat
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -75,5 +80,19 @@ class SummaryCharacterBaseStat
     {
         $this->maximumValue = (int) $maximumValue;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return SummaryCharacterBaseStat
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('statHash')
+            ->add('value')
+            ->add('maximumValue');
+        return $mapper->map($val);
     }
 }

@@ -5,7 +5,6 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Place;
 use Necowebs\Destiny\Services\BaseService;
-use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class PlaceService
@@ -26,16 +25,6 @@ class PlaceService extends BaseService
             throw new ManifestObjectNotFoundException;
         }
 
-        $place = $body['Response']['data']['place'];
-
-        $mapper = (new ArrayObjectMapper(Place::class))
-            ->add('placeHash')
-            ->add('placeName')
-            ->add('placeDescription')
-            ->add('icon')
-            ->add('hash')
-            ->add('index');
-
-        return $mapper->map($place);
+        return Place::toObject(null, $body['Response']['data']['place']);
     }
 }

@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Account;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class AdvisorRecordBookRecordObjective
  * @package Necowebs\Destiny\Models\Account
  */
 class AdvisorRecordBookRecordObjective
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -167,5 +172,23 @@ class AdvisorRecordBookRecordObjective
     {
         $this->displayValue = (string) $displayValue;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return AdvisorRecordBookRecordObjective
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('objectiveHash')
+            ->add('destinationHash')
+            ->add('activityHash')
+            ->add('progress')
+            ->add('hasProgress')
+            ->add('isComplete')
+            ->add('displayValue');
+        return $mapper->map($val);
     }
 }

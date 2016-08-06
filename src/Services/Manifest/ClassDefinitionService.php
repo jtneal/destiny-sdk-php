@@ -5,7 +5,6 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\ClassDefinition;
 use Necowebs\Destiny\Services\BaseService;
-use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class ClassDefinitionService
@@ -26,19 +25,6 @@ class ClassDefinitionService extends BaseService
             throw new ManifestObjectNotFoundException;
         }
 
-        $class = $body['Response']['data']['classDefinition'];
-
-        $mapper = (new ArrayObjectMapper(ClassDefinition::class))
-            ->add('classHash')
-            ->add('classType')
-            ->add('className')
-            ->add('classNameMale')
-            ->add('classNameFemale')
-            ->add('classIdentifier')
-            ->add('mentorVendorIdentifier')
-            ->add('hash')
-            ->add('index');
-
-        return $mapper->map($class);
+        return ClassDefinition::toObject(null, $body['Response']['data']['classDefinition']);
     }
 }

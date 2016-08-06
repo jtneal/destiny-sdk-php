@@ -42,4 +42,82 @@ class ActivityBundleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2659248068, $bundle->getHash());
         $this->assertEquals(0, $bundle->getIndex());
     }
+
+    /**
+     * Test To Object
+     */
+    public function testToObject()
+    {
+        $object = ActivityBundle::toObject(null, [
+            'bundleHash' => 2659248071,
+            'activityName' => 'Vault of Glass',
+            'activityDescription' => 'Beneath Venus, evil stirs.',
+            'icon' => '/img/misc/missing_icon.png',
+            'releaseIcon' => '/img/misc/missing_icon.png',
+            'releaseTime' => 0,
+            'destinationHash' => 518553403,
+            'placeHash' => 3871070152,
+            'activityTypeHash' => 2043403989,
+            'activityHashes' => [2659248071, 2659248068],
+            'hash' => 2659248071,
+            'index' => 0
+        ]);
+
+        $expected = (new ActivityBundle())
+            ->setBundleHash(2659248071)
+            ->setActivityName('Vault of Glass')
+            ->setActivityDescription('Beneath Venus, evil stirs.')
+            ->setIcon('/img/misc/missing_icon.png')
+            ->setReleaseIcon('/img/misc/missing_icon.png')
+            ->setReleaseTime(0)
+            ->setDestinationHash(518553403)
+            ->setPlaceHash(3871070152)
+            ->setActivityTypeHash(2043403989)
+            ->setActivityHashes(new Collection('int', [2659248071, 2659248068]))
+            ->setHash(2659248071)
+            ->setIndex(0);
+
+        $this->assertEquals($expected, $object);
+    }
+
+    /**
+     * Test To Collection
+     */
+    public function testToCollection()
+    {
+        $collection = ActivityBundle::toCollection(null, [
+            [
+                'bundleHash' => 2659248071,
+                'activityName' => 'Vault of Glass',
+                'activityDescription' => 'Beneath Venus, evil stirs.',
+                'icon' => '/img/misc/missing_icon.png',
+                'releaseIcon' => '/img/misc/missing_icon.png',
+                'releaseTime' => 0,
+                'destinationHash' => 518553403,
+                'placeHash' => 3871070152,
+                'activityTypeHash' => 2043403989,
+                'activityHashes' => [2659248071, 2659248068],
+                'hash' => 2659248071,
+                'index' => 0
+            ]
+        ]);
+
+        $expected = new Collection(ActivityBundle::class, [
+            (new ActivityBundle())
+                ->setBundleHash(2659248071)
+                ->setActivityName('Vault of Glass')
+                ->setActivityDescription('Beneath Venus, evil stirs.')
+                ->setIcon('/img/misc/missing_icon.png')
+                ->setReleaseIcon('/img/misc/missing_icon.png')
+                ->setReleaseTime(0)
+                ->setDestinationHash(518553403)
+                ->setPlaceHash(3871070152)
+                ->setActivityTypeHash(2043403989)
+                ->setActivityHashes(new Collection('int', [2659248071, 2659248068]))
+                ->setHash(2659248071)
+                ->setIndex(0)
+        ]);
+
+        $this->assertEquals($expected, $collection);
+    }
 }

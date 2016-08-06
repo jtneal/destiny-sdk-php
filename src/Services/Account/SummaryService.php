@@ -5,8 +5,6 @@ namespace Necowebs\Destiny\Services\Account;
 use Necowebs\Destiny\Exceptions\AccountNotFoundException;
 use Necowebs\Destiny\Models\Account\Summary;
 use Necowebs\Destiny\Services\BaseService;
-use Necowebs\Destiny\Utils\ArrayObjectMapper;
-use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class SummaryService
@@ -28,19 +26,6 @@ class SummaryService extends BaseService
             throw new AccountNotFoundException;
         }
 
-        $summary = $body['Response']['data'];
-
-        $mapper = (new ArrayObjectMapper(Summary::class))
-            ->add('membershipId')
-            ->add('membershipType')
-            ->add('characters', null, MapperHelper::class . '::mapArrayToSummaryCharacters')
-            ->add('clanName')
-            ->add('clanTag')
-            ->add('inventory', null, MapperHelper::class . '::mapArrayToSummaryInventory')
-            ->add('grimoireScore')
-            ->add('versions')
-            ->add('accountState');
-
-        return $mapper->map($summary);
+        return Summary::toObject(null, $body['Response']['data']);
     }
 }

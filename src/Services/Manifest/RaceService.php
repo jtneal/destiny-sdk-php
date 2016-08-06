@@ -5,7 +5,6 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Race;
 use Necowebs\Destiny\Services\BaseService;
-use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class RaceService
@@ -26,18 +25,6 @@ class RaceService extends BaseService
             throw new ManifestObjectNotFoundException;
         }
 
-        $race = $body['Response']['data']['race'];
-
-        $mapper = (new ArrayObjectMapper(Race::class))
-            ->add('raceHash')
-            ->add('raceType')
-            ->add('raceName')
-            ->add('raceNameMale')
-            ->add('raceNameFemale')
-            ->add('raceDescription')
-            ->add('hash')
-            ->add('index');
-
-        return $mapper->map($race);
+        return Race::toObject(null, $body['Response']['data']['race']);
     }
 }

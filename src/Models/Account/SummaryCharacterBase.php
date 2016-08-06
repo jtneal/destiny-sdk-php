@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Account;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class SummaryCharacterBase
  * @package Necowebs\Destiny\Models\Account
  */
 class SummaryCharacterBase
 {
+    use ModelTrait;
+
     /**
      * @var string
      */
@@ -443,5 +448,35 @@ class SummaryCharacterBase
     {
         $this->buildStatGroupHash = (int) $buildStatGroupHash;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return SummaryCharacterBase
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('membershipId')
+            ->add('membershipType')
+            ->add('characterId')
+            ->add('dateLastPlayed')
+            ->add('minutesPlayedThisSession')
+            ->add('minutesPlayedTotal')
+            ->add('powerLevel')
+            ->add('raceHash')
+            ->add('genderHash')
+            ->add('classHash')
+            ->add('currentActivityHash')
+            ->add('lastCompletedStoryHash')
+            ->add('stats', null, SummaryCharacterBaseStats::class . '::toObject')
+            ->add('customization', null, SummaryCharacterBaseCustomization::class . '::toObject')
+            ->add('grimoireScore')
+            ->add('peerView', null, SummaryCharacterBasePeerView::class . '::toObject')
+            ->add('genderType')
+            ->add('classType')
+            ->add('buildStatGroupHash');
+        return $mapper->map($val);
     }
 }

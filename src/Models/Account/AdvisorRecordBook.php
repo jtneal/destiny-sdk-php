@@ -3,6 +3,8 @@
 namespace Necowebs\Destiny\Models\Account;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class AdvisorRecordBook
@@ -10,6 +12,8 @@ use Collections\Collection;
  */
 class AdvisorRecordBook
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -192,5 +196,24 @@ class AdvisorRecordBook
     {
         $this->expirationDate = (string) $expirationDate;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return AdvisorRecordBook
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('bookHash')
+            ->add('records', null, AdvisorRecordBookRecord::class . '::toCollection')
+            ->add('progression', null, SummaryCharacterLevelProgression::class . '::toObject')
+            ->add('completedCount')
+            ->add('redeemedCount')
+            ->add('spotlights', null, AdvisorRecordBookSpotlight::class . '::toCollection')
+            ->add('startDate')
+            ->add('expirationDate');
+        return $mapper->map($val);
     }
 }

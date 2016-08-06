@@ -5,8 +5,6 @@ namespace Necowebs\Destiny\Services\Account;
 use Necowebs\Destiny\Exceptions\AccountNotFoundException;
 use Necowebs\Destiny\Models\Account\Advisor;
 use Necowebs\Destiny\Services\BaseService;
-use Necowebs\Destiny\Utils\ArrayObjectMapper;
-use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class AdvisorsService
@@ -28,15 +26,6 @@ class AdvisorsService extends BaseService
             throw new AccountNotFoundException;
         }
 
-        $advisors = $body['Response']['data'];
-
-        $mapper = (new ArrayObjectMapper(Advisor::class))
-            ->add('nextWeeklyReset')
-            ->add('nextDailyReset')
-            ->add('previousWeeklyReset')
-            ->add('previousDailyReset')
-            ->add('recordBooks', null, MapperHelper::class . '::mapArrayToAdvisorRecordBooks');
-
-        return $mapper->map($advisors);
+        return Advisor::toObject(null, $body['Response']['data']);
     }
 }

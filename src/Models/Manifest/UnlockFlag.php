@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class UnlockFlag
  * @package Necowebs\Destiny\Models\Manifest
  */
 class UnlockFlag
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -121,5 +126,21 @@ class UnlockFlag
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return UnlockFlag
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('flagHash')
+            ->add('isOffer')
+            ->add('unlockType')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

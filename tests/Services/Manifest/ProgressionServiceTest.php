@@ -3,7 +3,7 @@
 namespace Necowebs\Destiny\Services\Manifest;
 
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
-use Necowebs\Destiny\Models\Manifest\ProgressionStep;
+use Necowebs\Destiny\Models\Manifest\Reward;
 
 /**
  * Class ProgressionServiceTest
@@ -22,7 +22,7 @@ class ProgressionServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('terminals', $progression->getName());
         $this->assertEquals(1, $progression->getScope());
         $this->assertEquals(true, $progression->getRepeatLastStep());
-        $this->assertContainsOnlyInstancesOf(ProgressionStep::class, $progression->getSteps());
+        $this->assertContainsOnlyInstancesOf(Reward::class, $progression->getSteps());
         $this->assertEquals(true, $progression->getVisible());
         $this->assertEquals(45089664, $progression->getHash());
         $this->assertEquals(0, $progression->getIndex());

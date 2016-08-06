@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Account;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class SummaryCharacter
  * @package Necowebs\Destiny\Models\Account
  */
 class SummaryCharacter
 {
+    use ModelTrait;
+
     /**
      * @var SummaryCharacterBase
      */
@@ -213,5 +218,25 @@ class SummaryCharacter
     {
         $this->percentToNextLevel = (int) $percentToNextLevel;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return SummaryCharacter
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('characterBase', null, SummaryCharacterBase::class . '::toObject')
+            ->add('levelProgression', null, SummaryCharacterLevelProgression::class . '::toObject')
+            ->add('emblemPath')
+            ->add('backgroundPath')
+            ->add('emblemHash')
+            ->add('characterLevel')
+            ->add('baseCharacterLevel')
+            ->add('isPrestigeLevel')
+            ->add('percentToNextLevel');
+        return $mapper->map($val);
     }
 }

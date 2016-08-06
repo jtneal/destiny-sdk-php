@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Account;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class SummaryCharacterBaseCustomization
  * @package Necowebs\Destiny\Models\Account
  */
 class SummaryCharacterBaseCustomization
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -282,5 +287,28 @@ class SummaryCharacterBaseCustomization
     {
         $this->decalIndex = (int) $decalIndex;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return SummaryCharacterBaseCustomization
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('personality')
+            ->add('face')
+            ->add('skinColor')
+            ->add('lipColor')
+            ->add('eyeColor')
+            ->add('hairColor')
+            ->add('featureColor')
+            ->add('decalColor')
+            ->add('wearHelmet')
+            ->add('hairIndex')
+            ->add('featureIndex')
+            ->add('decalIndex');
+        return $mapper->map($val);
     }
 }

@@ -5,7 +5,6 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Gender;
 use Necowebs\Destiny\Services\BaseService;
-use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class GenderService
@@ -26,16 +25,6 @@ class GenderService extends BaseService
             throw new ManifestObjectNotFoundException;
         }
 
-        $gender = $body['Response']['data']['gender'];
-
-        $mapper = (new ArrayObjectMapper(Gender::class))
-            ->add('genderHash')
-            ->add('genderType')
-            ->add('genderName')
-            ->add('genderDescription')
-            ->add('hash')
-            ->add('index');
-
-        return $mapper->map($gender);
+        return Gender::toObject(null, $body['Response']['data']['gender']);
     }
 }

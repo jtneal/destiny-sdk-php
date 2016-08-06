@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Stats;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class ActivityValues
  * @package Necowebs\Destiny\Models\Stats
  */
 class ActivityValues
 {
+    use ModelTrait;
+
     /**
      * @var ActivityValue
      */
@@ -305,5 +310,29 @@ class ActivityValues
     {
         $this->leaveRemainingSeconds = $leaveRemainingSeconds;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return ActivityValues
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('assists', null, ActivityValue::class . '::toObject')
+            ->add('kills', null, ActivityValue::class . '::toObject')
+            ->add('averageScorePerKill', null, ActivityValue::class . '::toObject')
+            ->add('deaths', null, ActivityValue::class . '::toObject')
+            ->add('averageScorePerLife', null, ActivityValue::class . '::toObject')
+            ->add('completed', null, ActivityValue::class . '::toObject')
+            ->add('killsDeathsRatio', null, ActivityValue::class . '::toObject')
+            ->add('killsDeathsAssists', null, ActivityValue::class . '::toObject')
+            ->add('activityDurationSeconds', null, ActivityValue::class . '::toObject')
+            ->add('completionReason', null, ActivityValue::class . '::toObject')
+            ->add('fireTeamId', null, ActivityValue::class . '::toObject')
+            ->add('playerCount', null, ActivityValue::class . '::toObject')
+            ->add('leaveRemainingSeconds', null, ActivityValue::class . '::toObject');
+        return $mapper->map($val);
     }
 }

@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Account;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class SummaryInventoryCurrency
  * @package Necowebs\Destiny\Models\Account
  */
 class SummaryInventoryCurrency
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -52,5 +57,18 @@ class SummaryInventoryCurrency
     {
         $this->value = (int) $value;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return SummaryInventoryCurrency
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('itemHash')
+            ->add('value');
+        return $mapper->map($val);
     }
 }

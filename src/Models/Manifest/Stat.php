@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class Stat
  * @package Necowebs\Destiny\Models\Manifest
  */
 class Stat
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -190,5 +195,24 @@ class Stat
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Stat
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('statHash')
+            ->add('statName')
+            ->add('statDescription')
+            ->add('icon')
+            ->add('statIdentifier')
+            ->add('interpolate')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

@@ -3,6 +3,8 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class InventoryItemEquippingBlock
@@ -10,6 +12,8 @@ use Collections\Collection;
  */
 class InventoryItemEquippingBlock
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -192,5 +196,24 @@ class InventoryItemEquippingBlock
     {
         $this->arrangements = $arrangements;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return InventoryItemEquippingBlock
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('weaponSandboxPatternIndex')
+            ->add('gearArtArrangementIndex')
+            ->add('defaultDyes', null, InventoryItemDye::class . '::toCollection')
+            ->add('lockedDyes', null, InventoryItemDye::class . '::toCollection')
+            ->add('customDyes', null, InventoryItemDye::class . '::toCollection')
+            ->add('customDyeExpression', null, DirectorBookExpression::class . '::toObject')
+            ->add('weaponPatternHash')
+            ->add('arrangements', null, InventoryItemEquippingBlockArrangement::class . '::toCollection');
+        return $mapper->map($val);
     }
 }

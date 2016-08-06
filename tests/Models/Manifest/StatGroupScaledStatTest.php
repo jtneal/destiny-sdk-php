@@ -26,4 +26,50 @@ class StatGroupScaledStatTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(false, $stat->getDisplayAsNumeric());
         $this->assertEquals(new Collection(StatGroupScaledStatInterpolation::class), $stat->getDisplayInterpolation());
     }
+
+    /**
+     * Test To Object
+     */
+    public function testToObject()
+    {
+        $object = StatGroupScaledStat::toObject(null, [
+            'statHash' => 392767087,
+            'maximumValue' => 11,
+            'displayAsNumeric' => false,
+            'displayInterpolation' => []
+        ]);
+
+        $expected = (new StatGroupScaledStat())
+            ->setStatHash(392767087)
+            ->setMaximumValue(11)
+            ->setDisplayAsNumeric(false)
+            ->setDisplayInterpolation(new Collection(StatGroupScaledStatInterpolation::class));
+
+        $this->assertEquals($expected, $object);
+    }
+
+    /**
+     * Test To Collection
+     */
+    public function testToCollection()
+    {
+        $collection = StatGroupScaledStat::toCollection(null, [
+            [
+                'statHash' => 392767087,
+                'maximumValue' => 11,
+                'displayAsNumeric' => false,
+                'displayInterpolation' => []
+            ]
+        ]);
+
+        $expected = new Collection(StatGroupScaledStat::class, [
+            (new StatGroupScaledStat())
+                ->setStatHash(392767087)
+                ->setMaximumValue(11)
+                ->setDisplayAsNumeric(false)
+                ->setDisplayInterpolation(new Collection(StatGroupScaledStatInterpolation::class))
+        ]);
+
+        $this->assertEquals($expected, $collection);
+    }
 }

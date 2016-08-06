@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Account;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class SummaryCharacterBaseStats
  * @package Necowebs\Destiny\Models\Account
  */
 class SummaryCharacterBaseStats
 {
+    use ModelTrait;
+
     /**
      * @var SummaryCharacterBaseStat
      */
@@ -305,5 +310,29 @@ class SummaryCharacterBaseStats
     {
         $this->attackEnergy = $attackEnergy;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return SummaryCharacterBaseStats
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('STAT_DEFENSE', 'setDefense', SummaryCharacterBaseStat::class . '::toObject')
+            ->add('STAT_INTELLECT', 'setIntellect', SummaryCharacterBaseStat::class . '::toObject')
+            ->add('STAT_DISCIPLINE', 'setDiscipline', SummaryCharacterBaseStat::class . '::toObject')
+            ->add('STAT_STRENGTH', 'setStrength', SummaryCharacterBaseStat::class . '::toObject')
+            ->add('STAT_LIGHT', 'setLight', SummaryCharacterBaseStat::class . '::toObject')
+            ->add('STAT_ARMOR', 'setArmor', SummaryCharacterBaseStat::class . '::toObject')
+            ->add('STAT_AGILITY', 'setAgility', SummaryCharacterBaseStat::class . '::toObject')
+            ->add('STAT_RECOVERY', 'setRecovery', SummaryCharacterBaseStat::class . '::toObject')
+            ->add('STAT_OPTICS', 'setOptics', SummaryCharacterBaseStat::class . '::toObject')
+            ->add('STAT_ATTACK_SPEED', 'setAttackSpeed', SummaryCharacterBaseStat::class . '::toObject')
+            ->add('STAT_DAMAGE_REDUCTION', 'setDamageReduction', SummaryCharacterBaseStat::class . '::toObject')
+            ->add('STAT_ATTACK_EFFICIENCY', 'setAttackEfficiency', SummaryCharacterBaseStat::class . '::toObject')
+            ->add('STAT_ATTACK_ENERGY', 'setAttackEnergy', SummaryCharacterBaseStat::class . '::toObject');
+        return $mapper->map($val);
     }
 }

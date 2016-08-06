@@ -20,4 +20,39 @@ class TalentGridExclusiveSetTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(new Collection('int'), $set->getNodeIndexes());
     }
+
+    /**
+     * Test To Object
+     */
+    public function testToObject()
+    {
+        $object = TalentGridExclusiveSet::toObject(null, [
+            'nodeIndexes' => [1, 2, 3, 4]
+        ]);
+
+        $expected = (new TalentGridExclusiveSet())
+            ->setNodeIndexes(new Collection('int', [1, 2, 3, 4]));
+
+
+        $this->assertEquals($expected, $object);
+    }
+
+    /**
+     * Test To Collection
+     */
+    public function testToCollection()
+    {
+        $collection = TalentGridExclusiveSet::toCollection(null, [
+            [
+                'nodeIndexes' => [1, 2, 3, 4]
+            ]
+        ]);
+
+        $expected = new Collection(TalentGridExclusiveSet::class, [
+            (new TalentGridExclusiveSet())
+                ->setNodeIndexes(new Collection('int', [1, 2, 3, 4]))
+        ]);
+
+        $this->assertEquals($expected, $collection);
+    }
 }

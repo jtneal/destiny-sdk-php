@@ -3,6 +3,8 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class Progression
@@ -10,6 +12,8 @@ use Collections\Collection;
  */
 class Progression
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -215,5 +219,25 @@ class Progression
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Progression
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('progressionHash')
+            ->add('name')
+            ->add('scope')
+            ->add('repeatLastStep')
+            ->add('identifier')
+            ->add('steps', null, Reward::class . '::toCollection')
+            ->add('visible')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

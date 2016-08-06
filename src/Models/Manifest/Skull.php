@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class Skull
  * @package Necowebs\Destiny\Models\Manifest
  */
 class Skull
 {
+    use ModelTrait;
+
     /**
      * @var string
      */
@@ -75,5 +80,19 @@ class Skull
     {
         $this->icon = (string) $icon;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Skull
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('displayName')
+            ->add('description')
+            ->add('icon');
+        return $mapper->map($val);
     }
 }

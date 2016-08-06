@@ -3,6 +3,9 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class TalentGridNode
@@ -10,6 +13,8 @@ use Collections\Collection;
  */
 class TalentGridNode
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -353,5 +358,31 @@ class TalentGridNode
     {
         $this->originalNodeHash = (int) $originalNodeHash;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return TalentGridNode
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('nodeIndex')
+            ->add('nodeHash')
+            ->add('row')
+            ->add('column')
+            ->add('prerequisiteNodeIndexes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('binaryPairNodeIndex')
+            ->add('autoUnlocks')
+            ->add('lastStepRepeats')
+            ->add('isRandom')
+            ->add('randomActivationRequirement', null, TalentGridActivationRequirement::class . '::toObject')
+            ->add('isRandomRepurchasable')
+            ->add('steps', null, TalentGridStep::class . '::toCollection')
+            ->add('exlusiveWithNodes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('randomStartProgressionBarAtProgression')
+            ->add('originalNodeHash');
+        return $mapper->map($val);
     }
 }

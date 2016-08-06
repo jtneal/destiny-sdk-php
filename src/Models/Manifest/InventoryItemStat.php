@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class InventoryItemStat
  * @package Necowebs\Destiny\Models\Manifest
  */
 class InventoryItemStat
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -98,5 +103,20 @@ class InventoryItemStat
     {
         $this->maximum = (int) $maximum;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return InventoryItemStat
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('statHash')
+            ->add('value')
+            ->add('minimum')
+            ->add('maximum');
+        return $mapper->map($val);
     }
 }

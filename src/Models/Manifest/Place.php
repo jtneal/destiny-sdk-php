@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class Place
  * @package Necowebs\Destiny\Models\Manifest
  */
 class Place
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -144,5 +149,22 @@ class Place
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Place
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('placeHash')
+            ->add('placeName')
+            ->add('placeDescription')
+            ->add('icon')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

@@ -3,6 +3,9 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class ActivityBundle
@@ -10,6 +13,8 @@ use Collections\Collection;
  */
 class ActivityBundle
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -284,5 +289,28 @@ class ActivityBundle
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return ActivityBundle
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('bundleHash')
+            ->add('activityName')
+            ->add('activityDescription')
+            ->add('icon')
+            ->add('releaseIcon')
+            ->add('releaseTime')
+            ->add('destinationHash')
+            ->add('placeHash')
+            ->add('activityTypeHash')
+            ->add('activityHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

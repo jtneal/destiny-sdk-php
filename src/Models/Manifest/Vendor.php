@@ -3,6 +3,9 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class Vendor
@@ -10,6 +13,8 @@ use Collections\Collection;
  */
 class Vendor
 {
+    use ModelTrait;
+
     /**
      * @var VendorSummary
      */
@@ -169,5 +174,23 @@ class Vendor
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Vendor
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('summary', null, VendorSummary::class . '::toObject')
+            ->add('acceptedItems', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('categories', null, VendorCategory::class . '::toCollection')
+            ->add('failureStrings')
+            ->add('unlockValueHash')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

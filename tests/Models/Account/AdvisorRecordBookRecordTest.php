@@ -24,4 +24,46 @@ class AdvisorRecordBookRecordTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new Collection(AdvisorRecordBookRecordObjective::class), $record->getObjectives());
         $this->assertEquals(2, $record->getStatus());
     }
+
+    /**
+     * Test To Object
+     */
+    public function testToObject()
+    {
+        $object = AdvisorRecordBookRecord::toObject(null, [
+            'recordHash' => 1872531696,
+            'objectives' => [],
+            'status' => 2
+        ]);
+
+        $expected = (new AdvisorRecordBookRecord())
+            ->setRecordHash(1872531696)
+            ->setObjectives(new Collection(AdvisorRecordBookRecordObjective::class))
+            ->setStatus(2);
+
+        $this->assertEquals($expected, $object);
+    }
+
+    /**
+     * Test To Collection
+     */
+    public function testToCollection()
+    {
+        $collection = AdvisorRecordBookRecord::toCollection(null, [
+            [
+                'recordHash' => 1872531696,
+                'objectives' => [],
+                'status' => 2
+            ]
+        ]);
+
+        $expected = new Collection(AdvisorRecordBookRecord::class, [
+            (new AdvisorRecordBookRecord())
+                ->setRecordHash(1872531696)
+                ->setObjectives(new Collection(AdvisorRecordBookRecordObjective::class))
+                ->setStatus(2)
+        ]);
+
+        $this->assertEquals($expected, $collection);
+    }
 }

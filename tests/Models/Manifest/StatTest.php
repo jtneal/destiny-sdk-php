@@ -1,6 +1,7 @@
 <?php
 
 namespace Necowebs\Destiny\Models\Manifest;
+use Collections\Collection;
 
 /**
  * Class StatTest
@@ -31,5 +32,67 @@ class StatTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(false, $stat->getInterpolate());
         $this->assertEquals(3897883278, $stat->getHash());
         $this->assertEquals(0, $stat->getIndex());
+    }
+
+    /**
+     * Test To Object
+     */
+    public function testToObject()
+    {
+        $object = Stat::toObject(null, [
+            'statHash' => 3897883278,
+            'statName' => 'Defense',
+            'statDescription' => 'Reduces incoming damage from your enemies.',
+            'icon' => '/img/theme/destiny/icons/icon_defense.png',
+            'statIdentifier' => 'STAT_DEFENSE',
+            'interpolate' => false,
+            'hash' => 3897883278,
+            'index' => 0
+        ]);
+
+        $expected = (new Stat())
+            ->setStatHash(3897883278)
+            ->setStatName('Defense')
+            ->setStatDescription('Reduces incoming damage from your enemies.')
+            ->setIcon('/img/theme/destiny/icons/icon_defense.png')
+            ->setStatIdentifier('STAT_DEFENSE')
+            ->setInterpolate(false)
+            ->setHash(3897883278)
+            ->setIndex(0);
+
+        $this->assertEquals($expected, $object);
+    }
+
+    /**
+     * Test To Collection
+     */
+    public function testToCollection()
+    {
+        $collection = Stat::toCollection(null, [
+            [
+                'statHash' => 3897883278,
+                'statName' => 'Defense',
+                'statDescription' => 'Reduces incoming damage from your enemies.',
+                'icon' => '/img/theme/destiny/icons/icon_defense.png',
+                'statIdentifier' => 'STAT_DEFENSE',
+                'interpolate' => false,
+                'hash' => 3897883278,
+                'index' => 0
+            ]
+        ]);
+
+        $expected = new Collection(Stat::class, [
+            (new Stat())
+                ->setStatHash(3897883278)
+                ->setStatName('Defense')
+                ->setStatDescription('Reduces incoming damage from your enemies.')
+                ->setIcon('/img/theme/destiny/icons/icon_defense.png')
+                ->setStatIdentifier('STAT_DEFENSE')
+                ->setInterpolate(false)
+                ->setHash(3897883278)
+                ->setIndex(0)
+        ]);
+
+        $this->assertEquals($expected, $collection);
     }
 }

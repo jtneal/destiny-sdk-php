@@ -3,6 +3,9 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class InventoryItem
@@ -10,6 +13,8 @@ use Collections\Collection;
  */
 class InventoryItem
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -1158,5 +1163,66 @@ class InventoryItem
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return InventoryItem
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('itemHash')
+            ->add('itemName')
+            ->add('itemDescription')
+            ->add('icon')
+            ->add('hasIcon')
+            ->add('secondaryIcon')
+            ->add('actionName')
+            ->add('hasAction')
+            ->add('deleteOnAction')
+            ->add('tierTypeName')
+            ->add('tierType')
+            ->add('itemTypeName')
+            ->add('bucketTypeHash')
+            ->add('primaryBaseStatHash')
+            ->add('stats', null, InventoryItemStat::class . '::toCollection')
+            ->add('perkHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('specialItemType')
+            ->add('talentGridHash')
+            ->add('equippingBlock', null, InventoryItemEquippingBlock::class . '::toObject')
+            ->add('hasGeometry')
+            ->add('statGroupHash')
+            ->add('itemLevels', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('qualityLevel')
+            ->add('equippable')
+            ->add('instanced')
+            ->add('rewardItemHash')
+            ->add('values')
+            ->add('itemType')
+            ->add('itemSubType')
+            ->add('classType')
+            ->add('sources', null, InventoryItemSource::class . '::toCollection')
+            ->add('itemCategoryHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('sourceHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('nonTransferrable')
+            ->add('exclusive')
+            ->add('maxStackSize')
+            ->add('itemIndex')
+            ->add('setItemHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('tooltipStyle')
+            ->add('questlineItemHash')
+            ->add('needsFullCompletion')
+            ->add('objectiveHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('allowActions')
+            ->add('questTrackingUnlockValueHash')
+            ->add('bountyResetUnlockHash')
+            ->add('uniquenessHash')
+            ->add('showActiveNodesInTooltip')
+            ->add('damageTypes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

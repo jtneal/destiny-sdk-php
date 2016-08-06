@@ -3,6 +3,9 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class DirectorBookNode
@@ -10,6 +13,8 @@ use Collections\Collection;
  */
 class DirectorBookNode
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -192,5 +197,24 @@ class DirectorBookNode
     {
         $this->uiModifier = (int) $uiModifier;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return DirectorBookNode
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('nodeDefinitionHash')
+            ->add('styleHash')
+            ->add('positionX')
+            ->add('positionY')
+            ->add('positionZ')
+            ->add('activityBundleHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('states', null, DirectorBookNodeState::class . '::toCollection')
+            ->add('uiModifier');
+        return $mapper->map($val);
     }
 }

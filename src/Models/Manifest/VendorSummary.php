@@ -3,6 +3,9 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class VendorSummary
@@ -10,6 +13,8 @@ use Collections\Collection;
  */
 class VendorSummary
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -744,5 +749,48 @@ class VendorSummary
     {
         $this->inhibitBuying = (bool) $inhibitBuying;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return VendorSummary
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('vendorHash')
+            ->add('vendorName')
+            ->add('vendorDescription')
+            ->add('vendorIcon')
+            ->add('vendorOrder')
+            ->add('factionName')
+            ->add('factionIcon')
+            ->add('factionHash')
+            ->add('factionDescription')
+            ->add('resetIntervalMinutes')
+            ->add('resetOffsetMinutes')
+            ->add('vendorIdentifier')
+            ->add('positionX')
+            ->add('positionY')
+            ->add('transitionNodeIdentifier')
+            ->add('visible')
+            ->add('progressionHash')
+            ->add('sellString')
+            ->add('buyString')
+            ->add('vendorPortrait')
+            ->add('vendorBanner')
+            ->add('unlockFlagHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('enabledUnlockFlagHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('mapSectionIdentifier')
+            ->add('mapSectionName')
+            ->add('mapSectionOrder')
+            ->add('showOnMap')
+            ->add('eventHash')
+            ->add('vendorCategoryHash')
+            ->add('vendorCategoryHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('vendorSubcategoryHash')
+            ->add('inhibitBuying');
+        return $mapper->map($val);
     }
 }

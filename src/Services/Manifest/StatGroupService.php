@@ -5,8 +5,6 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\StatGroup;
 use Necowebs\Destiny\Services\BaseService;
-use Necowebs\Destiny\Utils\ArrayObjectMapper;
-use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class StatGroupService
@@ -27,17 +25,6 @@ class StatGroupService extends BaseService
             throw new ManifestObjectNotFoundException;
         }
 
-        $group = $body['Response']['data']['statGroup'];
-
-        $mapper = (new ArrayObjectMapper(StatGroup::class))
-            ->add('statGroupHash')
-            ->add('maximumValue')
-            ->add('uiPosition')
-            ->add('scaledStats', null, MapperHelper::class . '::mapArrayToStatGroupScaledStats')
-            ->add('overrides', null, MapperHelper::class . '::mapArrayToStatGroupOverrides')
-            ->add('hash')
-            ->add('index');
-
-        return $mapper->map($group);
+        return StatGroup::toObject(null, $body['Response']['data']['statGroup']);
     }
 }

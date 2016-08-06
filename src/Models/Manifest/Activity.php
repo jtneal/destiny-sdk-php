@@ -3,6 +3,8 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class Activity
@@ -10,6 +12,8 @@ use Collections\Collection;
  */
 class Activity
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -537,5 +541,39 @@ class Activity
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Activity
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('activityHash')
+            ->add('activityName')
+            ->add('activityDescription')
+            ->add('icon')
+            ->add('releaseIcon')
+            ->add('releaseTime')
+            ->add('activityLevel')
+            ->add('completionFlagHash')
+            ->add('activityPower')
+            ->add('minParty')
+            ->add('maxParty')
+            ->add('maxPlayers')
+            ->add('destinationHash')
+            ->add('placeHash')
+            ->add('activityTypeHash')
+            ->add('tier')
+            ->add('pgcrImage')
+            ->add('rewards', null, Reward::class . '::toCollection')
+            ->add('skulls', null, Skull::class . '::toCollection')
+            ->add('isPlaylist')
+            ->add('isMatchmade')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

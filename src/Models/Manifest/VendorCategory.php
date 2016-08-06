@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class VendorCategory
  * @package Necowebs\Destiny\Models\Manifest
  */
 class VendorCategory
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -305,5 +310,29 @@ class VendorCategory
     {
         $this->hideFromRegularPurchase = (bool) $hideFromRegularPurchase;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return VendorCategory
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('categoryHash')
+            ->add('displayTitle')
+            ->add('overlayCurrencyItemHash')
+            ->add('quantityAvailable')
+            ->add('showUnavailableItems')
+            ->add('hideIfNoCurrency')
+            ->add('buyStringOverride')
+            ->add('overlayTitle')
+            ->add('overlayDescription')
+            ->add('overlayChoice')
+            ->add('overlayIcon')
+            ->add('hasOverlay')
+            ->add('hideFromRegularPurchase');
+        return $mapper->map($val);
     }
 }

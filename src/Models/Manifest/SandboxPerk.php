@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class SandboxPerk
  * @package Necowebs\Destiny\Models\Manifest
  */
 class SandboxPerk
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -190,5 +195,24 @@ class SandboxPerk
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return SandboxPerk
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('perkHash')
+            ->add('displayName')
+            ->add('displayDescription')
+            ->add('displayIcon')
+            ->add('isDisplayable')
+            ->add('perkGroups', null, SandboxPerkGroup::class . '::toObject')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

@@ -20,4 +20,38 @@ class DirectorBookExpressionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(new Collection(DirectorBookExpression::class), $expression->getSteps());
     }
+
+    /**
+     * Test To Object
+     */
+    public function testToObject()
+    {
+        $object = DirectorBookExpression::toObject(null, [
+            'steps' => []
+        ]);
+
+        $expected = (new DirectorBookExpression())
+            ->setSteps(new Collection(DirectorBookExpressionStep::class, []));
+
+        $this->assertEquals($expected, $object);
+    }
+
+    /**
+     * Test To Collection
+     */
+    public function testToCollection()
+    {
+        $collection = DirectorBookExpression::toCollection(null, [
+            [
+                'steps' => []
+            ]
+        ]);
+
+        $expected = new Collection(DirectorBookExpression::class, [
+            (new DirectorBookExpression())
+                ->setSteps(new Collection(DirectorBookExpressionStep::class, []))
+        ]);
+
+        $this->assertEquals($expected, $collection);
+    }
 }

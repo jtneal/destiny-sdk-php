@@ -5,7 +5,6 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\Stat;
 use Necowebs\Destiny\Services\BaseService;
-use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class StatService
@@ -26,18 +25,6 @@ class StatService extends BaseService
             throw new ManifestObjectNotFoundException;
         }
 
-        $stat = $body['Response']['data']['stat'];
-
-        $mapper = (new ArrayObjectMapper(Stat::class))
-            ->add('statHash')
-            ->add('statName')
-            ->add('statDescription')
-            ->add('icon')
-            ->add('statIdentifier')
-            ->add('interpolate')
-            ->add('hash')
-            ->add('index');
-
-        return $mapper->map($stat);
+        return Stat::toObject(null, $body['Response']['data']['stat']);
     }
 }

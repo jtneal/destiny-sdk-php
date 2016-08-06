@@ -3,6 +3,8 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class DirectorBook
@@ -10,6 +12,8 @@ use Collections\Collection;
  */
 class DirectorBook
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -307,5 +311,29 @@ class DirectorBook
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return DirectorBook
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('bookHash')
+            ->add('bookName')
+            ->add('bookDescription')
+            ->add('bookNumber')
+            ->add('nodes', null, DirectorBookNode::class . '::toCollection')
+            ->add('connections', null, DirectorBookConnection::class . '::toCollection')
+            ->add('visible')
+            ->add('isOverview')
+            ->add('isDefaultExpression', null, DirectorBookExpression::class . '::toObject')
+            ->add('isVisibleExpression', null, DirectorBookExpression::class . '::toObject')
+            ->add('destinationHash')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

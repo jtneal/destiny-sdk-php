@@ -3,6 +3,8 @@
 namespace Necowebs\Destiny\Models\Account;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class Advisor
@@ -10,6 +12,8 @@ use Collections\Collection;
  */
 class Advisor
 {
+    use ModelTrait;
+
     /**
      * @var string
      */
@@ -123,5 +127,21 @@ class Advisor
     {
         $this->recordBooks = $recordBooks;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Advisor
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('nextWeeklyReset')
+            ->add('nextDailyReset')
+            ->add('previousWeeklyReset')
+            ->add('previousDailyReset')
+            ->add('recordBooks', null, AdvisorRecordBook::class . '::toCollection');
+        return $mapper->map($val);
     }
 }

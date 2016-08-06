@@ -3,6 +3,9 @@
 namespace Necowebs\Destiny\Models\Account;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Manifest\InventoryItemDye;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class SummaryCharacterBasePeerViewEquipment
@@ -10,6 +13,8 @@ use Collections\Collection;
  */
 class SummaryCharacterBasePeerViewEquipment
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -54,5 +59,18 @@ class SummaryCharacterBasePeerViewEquipment
     {
         $this->dyes = $dyes;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return SummaryCharacterBasePeerViewEquipment
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('itemHash')
+            ->add('dyes', null, InventoryItemDye::class . '::toCollection');
+        return $mapper->map($val);
     }
 }

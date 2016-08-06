@@ -5,7 +5,6 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\UnlockFlag;
 use Necowebs\Destiny\Services\BaseService;
-use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class UnlockFlagService
@@ -26,15 +25,6 @@ class UnlockFlagService extends BaseService
             throw new ManifestObjectNotFoundException;
         }
 
-        $flag = $body['Response']['data']['unlockFlag'];
-
-        $mapper = (new ArrayObjectMapper(UnlockFlag::class))
-            ->add('flagHash')
-            ->add('isOffer')
-            ->add('unlockType')
-            ->add('hash')
-            ->add('index');
-
-        return $mapper->map($flag);
+        return UnlockFlag::toObject(null, $body['Response']['data']['unlockFlag']);
     }
 }

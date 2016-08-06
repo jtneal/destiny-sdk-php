@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class SandboxPerkGroup
  * @package Necowebs\Destiny\Models\Manifest
  */
 class SandboxPerkGroup
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -121,5 +126,21 @@ class SandboxPerkGroup
     {
         $this->damageTypes = (int) $damageTypes;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return SandboxPerkGroup
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('weaponPerformance')
+            ->add('impactEffects')
+            ->add('guardianAttributes')
+            ->add('lightAbilities')
+            ->add('damageTypes');
+        return $mapper->map($val);
     }
 }

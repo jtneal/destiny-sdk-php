@@ -5,7 +5,6 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\ArtDyeChannel;
 use Necowebs\Destiny\Services\BaseService;
-use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class ArtDyeChannelService
@@ -26,14 +25,6 @@ class ArtDyeChannelService extends BaseService
             throw new ManifestObjectNotFoundException;
         }
 
-        $channel = $body['Response']['data']['artDyeChannel'];
-
-        $mapper = (new ArrayObjectMapper(ArtDyeChannel::class))
-            ->add('channelHash')
-            ->add('index')
-            ->add('channelName')
-            ->add('hash');
-
-        return $mapper->map($channel);
+        return ArtDyeChannel::toObject(null, $body['Response']['data']['artDyeChannel']);
     }
 }

@@ -6,8 +6,6 @@ use Collections\Collection;
 use Necowebs\Destiny\Exceptions\StatsNotFoundException;
 use Necowebs\Destiny\Models\Stats\Activity;
 use Necowebs\Destiny\Services\BaseService;
-use Necowebs\Destiny\Utils\ArrayObjectMapper;
-use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class ActivityHistoryService
@@ -40,17 +38,6 @@ class ActivityHistoryService extends BaseService
             throw new StatsNotFoundException;
         }
 
-        $activities = $body['Response']['data']['activities'];
-        $collection = [];
-
-        foreach ($activities as $activity) {
-            $mapper = (new ArrayObjectMapper(Activity::class))
-                ->add('period')
-                ->add('activityDetails', null, MapperHelper::class . '::mapArrayToActivityDetails')
-                ->add('values', null, MapperHelper::class . '::mapArrayToActivityValues');
-            $collection[] = $mapper->map($activity);
-        }
-
-        return new Collection(Activity::class, $collection);
+        return Activity::toCollection(null, $body['Response']['data']['activities']);
     }
 }

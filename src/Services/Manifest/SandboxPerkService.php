@@ -5,8 +5,6 @@ namespace Necowebs\Destiny\Services\Manifest;
 use Necowebs\Destiny\Exceptions\ManifestObjectNotFoundException;
 use Necowebs\Destiny\Models\Manifest\SandboxPerk;
 use Necowebs\Destiny\Services\BaseService;
-use Necowebs\Destiny\Utils\ArrayObjectMapper;
-use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class SandboxPerkService
@@ -27,18 +25,6 @@ class SandboxPerkService extends BaseService
             throw new ManifestObjectNotFoundException;
         }
 
-        $perk = $body['Response']['data']['sandboxPerk'];
-
-        $mapper = (new ArrayObjectMapper(SandboxPerk::class))
-            ->add('perkHash')
-            ->add('displayName')
-            ->add('displayDescription')
-            ->add('displayIcon')
-            ->add('isDisplayable')
-            ->add('perkGroups', null, MapperHelper::class . '::mapArrayToSandboxPerkGroup')
-            ->add('hash')
-            ->add('index');
-
-        return $mapper->map($perk);
+        return SandboxPerk::toObject(null, $body['Response']['data']['sandboxPerk']);
     }
 }

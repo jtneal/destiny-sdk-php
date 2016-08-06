@@ -3,6 +3,9 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class InventoryItemSource
@@ -10,6 +13,8 @@ use Collections\Collection;
  */
 class InventoryItemSource
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -238,5 +243,26 @@ class InventoryItemSource
     {
         $this->spawnIndexes = $spawnIndexes;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return InventoryItemSource
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('expansionIndex')
+            ->add('level')
+            ->add('minQuality')
+            ->add('maxQuality')
+            ->add('minLevelRequired')
+            ->add('maxLevelRequired')
+            ->add('exclusivity')
+            ->add('computedStats', null, InventoryItemStat::class . '::toCollection')
+            ->add('sourceHashes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('spawnIndexes', null, MapperHelper::class . '::mapArrayToCollectionInt');
+        return $mapper->map($val);
     }
 }

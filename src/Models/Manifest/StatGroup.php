@@ -3,6 +3,8 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class StatGroup
@@ -10,6 +12,8 @@ use Collections\Collection;
  */
 class StatGroup
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -169,5 +173,23 @@ class StatGroup
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return StatGroup
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('statGroupHash')
+            ->add('maximumValue')
+            ->add('uiPosition')
+            ->add('scaledStats', null, StatGroupScaledStat::class . '::toCollection')
+            ->add('overrides', null, StatGroupOverride::class . '::toCollection')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

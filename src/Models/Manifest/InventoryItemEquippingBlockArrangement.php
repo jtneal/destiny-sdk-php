@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class InventoryItemEquippingBlockArrangement
  * @package Necowebs\Destiny\Models\Manifest
  */
 class InventoryItemEquippingBlockArrangement
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -52,5 +57,18 @@ class InventoryItemEquippingBlockArrangement
     {
         $this->gearArtArrangementIndex = (int) $gearArtArrangementIndex;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return InventoryItemEquippingBlockArrangement
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('classHash')
+            ->add('gearArtArrangementIndex');
+        return $mapper->map($val);
     }
 }

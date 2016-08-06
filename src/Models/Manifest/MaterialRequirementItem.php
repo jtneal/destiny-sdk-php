@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Manifest;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class MaterialRequirementItem
  * @package Necowebs\Destiny\Models\Manifest
  */
 class MaterialRequirementItem
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -98,5 +103,20 @@ class MaterialRequirementItem
     {
         $this->omitFromRequirements = (bool) $omitFromRequirements;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return MaterialRequirementItem
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('itemHash')
+            ->add('deleteOnAction')
+            ->add('count')
+            ->add('omitFromRequirements');
+        return $mapper->map($val);
     }
 }

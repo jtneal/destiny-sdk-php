@@ -3,6 +3,8 @@
 namespace Necowebs\Destiny\Models\Account;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
  * Class Summary
@@ -10,6 +12,8 @@ use Collections\Collection;
  */
 class Summary
 {
+    use ModelTrait;
+
     /**
      * @var string
      */
@@ -215,5 +219,25 @@ class Summary
     {
         $this->accountState = (int) $accountState;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return Summary
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('membershipId')
+            ->add('membershipType')
+            ->add('characters', null, SummaryCharacter::class . '::toCollection')
+            ->add('clanName')
+            ->add('clanTag')
+            ->add('inventory', null, SummaryInventory::class . '::toObject')
+            ->add('grimoireScore')
+            ->add('versions')
+            ->add('accountState');
+        return $mapper->map($val);
     }
 }

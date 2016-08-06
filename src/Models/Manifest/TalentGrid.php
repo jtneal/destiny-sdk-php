@@ -3,6 +3,9 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class TalentGrid
@@ -10,6 +13,8 @@ use Collections\Collection;
  */
 class TalentGrid
 {
+    use ModelTrait;
+
     /**
      * @var int
      */
@@ -261,5 +266,27 @@ class TalentGrid
     {
         $this->index = (int) $index;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return TalentGrid
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('gridHash')
+            ->add('maxGridLevel')
+            ->add('gridLevelPerColumn')
+            ->add('progressionHash')
+            ->add('nodes', null, TalentGridNode::class . '::toCollection')
+            ->add('calcMaxGridLevel')
+            ->add('calcProgressToMaxLevel')
+            ->add('exclusiveSets', null, TalentGridExclusiveSet::class . '::toCollection')
+            ->add('independentNodeIndexes', null, MapperHelper::class . '::mapArrayToCollectionInt')
+            ->add('hash')
+            ->add('index');
+        return $mapper->map($val);
     }
 }

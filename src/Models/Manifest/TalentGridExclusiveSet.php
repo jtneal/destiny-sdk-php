@@ -3,6 +3,9 @@
 namespace Necowebs\Destiny\Models\Manifest;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+use Necowebs\Destiny\Utils\MapperHelper;
 
 /**
  * Class TalentGridExclusiveSet
@@ -10,6 +13,8 @@ use Collections\Collection;
  */
 class TalentGridExclusiveSet
 {
+    use ModelTrait;
+
     /**
      * @var Collection
      */
@@ -31,5 +36,17 @@ class TalentGridExclusiveSet
     {
         $this->nodeIndexes = $nodeIndexes;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return TalentGridExclusiveSet
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('nodeIndexes', null, MapperHelper::class . '::mapArrayToCollectionInt');
+        return $mapper->map($val);
     }
 }

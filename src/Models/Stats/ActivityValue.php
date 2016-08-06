@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models\Stats;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class ActivityValue
  * @package Necowebs\Destiny\Models\Stats
  */
 class ActivityValue
 {
+    use ModelTrait;
+
     /**
      * @var string
      */
@@ -52,5 +57,18 @@ class ActivityValue
     {
         $this->basic = $basic;
         return $this;
+    }
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return ActivityValue
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('statId')
+            ->add('basic', null, ActivityValueBasic::class . '::toObject');
+        return $mapper->map($val);
     }
 }
