@@ -27,9 +27,9 @@ class ItemsServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Get Summary Exception
+     * Test Get Items Exception
      */
-    public function testGetSummaryException()
+    public function testGetItemsException()
     {
         $this->expectException(ExplorerNotFoundException::class);
 
