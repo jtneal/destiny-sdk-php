@@ -5,9 +5,9 @@ namespace Necowebs\Destiny\Exceptions;
 use OutOfBoundsException as BaseException;
 
 /**
- * Class StatsNotFoundException
+ * Class ExplorerNotFoundException
  * @package Necowebs\Destiny\Exceptions
  */
-class StatsNotFoundException extends BaseException
+class ExplorerNotFoundException extends BaseException
 {
 }
