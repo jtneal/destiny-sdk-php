@@ -6,7 +6,6 @@ use Necowebs\Destiny\Exceptions\CharacterNotFoundException;
 use Necowebs\Destiny\Models\Account\Item;
 use Necowebs\Destiny\Models\Account\SummaryInventoryCurrency;
 
-
 /**
  * Class InventorySummaryServiceTest
  * @package Necowebs\Destiny\Services\Character

@@ -56,7 +56,7 @@ class InventorySummary
      * @param Collection $currencies
      * @return InventorySummary
      */
-    public function setCurrencies(Collection$currencies)
+    public function setCurrencies(Collection $currencies)
     {
         $this->currencies = $currencies;
         return $this;
