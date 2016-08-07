@@ -2,6 +2,8 @@
 
 namespace Necowebs\Destiny\Models\Character;
 
+use Necowebs\Destiny\Models\Account\SummaryCharacterBaseStat;
+use Necowebs\Destiny\Models\Account\SummaryCharacterLevelProgression;
 use Necowebs\Destiny\Models\Traits\ModelTrait;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
@@ -54,6 +56,11 @@ class AdvisorActivityExtendedOrderItem
     private $stats;
 
     /**
+     * @var SummaryCharacterBaseStat
+     */
+    private $primaryStat;
+
+    /**
      * @var bool
      */
     private $canEquip;
@@ -92,6 +99,11 @@ class AdvisorActivityExtendedOrderItem
      * @var int
      */
     private $damageTypeStepIndex;
+
+    /**
+     * @var SummaryCharacterLevelProgression
+     */
+    private $progression;
 
     /**
      * @var int
@@ -303,6 +315,24 @@ class AdvisorActivityExtendedOrderItem
     }
 
     /**
+     * @return SummaryCharacterBaseStat
+     */
+    public function getPrimaryStat()
+    {
+        return $this->primaryStat;
+    }
+
+    /**
+     * @param SummaryCharacterBaseStat $primaryStat
+     * @return AdvisorActivityExtendedOrderItem
+     */
+    public function setPrimaryStat(SummaryCharacterBaseStat $primaryStat)
+    {
+        $this->primaryStat = $primaryStat;
+        return $this;
+    }
+
+    /**
      * @return bool
      */
     public function getCanEquip()
@@ -425,6 +455,24 @@ class AdvisorActivityExtendedOrderItem
     public function setDamageTypeNodeIndex($damageTypeNodeIndex)
     {
         $this->damageTypeNodeIndex = (int) $damageTypeNodeIndex;
+        return $this;
+    }
+
+    /**
+     * @return SummaryCharacterLevelProgression
+     */
+    public function getProgression()
+    {
+        return $this->progression;
+    }
+
+    /**
+     * @param SummaryCharacterLevelProgression $progression
+     * @return AdvisorActivityExtendedOrderItem
+     */
+    public function setProgression(SummaryCharacterLevelProgression $progression)
+    {
+        $this->progression = $progression;
         return $this;
     }
 
@@ -696,6 +744,7 @@ class AdvisorActivityExtendedOrderItem
             ->add('stackSize')
             ->add('qualityLevel')
             ->add('stats')
+            ->add('primaryStat', null, SummaryCharacterBaseStat::class . '::toObject')
             ->add('canEquip')
             ->add('equipRequiredLevel')
             ->add('unlockFlagHashRequiredToEquip')
@@ -704,6 +753,7 @@ class AdvisorActivityExtendedOrderItem
             ->add('damageTypeHash')
             ->add('damageTypeNodeIndex')
             ->add('damageTypeStepIndex')
+            ->add('progression', null, SummaryCharacterLevelProgression::class . '::toObject')
             ->add('talentGridHash')
             ->add('nodes')
             ->add('useCustomDyes')

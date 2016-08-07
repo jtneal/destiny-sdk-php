@@ -3,6 +3,8 @@
 namespace Necowebs\Destiny\Models\Character;
 
 use Collections\Collection;
+use Necowebs\Destiny\Models\Account\SummaryCharacterBaseStat;
+use Necowebs\Destiny\Models\Account\SummaryCharacterLevelProgression;
 
 /**
  * Class AdvisorActivityExtendedOrderItemTest
@@ -24,6 +26,7 @@ class AdvisorActivityExtendedOrderItemTest extends \PHPUnit_Framework_TestCase
             ->setStackSize(1)
             ->setQualityLevel(0)
             ->setStats([])
+            ->setPrimaryStat(new SummaryCharacterBaseStat())
             ->setCanEquip(false)
             ->setEquipRequiredLevel(0)
             ->setUnlockFlagHashRequiredToEquip(0)
@@ -32,6 +35,7 @@ class AdvisorActivityExtendedOrderItemTest extends \PHPUnit_Framework_TestCase
             ->setDamageTypeHash(0)
             ->setDamageTypeNodeIndex(-1)
             ->setDamageTypeStepIndex(-1)
+            ->setProgression(new SummaryCharacterLevelProgression())
             ->setTalentGridHash(0)
             ->setNodes([])
             ->setUseCustomDyes(false)
@@ -54,6 +58,7 @@ class AdvisorActivityExtendedOrderItemTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $item->getStackSize());
         $this->assertEquals(0, $item->getQualityLevel());
         $this->assertEquals([], $item->getStats());
+        $this->assertEquals(new SummaryCharacterBaseStat(), $item->getPrimaryStat());
         $this->assertEquals(false, $item->getCanEquip());
         $this->assertEquals(0, $item->getEquipRequiredLevel());
         $this->assertEquals(0, $item->getUnlockFlagHashRequiredToEquip());
@@ -62,6 +67,7 @@ class AdvisorActivityExtendedOrderItemTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $item->getDamageTypeHash());
         $this->assertEquals(-1, $item->getDamageTypeNodeIndex());
         $this->assertEquals(-1, $item->getDamageTypeStepIndex());
+        $this->assertEquals(new SummaryCharacterLevelProgression(), $item->getProgression());
         $this->assertEquals(0, $item->getTalentGridHash());
         $this->assertEquals([], $item->getNodes());
         $this->assertEquals(false, $item->getUseCustomDyes());
@@ -91,6 +97,7 @@ class AdvisorActivityExtendedOrderItemTest extends \PHPUnit_Framework_TestCase
             'stackSize' => 1,
             'qualityLevel' => 0,
             'stats' => [],
+            'primaryStat' => [],
             'canEquip' => false,
             'equipRequiredLevel' => 0,
             'unlockFlagHashRequiredToEquip' => 0,
@@ -99,6 +106,7 @@ class AdvisorActivityExtendedOrderItemTest extends \PHPUnit_Framework_TestCase
             'damageTypeHash' => 0,
             'damageTypeNodeIndex' => -1,
             'damageTypeStepIndex' => -1,
+            'progression' => [],
             'talentGridHash' => 0,
             'nodes' => [],
             'useCustomDyes' => false,
@@ -123,6 +131,7 @@ class AdvisorActivityExtendedOrderItemTest extends \PHPUnit_Framework_TestCase
             ->setStackSize(1)
             ->setQualityLevel(0)
             ->setStats([])
+            ->setPrimaryStat(new SummaryCharacterBaseStat())
             ->setCanEquip(false)
             ->setEquipRequiredLevel(0)
             ->setUnlockFlagHashRequiredToEquip(0)
@@ -131,6 +140,7 @@ class AdvisorActivityExtendedOrderItemTest extends \PHPUnit_Framework_TestCase
             ->setDamageTypeHash(0)
             ->setDamageTypeNodeIndex(-1)
             ->setDamageTypeStepIndex(-1)
+            ->setProgression(new SummaryCharacterLevelProgression())
             ->setTalentGridHash(0)
             ->setNodes([])
             ->setUseCustomDyes(false)
@@ -163,6 +173,7 @@ class AdvisorActivityExtendedOrderItemTest extends \PHPUnit_Framework_TestCase
                 'stackSize' => 1,
                 'qualityLevel' => 0,
                 'stats' => [],
+                'primaryStat' => [],
                 'canEquip' => false,
                 'equipRequiredLevel' => 0,
                 'unlockFlagHashRequiredToEquip' => 0,
@@ -171,6 +182,7 @@ class AdvisorActivityExtendedOrderItemTest extends \PHPUnit_Framework_TestCase
                 'damageTypeHash' => 0,
                 'damageTypeNodeIndex' => -1,
                 'damageTypeStepIndex' => -1,
+                'progression' => [],
                 'talentGridHash' => 0,
                 'nodes' => [],
                 'useCustomDyes' => false,
@@ -197,6 +209,7 @@ class AdvisorActivityExtendedOrderItemTest extends \PHPUnit_Framework_TestCase
                 ->setStackSize(1)
                 ->setQualityLevel(0)
                 ->setStats([])
+                ->setPrimaryStat(new SummaryCharacterBaseStat())
                 ->setCanEquip(false)
                 ->setEquipRequiredLevel(0)
                 ->setUnlockFlagHashRequiredToEquip(0)
@@ -205,6 +218,7 @@ class AdvisorActivityExtendedOrderItemTest extends \PHPUnit_Framework_TestCase
                 ->setDamageTypeHash(0)
                 ->setDamageTypeNodeIndex(-1)
                 ->setDamageTypeStepIndex(-1)
+                ->setProgression(new SummaryCharacterLevelProgression())
                 ->setTalentGridHash(0)
                 ->setNodes([])
                 ->setUseCustomDyes(false)
