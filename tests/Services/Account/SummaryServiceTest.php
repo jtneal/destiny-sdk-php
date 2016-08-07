@@ -6,7 +6,6 @@ use Necowebs\Destiny\Exceptions\AccountNotFoundException;
 use Necowebs\Destiny\Models\Account\SummaryCharacter;
 use Necowebs\Destiny\Models\Account\SummaryInventory;
 
-
 /**
  * Class SummaryServiceTest
  * @package Necowebs\Destiny\Services\Account
