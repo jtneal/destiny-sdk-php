@@ -17,10 +17,12 @@ class ActivityValueTest extends \PHPUnit_Framework_TestCase
     {
         $value = (new ActivityValue())
             ->setStatId('assists')
-            ->setBasic(new ActivityValueBasic());
+            ->setBasic(new ActivityValueBasic())
+            ->setWeighted(new ActivityValueBasic());
 
         $this->assertEquals('assists', $value->getStatId());
         $this->assertEquals(new ActivityValueBasic(), $value->getBasic());
+        $this->assertEquals(new ActivityValueBasic(), $value->getWeighted());
     }
 
     /**
@@ -30,12 +32,14 @@ class ActivityValueTest extends \PHPUnit_Framework_TestCase
     {
         $object = ActivityValue::toObject(null, [
             'statId' => 'assists',
-            'basic' => []
+            'basic' => [],
+            'weighted' => []
         ]);
 
         $expected = (new ActivityValue())
             ->setStatId('assists')
-            ->setBasic(new ActivityValueBasic());
+            ->setBasic(new ActivityValueBasic())
+            ->setWeighted(new ActivityValueBasic());
 
         $this->assertEquals($expected, $object);
     }
@@ -48,7 +52,8 @@ class ActivityValueTest extends \PHPUnit_Framework_TestCase
         $collection = ActivityValue::toCollection(null, [
             [
                 'statId' => 'assists',
-                'basic' => []
+                'basic' => [],
+                'weighted' => []
             ]
         ]);
 
@@ -56,6 +61,29 @@ class ActivityValueTest extends \PHPUnit_Framework_TestCase
             (new ActivityValue())
                 ->setStatId('assists')
                 ->setBasic(new ActivityValueBasic())
+                ->setWeighted(new ActivityValueBasic())
+        ]);
+
+        $this->assertEquals($expected, $collection);
+    }
+
+    /**
+     * Test To Collection Using Key
+     */
+    public function testToCollectionUsingKey()
+    {
+        $collection = ActivityValue::toCollectionUsingKey(null, [
+            'orbsDropped' => [
+                'basic' => [],
+                'weighted' => []
+            ]
+        ]);
+
+        $expected = new Collection(ActivityValue::class, [
+            (new ActivityValue())
+                ->setStatId('orbsDropped')
+                ->setBasic(new ActivityValueBasic())
+                ->setWeighted(new ActivityValueBasic())
         ]);
 
         $this->assertEquals($expected, $collection);

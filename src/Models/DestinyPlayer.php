@@ -2,12 +2,17 @@
 
 namespace Necowebs\Destiny\Models;
 
+use Necowebs\Destiny\Models\Traits\ModelTrait;
+use Necowebs\Destiny\Utils\ArrayObjectMapper;
+
 /**
  * Class DestinyPlayer
  * @package Necowebs\Destiny\Models
  */
 class DestinyPlayer
 {
+    use ModelTrait;
+
     /**
      * @var string
      */
@@ -98,5 +103,21 @@ class DestinyPlayer
     {
         $this->displayName = (string) $displayName;
         return $this;
+    }
+
+
+    /**
+     * @param mixed $obj
+     * @param array $val
+     * @return DestinyPlayer
+     */
+    public static function toObject($obj, array $val)
+    {
+        $mapper = (new ArrayObjectMapper(self::class))
+            ->add('iconPath')
+            ->add('membershipType')
+            ->add('membershipId')
+            ->add('displayName');
+        return $mapper->map($val);
     }
 }
