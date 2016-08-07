@@ -22,6 +22,8 @@ class GrimoireCardStatisticRankTest extends \PHPUnit_Framework_TestCase
             ->setPoints(5);
 
         $this->assertEquals(1, $rank->getRank());
+        $this->assertEquals(2500, $rank->getThreshold());
+        $this->assertEquals(0, $rank->getUnlockFlagHash());
         $this->assertEquals(5, $rank->getPoints());
     }
 

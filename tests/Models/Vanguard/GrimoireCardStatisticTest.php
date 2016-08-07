@@ -25,6 +25,9 @@ class GrimoireCardStatisticTest extends \PHPUnit_Framework_TestCase
             ->setRankCollection(new Collection(GrimoireCardStatisticRank::class));
 
         $this->assertEquals(1, $statistic->getStatNumber());
+        $this->assertEquals(303200, $statistic->getCardId());
+        $this->assertEquals('Kills', $statistic->getStatName());
+        $this->assertEquals(0, $statistic->getAccumulatorHash());
         $this->assertEquals(43640, $statistic->getValue());
         $this->assertEquals('43640', $statistic->getDisplayValue());
         $this->assertEquals(new Collection(GrimoireCardStatisticRank::class), $statistic->getRankCollection());
