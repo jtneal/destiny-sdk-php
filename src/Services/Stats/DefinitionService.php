@@ -3,7 +3,6 @@
 namespace Necowebs\Destiny\Services\Stats;
 
 use Collections\Collection;
-use Necowebs\Destiny\Exceptions\StatsNotFoundException;
 use Necowebs\Destiny\Models\Stats\Definition;
 use Necowebs\Destiny\Services\BaseService;
 
@@ -15,7 +14,6 @@ class DefinitionService extends BaseService
 {
     /**
      * @return Collection
-     * @throws StatsNotFoundException
      */
     public function getDefinition()
     {
