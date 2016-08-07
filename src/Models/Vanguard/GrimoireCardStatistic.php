@@ -22,6 +22,21 @@ class GrimoireCardStatistic
     /**
      * @var int
      */
+    private $cardId;
+
+    /**
+     * @var string
+     */
+    private $statName;
+
+    /**
+     * @var int
+     */
+    private $accumulatorHash;
+
+    /**
+     * @var int
+     */
     private $value;
 
     /**
@@ -49,6 +64,60 @@ class GrimoireCardStatistic
     public function setStatNumber($statNumber)
     {
         $this->statNumber = (int) $statNumber;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCardId()
+    {
+        return $this->cardId;
+    }
+
+    /**
+     * @param int $cardId
+     * @return GrimoireCardStatistic
+     */
+    public function setCardId($cardId)
+    {
+        $this->cardId = (int) $cardId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatName()
+    {
+        return $this->statName;
+    }
+
+    /**
+     * @param string $statName
+     * @return GrimoireCardStatistic
+     */
+    public function setStatName($statName)
+    {
+        $this->statName = (string) $statName;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAccumulatorHash()
+    {
+        return $this->accumulatorHash;
+    }
+
+    /**
+     * @param int $accumulatorHash
+     * @return GrimoireCardStatistic
+     */
+    public function setAccumulatorHash($accumulatorHash)
+    {
+        $this->accumulatorHash = (int) $accumulatorHash;
         return $this;
     }
 
@@ -115,6 +184,9 @@ class GrimoireCardStatistic
     {
         $mapper = (new ArrayObjectMapper(self::class))
             ->add('statNumber')
+            ->add('cardId')
+            ->add('statName')
+            ->add('accumulatorHash')
             ->add('value')
             ->add('displayValue')
             ->add('rankCollection', null, GrimoireCardStatisticRank::class . '::toCollection');

@@ -6,15 +6,15 @@ use Necowebs\Destiny\Models\Traits\ModelTrait;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
- * Class GrimoireBonusSmallImage
+ * Class GrimoireImage
  * @package Necowebs\Destiny\Models\Vanguard
  */
-class GrimoireBonusSmallImage
+class GrimoireImage
 {
     use ModelTrait;
 
     /**
-     * @var GrimoireBonusSmallImageRect
+     * @var GrimoireImageRect
      */
     private $rect;
 
@@ -24,12 +24,12 @@ class GrimoireBonusSmallImage
     private $sheetPath;
 
     /**
-     * @var GrimoireBonusSmallImageRect
+     * @var GrimoireImageRect
      */
     private $sheetSize;
 
     /**
-     * @return GrimoireBonusSmallImageRect
+     * @return GrimoireImageRect
      */
     public function getRect()
     {
@@ -37,10 +37,10 @@ class GrimoireBonusSmallImage
     }
 
     /**
-     * @param GrimoireBonusSmallImageRect $rect
-     * @return GrimoireBonusSmallImage
+     * @param GrimoireImageRect $rect
+     * @return GrimoireImage
      */
-    public function setRect(GrimoireBonusSmallImageRect $rect)
+    public function setRect(GrimoireImageRect $rect)
     {
         $this->rect = $rect;
         return $this;
@@ -56,7 +56,7 @@ class GrimoireBonusSmallImage
 
     /**
      * @param string $sheetPath
-     * @return GrimoireBonusSmallImage
+     * @return GrimoireImage
      */
     public function setSheetPath($sheetPath)
     {
@@ -65,7 +65,7 @@ class GrimoireBonusSmallImage
     }
 
     /**
-     * @return GrimoireBonusSmallImageRect
+     * @return GrimoireImageRect
      */
     public function getSheetSize()
     {
@@ -73,10 +73,10 @@ class GrimoireBonusSmallImage
     }
 
     /**
-     * @param GrimoireBonusSmallImageRect $sheetSize
-     * @return GrimoireBonusSmallImage
+     * @param GrimoireImageRect $sheetSize
+     * @return GrimoireImage
      */
-    public function setSheetSize(GrimoireBonusSmallImageRect $sheetSize)
+    public function setSheetSize(GrimoireImageRect $sheetSize)
     {
         $this->sheetSize = $sheetSize;
         return $this;
@@ -85,14 +85,14 @@ class GrimoireBonusSmallImage
     /**
      * @param mixed $obj
      * @param array $val
-     * @return GrimoireBonusSmallImage
+     * @return GrimoireImage
      */
     public static function toObject($obj, array $val)
     {
         $mapper = (new ArrayObjectMapper(self::class))
-            ->add('rect', null, GrimoireBonusSmallImageRect::class . '::toObject')
+            ->add('rect', null, GrimoireImageRect::class . '::toObject')
             ->add('sheetPath')
-            ->add('sheetSize', null, GrimoireBonusSmallImageRect::class . '::toObject');
+            ->add('sheetSize', null, GrimoireImageRect::class . '::toObject');
         return $mapper->map($val);
     }
 }

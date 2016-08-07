@@ -21,6 +21,16 @@ class GrimoireCardStatisticRank
     /**
      * @var int
      */
+    private $threshold;
+
+    /**
+     * @var int
+     */
+    private $unlockFlagHash;
+
+    /**
+     * @var int
+     */
     private $points;
 
     /**
@@ -38,6 +48,42 @@ class GrimoireCardStatisticRank
     public function setRank($rank)
     {
         $this->rank = (int) $rank;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getThreshold()
+    {
+        return $this->threshold;
+    }
+
+    /**
+     * @param int $threshold
+     * @return GrimoireCardStatisticRank
+     */
+    public function setThreshold($threshold)
+    {
+        $this->threshold = (int) $threshold;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUnlockFlagHash()
+    {
+        return $this->unlockFlagHash;
+    }
+
+    /**
+     * @param int $unlockFlagHash
+     * @return GrimoireCardStatisticRank
+     */
+    public function setUnlockFlagHash($unlockFlagHash)
+    {
+        $this->unlockFlagHash = (int) $unlockFlagHash;
         return $this;
     }
 
@@ -68,6 +114,8 @@ class GrimoireCardStatisticRank
     {
         $mapper = (new ArrayObjectMapper(self::class))
             ->add('rank')
+            ->add('threshold')
+            ->add('unlockFlagHash')
             ->add('points');
         return $mapper->map($val);
     }

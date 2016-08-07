@@ -17,6 +17,8 @@ class GrimoireCardStatisticRankTest extends \PHPUnit_Framework_TestCase
     {
         $rank = (new GrimoireCardStatisticRank())
             ->setRank(1)
+            ->setThreshold(2500)
+            ->setUnlockFlagHash(0)
             ->setPoints(5);
 
         $this->assertEquals(1, $rank->getRank());
@@ -30,11 +32,15 @@ class GrimoireCardStatisticRankTest extends \PHPUnit_Framework_TestCase
     {
         $object = GrimoireCardStatisticRank::toObject(null, [
             'rank' => 1,
+            'threshold' => 2500,
+            'unlockFlagHash' => 0,
             'points' => 5
         ]);
 
         $expected = (new GrimoireCardStatisticRank())
             ->setRank(1)
+            ->setThreshold(2500)
+            ->setUnlockFlagHash(0)
             ->setPoints(5);
 
         $this->assertEquals($expected, $object);
@@ -48,6 +54,8 @@ class GrimoireCardStatisticRankTest extends \PHPUnit_Framework_TestCase
         $collection = GrimoireCardStatisticRank::toCollection(null, [
             [
                 'rank' => 1,
+                'threshold' => 2500,
+                'unlockFlagHash' => 0,
                 'points' => 5
             ]
         ]);
@@ -55,6 +63,8 @@ class GrimoireCardStatisticRankTest extends \PHPUnit_Framework_TestCase
         $expected = new Collection(GrimoireCardStatisticRank::class, [
             (new GrimoireCardStatisticRank())
                 ->setRank(1)
+                ->setThreshold(2500)
+                ->setUnlockFlagHash(0)
                 ->setPoints(5)
         ]);
 

@@ -5,24 +5,24 @@ namespace Necowebs\Destiny\Models\Vanguard;
 use Collections\Collection;
 
 /**
- * Class GrimoireBonusSmallImageTest
+ * Class GrimoireImageTest
  * @package Necowebs\Destiny\Models\Vanguard
  */
-class GrimoireBonusSmallImageTest extends \PHPUnit_Framework_TestCase
+class GrimoireImageTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test Getters and Setters
      */
     public function testGettersAndSetters()
     {
-        $image = (new GrimoireBonusSmallImage())
-            ->setRect(new GrimoireBonusSmallImageRect())
+        $image = (new GrimoireImage())
+            ->setRect(new GrimoireImageRect())
             ->setSheetPath('/common/destiny_content/grimoire/hr_images/Hive-csprites-sm_4d3662cd1df76fc758f5375deba5c270.jpg')
-            ->setSheetSize(new GrimoireBonusSmallImageRect());
+            ->setSheetSize(new GrimoireImageRect());
 
-        $this->assertEquals(new GrimoireBonusSmallImageRect(), $image->getRect());
+        $this->assertEquals(new GrimoireImageRect(), $image->getRect());
         $this->assertEquals('/common/destiny_content/grimoire/hr_images/Hive-csprites-sm_4d3662cd1df76fc758f5375deba5c270.jpg', $image->getSheetPath());
-        $this->assertEquals(new GrimoireBonusSmallImageRect(), $image->getSheetSize());
+        $this->assertEquals(new GrimoireImageRect(), $image->getSheetSize());
     }
 
     /**
@@ -30,16 +30,16 @@ class GrimoireBonusSmallImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testToObject()
     {
-        $object = GrimoireBonusSmallImage::toObject(null, [
+        $object = GrimoireImage::toObject(null, [
             'rect' => [],
             'sheetPath' => '/common/destiny_content/grimoire/hr_images/Hive-csprites-sm_4d3662cd1df76fc758f5375deba5c270.jpg',
             'sheetSize' => []
         ]);
 
-        $expected = (new GrimoireBonusSmallImage())
-            ->setRect(new GrimoireBonusSmallImageRect())
+        $expected = (new GrimoireImage())
+            ->setRect(new GrimoireImageRect())
             ->setSheetPath('/common/destiny_content/grimoire/hr_images/Hive-csprites-sm_4d3662cd1df76fc758f5375deba5c270.jpg')
-            ->setSheetSize(new GrimoireBonusSmallImageRect());
+            ->setSheetSize(new GrimoireImageRect());
 
         $this->assertEquals($expected, $object);
     }
@@ -49,7 +49,7 @@ class GrimoireBonusSmallImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testToCollection()
     {
-        $collection = GrimoireBonusSmallImage::toCollection(null, [
+        $collection = GrimoireImage::toCollection(null, [
             [
                 'rect' => [],
                 'sheetPath' => '/common/destiny_content/grimoire/hr_images/Hive-csprites-sm_4d3662cd1df76fc758f5375deba5c270.jpg',
@@ -57,11 +57,11 @@ class GrimoireBonusSmallImageTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $expected = new Collection(GrimoireBonusSmallImage::class, [
-            (new GrimoireBonusSmallImage())
-                ->setRect(new GrimoireBonusSmallImageRect())
+        $expected = new Collection(GrimoireImage::class, [
+            (new GrimoireImage())
+                ->setRect(new GrimoireImageRect())
                 ->setSheetPath('/common/destiny_content/grimoire/hr_images/Hive-csprites-sm_4d3662cd1df76fc758f5375deba5c270.jpg')
-                ->setSheetSize(new GrimoireBonusSmallImageRect())
+                ->setSheetSize(new GrimoireImageRect())
         ]);
 
         $this->assertEquals($expected, $collection);

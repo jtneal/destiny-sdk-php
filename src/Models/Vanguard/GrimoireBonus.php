@@ -54,7 +54,7 @@ class GrimoireBonus
     private $threshold;
 
     /**
-     * @var GrimoireBonusSmallImage
+     * @var GrimoireImage
      */
     private $smallImage;
 
@@ -203,7 +203,7 @@ class GrimoireBonus
     }
 
     /**
-     * @return GrimoireBonusSmallImage
+     * @return GrimoireImage
      */
     public function getSmallImage()
     {
@@ -211,10 +211,10 @@ class GrimoireBonus
     }
 
     /**
-     * @param GrimoireBonusSmallImage $smallImage
+     * @param GrimoireImage $smallImage
      * @return GrimoireBonus
      */
-    public function setSmallImage(GrimoireBonusSmallImage $smallImage)
+    public function setSmallImage(GrimoireImage $smallImage)
     {
         $this->smallImage = $smallImage;
         return $this;
@@ -236,7 +236,7 @@ class GrimoireBonus
             ->add('bonusRank', null, GrimoireBonusRank::class . '::toObject')
             ->add('value')
             ->add('threshold')
-            ->add('smallImage', null, GrimoireBonusSmallImage::class . '::toObject');
+            ->add('smallImage', null, GrimoireImage::class . '::toObject');
         return $mapper->map($val);
     }
 }

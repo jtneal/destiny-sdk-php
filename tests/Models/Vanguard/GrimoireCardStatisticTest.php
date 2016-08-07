@@ -17,6 +17,9 @@ class GrimoireCardStatisticTest extends \PHPUnit_Framework_TestCase
     {
         $statistic = (new GrimoireCardStatistic())
             ->setStatNumber(1)
+            ->setCardId(303200)
+            ->setStatName('Kills')
+            ->setAccumulatorHash(0)
             ->setValue(43640)
             ->setDisplayValue('43640')
             ->setRankCollection(new Collection(GrimoireCardStatisticRank::class));
@@ -34,6 +37,9 @@ class GrimoireCardStatisticTest extends \PHPUnit_Framework_TestCase
     {
         $object = GrimoireCardStatistic::toObject(null, [
             'statNumber' => 1,
+            'cardId' => 303200,
+            'statName' => 'Kills',
+            'accumulatorHash' => 0,
             'value' => 43640,
             'displayValue' => '43640',
             'rankCollection' => []
@@ -41,6 +47,9 @@ class GrimoireCardStatisticTest extends \PHPUnit_Framework_TestCase
 
         $expected = (new GrimoireCardStatistic())
             ->setStatNumber(1)
+            ->setCardId(303200)
+            ->setStatName('Kills')
+            ->setAccumulatorHash(0)
             ->setValue(43640)
             ->setDisplayValue('43640')
             ->setRankCollection(new Collection(GrimoireCardStatisticRank::class));
@@ -56,6 +65,9 @@ class GrimoireCardStatisticTest extends \PHPUnit_Framework_TestCase
         $collection = GrimoireCardStatistic::toCollection(null, [
             [
                 'statNumber' => 1,
+                'cardId' => 303200,
+                'statName' => 'Kills',
+                'accumulatorHash' => 0,
                 'value' => 43640,
                 'displayValue' => '43640',
                 'rankCollection' => []
@@ -65,6 +77,9 @@ class GrimoireCardStatisticTest extends \PHPUnit_Framework_TestCase
         $expected = new Collection(GrimoireCardStatistic::class, [
             (new GrimoireCardStatistic())
                 ->setStatNumber(1)
+                ->setCardId(303200)
+                ->setStatName('Kills')
+                ->setAccumulatorHash(0)
                 ->setValue(43640)
                 ->setDisplayValue('43640')
                 ->setRankCollection(new Collection(GrimoireCardStatisticRank::class))

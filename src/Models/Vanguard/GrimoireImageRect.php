@@ -6,10 +6,10 @@ use Necowebs\Destiny\Models\Traits\ModelTrait;
 use Necowebs\Destiny\Utils\ArrayObjectMapper;
 
 /**
- * Class GrimoireBonusSmallImageRect
+ * Class GrimoireImageRect
  * @package Necowebs\Destiny\Models\Vanguard
  */
-class GrimoireBonusSmallImageRect
+class GrimoireImageRect
 {
     use ModelTrait;
 
@@ -43,7 +43,7 @@ class GrimoireBonusSmallImageRect
 
     /**
      * @param int $x
-     * @return GrimoireBonusSmallImageRect
+     * @return GrimoireImageRect
      */
     public function setX($x)
     {
@@ -61,7 +61,7 @@ class GrimoireBonusSmallImageRect
 
     /**
      * @param int $y
-     * @return GrimoireBonusSmallImageRect
+     * @return GrimoireImageRect
      */
     public function setY($y)
     {
@@ -79,7 +79,7 @@ class GrimoireBonusSmallImageRect
 
     /**
      * @param int $height
-     * @return GrimoireBonusSmallImageRect
+     * @return GrimoireImageRect
      */
     public function setHeight($height)
     {
@@ -97,7 +97,7 @@ class GrimoireBonusSmallImageRect
 
     /**
      * @param int $width
-     * @return GrimoireBonusSmallImageRect
+     * @return GrimoireImageRect
      */
     public function setWidth($width)
     {
@@ -108,7 +108,7 @@ class GrimoireBonusSmallImageRect
     /**
      * @param mixed $obj
      * @param array $val
-     * @return GrimoireBonusSmallImageRect
+     * @return GrimoireImageRect
      */
     public static function toObject($obj, array $val)
     {

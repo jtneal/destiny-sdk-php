@@ -5,17 +5,17 @@ namespace Necowebs\Destiny\Models\Vanguard;
 use Collections\Collection;
 
 /**
- * Class GrimoireBonusSmallImageRectTest
+ * Class GrimoireImageRectTest
  * @package Necowebs\Destiny\Models\Vanguard
  */
-class GrimoireBonusSmallImageRectTest extends \PHPUnit_Framework_TestCase
+class GrimoireImageRectTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test Getters and Setters
      */
     public function testGettersAndSetters()
     {
-        $rect = (new GrimoireBonusSmallImageRect())
+        $rect = (new GrimoireImageRect())
             ->setX(145)
             ->setY(0)
             ->setHeight(145)
@@ -32,14 +32,14 @@ class GrimoireBonusSmallImageRectTest extends \PHPUnit_Framework_TestCase
      */
     public function testToObject()
     {
-        $object = GrimoireBonusSmallImageRect::toObject(null, [
+        $object = GrimoireImageRect::toObject(null, [
             'x' => 145,
             'y' => 0,
             'height' => 145,
             'width' => 145
         ]);
 
-        $expected = (new GrimoireBonusSmallImageRect())
+        $expected = (new GrimoireImageRect())
             ->setX(145)
             ->setY(0)
             ->setHeight(145)
@@ -53,7 +53,7 @@ class GrimoireBonusSmallImageRectTest extends \PHPUnit_Framework_TestCase
      */
     public function testToCollection()
     {
-        $collection = GrimoireBonusSmallImageRect::toCollection(null, [
+        $collection = GrimoireImageRect::toCollection(null, [
             [
                 'x' => 145,
                 'y' => 0,
@@ -62,8 +62,8 @@ class GrimoireBonusSmallImageRectTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $expected = new Collection(GrimoireBonusSmallImageRect::class, [
-            (new GrimoireBonusSmallImageRect())
+        $expected = new Collection(GrimoireImageRect::class, [
+            (new GrimoireImageRect())
                 ->setX(145)
                 ->setY(0)
                 ->setHeight(145)

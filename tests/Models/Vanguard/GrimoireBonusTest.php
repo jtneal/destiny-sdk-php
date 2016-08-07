@@ -24,7 +24,7 @@ class GrimoireBonusTest extends \PHPUnit_Framework_TestCase
             ->setBonusRank(new GrimoireBonusRank())
             ->setValue(45776)
             ->setThreshold(750)
-            ->setSmallImage(new GrimoireBonusSmallImage());
+            ->setSmallImage(new GrimoireImage());
 
         $this->assertEquals(201130, $bonus->getCardId());
         $this->assertEquals('Thrall', $bonus->getCardName());
@@ -34,7 +34,7 @@ class GrimoireBonusTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new GrimoireBonusRank(), $bonus->getBonusRank());
         $this->assertEquals(45776, $bonus->getValue());
         $this->assertEquals(750, $bonus->getThreshold());
-        $this->assertEquals(new GrimoireBonusSmallImage(), $bonus->getSmallImage());
+        $this->assertEquals(new GrimoireImage(), $bonus->getSmallImage());
     }
 
     /**
@@ -44,10 +44,10 @@ class GrimoireBonusTest extends \PHPUnit_Framework_TestCase
     {
         $object = GrimoireBonus::toObject(null, [
             'cardId' => 201130,
-            'cardName' => "Thrall",
-            'statName' => "Kills",
-            'bonusName' => "Glimmer Income Bonus",
-            'bonusDescription' => "All characters earn more Glimmer when this combatant is killed with a Glimmer-drop consumable active.",
+            'cardName' => 'Thrall',
+            'statName' => 'Kills',
+            'bonusName' => 'Glimmer Income Bonus',
+            'bonusDescription' => 'All characters earn more Glimmer when this combatant is killed with a Glimmer-drop consumable active.',
             'bonusRank' => [],
             'value' => 45776,
             'threshold' => 750,
@@ -63,7 +63,7 @@ class GrimoireBonusTest extends \PHPUnit_Framework_TestCase
             ->setBonusRank(new GrimoireBonusRank())
             ->setValue(45776)
             ->setThreshold(750)
-            ->setSmallImage(new GrimoireBonusSmallImage());
+            ->setSmallImage(new GrimoireImage());
 
         $this->assertEquals($expected, $object);
     }
@@ -76,10 +76,10 @@ class GrimoireBonusTest extends \PHPUnit_Framework_TestCase
         $collection = GrimoireBonus::toCollection(null, [
             [
                 'cardId' => 201130,
-                'cardName' => "Thrall",
-                'statName' => "Kills",
-                'bonusName' => "Glimmer Income Bonus",
-                'bonusDescription' => "All characters earn more Glimmer when this combatant is killed with a Glimmer-drop consumable active.",
+                'cardName' => 'Thrall',
+                'statName' => 'Kills',
+                'bonusName' => 'Glimmer Income Bonus',
+                'bonusDescription' => 'All characters earn more Glimmer when this combatant is killed with a Glimmer-drop consumable active.',
                 'bonusRank' => [],
                 'value' => 45776,
                 'threshold' => 750,
@@ -97,7 +97,7 @@ class GrimoireBonusTest extends \PHPUnit_Framework_TestCase
                 ->setBonusRank(new GrimoireBonusRank())
                 ->setValue(45776)
                 ->setThreshold(750)
-                ->setSmallImage(new GrimoireBonusSmallImage())
+                ->setSmallImage(new GrimoireImage())
         ]);
 
         $this->assertEquals($expected, $collection);
