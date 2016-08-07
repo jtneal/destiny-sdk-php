@@ -20,7 +20,6 @@ class AdvisorActivityExtendedRound
     private $enemyRaceHash;
 
     /**
-     * AdvisorActivitySkullCategory
      * @var Collection
      */
     private $skullCategories;

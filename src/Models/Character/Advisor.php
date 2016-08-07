@@ -22,13 +22,11 @@ class Advisor
     private $activities;
 
     /**
-     * AdvisorCategory
      * @var Collection
      */
     private $activityCategories;
 
     /**
-     * AdvisorBounty
      * @var Collection
      */
     private $bounties;
@@ -39,13 +37,11 @@ class Advisor
     private $quests;
 
     /**
-     * Necowebs\Destiny\Models\Account\SummaryCharacterLevelProgression
      * @var Collection
      */
     private $progressions;
 
     /**
-     * Necowebs\Destiny\Models\Account\AdvisorRecordBook
      * @var Collection
      */
     private $recordBooks;

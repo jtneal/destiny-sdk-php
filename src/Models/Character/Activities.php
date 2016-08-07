@@ -24,7 +24,6 @@ class Activities
      */
     private $available;
 
-
     /**
      * @return string
      */

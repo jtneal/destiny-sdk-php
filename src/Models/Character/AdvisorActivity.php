@@ -46,25 +46,21 @@ class AdvisorActivity
     private $progressionHash;
 
     /**
-     * Int
      * @var Collection
      */
     private $bountyHashes;
 
     /**
-     * Int
      * @var Collection
      */
     private $questHashes;
 
     /**
-     * AdvisorActivityTier
      * @var Collection
      */
     private $activityTiers;
 
     /**
-     * AdvisorActivityExtended
      * @var AdvisorActivityExtended
      */
     private $extended;

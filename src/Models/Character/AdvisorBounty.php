@@ -26,7 +26,6 @@ class AdvisorBounty
     private $stepHash;
 
     /**
-     * Int
      * @var Collection
      */
     private $stepObjectives;

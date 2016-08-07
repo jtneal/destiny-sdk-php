@@ -31,19 +31,16 @@ class AdvisorActivityTier
     private $completion;
 
     /**
-     * AdvisorActivityTierStep
      * @var Collection
      */
     private $steps;
 
     /**
-     * AdvisorActivitySkullCategory
      * @var Collection
      */
     private $skullCategories;
 
     /**
-     * Necowebs\Destiny\Models\Manifest\Reward
      * @var Collection
      */
     private $rewards;

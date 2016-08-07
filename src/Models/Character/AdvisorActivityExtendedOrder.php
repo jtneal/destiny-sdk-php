@@ -32,19 +32,16 @@ class AdvisorActivityExtendedOrder
     private $itemStatus;
 
     /**
-     * SummaryInventoryCurrency
      * @var Collection
      */
     private $costs;
 
     /**
-     * Int
      * @var Collection
      */
     private $requiredUnlockFlags;
 
     /**
-     * Int
      * @var Collection
      */
     private $failureIndexes;

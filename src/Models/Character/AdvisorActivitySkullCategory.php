@@ -21,7 +21,6 @@ class AdvisorActivitySkullCategory
     private $title;
 
     /**
-     * Necowebs\Destiny\Models\Manifest\Skull
      * @var Collection
      */
     private $skulls;

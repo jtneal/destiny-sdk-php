@@ -81,13 +81,11 @@ class AdvisorActivityDisplay
     private $status;
 
     /**
-     * String
      * @var Collection
      */
     private $tips;
 
     /**
-     * String
      * @var Collection
      */
     private $recruitmentIds;

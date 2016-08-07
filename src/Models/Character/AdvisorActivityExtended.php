@@ -31,25 +31,21 @@ class AdvisorActivityExtended
     private $highestWinRank;
 
     /**
-     * AdvisorActivityExtendedOrder
      * @var Collection
      */
     private $orders;
 
     /**
-     * AdvisorActivitySkullCategory
      * @var Collection
      */
     private $skullCategories;
 
     /**
-     * Necowebs\Destiny\Models\Account\AdvisorRecordBookRecordObjective
      * @var Collection
      */
     private $objectives;
 
     /**
-     * AdvisorActivityExtendedRound
      * @var Collection
      */
     private $rounds;

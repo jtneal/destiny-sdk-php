@@ -18,10 +18,12 @@ class AdvisorRecordBookRecord
      * @var int
      */
     private $recordHash;
+
     /**
      * @var Collection
      */
     private $objectives;
+
     /**
      * @var int
      */
