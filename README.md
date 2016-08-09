@@ -45,6 +45,59 @@ $activities = $advisors->getActivities(); // Instance of Necowebs\Destiny\Models
 $categories = $advisors->getActivityCategories(); // Traversable of Necowebs\Destiny\Models\Character\AdvisorCategory
 ```
 
+### Account Services
+
+**GetAccountSummary**
+
+```php
+use Necowebs\Destiny\Services\Account\AccountSummaryService;
+
+$summary = (new AccountSummaryService())->getAccountSummary(2, '4611686018450406180');
+
+$membershipId = $summary->getMembershipId(); // "4611686018450406180"
+$membershipType = $summary->getMembershipType(); // 2
+$characters = $summary->getCharacters(); // Traversable of Necowebs\Destiny\Models\Account\SummaryCharacter
+$clanName = $summary->getClanName(); // "Char Wash"
+$clanTag = $summary->getClanTag(); // "CHAR"
+$inventory = $summary->getInventory(); // Instance of Necowebs\Destiny\Models\Account\SummaryInventory
+$grimoireScore = $summary->getGrimoireScore(); // 4620
+$versions = $summary->getVersions(); // 15
+$accountState = $summary->getAccountState(); // 1
+```
+
+**GetAdvisorsForAccount**
+
+```php
+use Necowebs\Destiny\Services\Account\AdvisorsForAccountService;
+
+$advisors = (new AdvisorsForAccountService())->getAdvisorsForAccount(2, '4611686018450406180');
+
+$nextWeeklyReset = $advisors->getNextWeeklyReset(); // "2016-08-16T09:00:00Z"
+$nextDailyReset = $advisors->getNextDailyReset(); // "2016-08-10T09:00:00Z"
+$previousWeeklyReset = $advisors->getPreviousWeeklyReset(); // "2016-08-09T09:00:00Z"
+$previousDailyReset = $advisors->getPreviousDailyReset(); // "2016-08-09T09:00:00Z"
+$recordBooks = $advisors->getRecordBooks(); // Traversable of Necowebs\Destiny\Models\Account\AdvisorRecordBook
+```
+
+**GetAllItemsSummary**
+
+```php
+use Necowebs\Destiny\Services\Account\AllItemsSummaryService;
+
+$summary = (new AllItemsSummaryService())->getAllItemsSummary(2, '4611686018450406180');
+
+$items = $summary->getItems(); // Traversable of Necowebs\Destiny\Models\Account\Item
+$characters = $summary->getCharacters(); // Traversable of Necowebs\Destiny\Models\Account\SummaryCharacter
+```
+
+**GetTriumphs**
+
+```php
+use Necowebs\Destiny\Services\Account\TriumphsService;
+
+$triumphs = (new TriumphsService())->getTriumphs(2, '4611686018450406180'); // Traversable of Necowebs\Destiny\Models\Account\TriumphSet
+```
+
 ## License
 
 The Destiny API SDK for PHP is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
