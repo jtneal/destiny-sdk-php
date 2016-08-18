@@ -1,7 +1,6 @@
 {
     "name": "necowebs/destiny-sdk-php",
     "description": "A PHP Client/SDK/API Wrapper for the BungieNet.Platform.DestinyServices",
-    "version": "1.0.0-dev",
     "type": "library",
     "license": "MIT",
     "authors": [
