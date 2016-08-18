@@ -107,12 +107,12 @@ use Necowebs\Destiny\Services\Character\AdvisorsForCharacterV2Service;
 
 $advisors = (new AdvisorsForCharacterV2Service())->getAdvisorsForCharacterV2(2, '4611686018450406180', '2305843009310128298');
 
-$activities = $advisors->getActivities();
-$activityCategories = $advisors->getActivityCategories();
-$bounties = $advisors->getBounties();
-$quests = $advisors->getQuests();
-$progressions = $advisors->getProgressions();
-$recordBooks = $advisors->getRecordBooks();
+$activities = $advisors->getActivities(); // Instance of Necowebs\Destiny\Models\Character\AdvisorActivities
+$activityCategories = $advisors->getActivityCategories(); // Traversable of Necowebs\Destiny\Models\Character\AdvisorCategory
+$bounties = $advisors->getBounties(); // Traversable of Necowebs\Destiny\Models\Character\AdvisorBounty
+$quests = $advisors->getQuests(); // []
+$progressions = $advisors->getProgressions(); // Traversable of Necowebs\Destiny\Models\Account\SummaryCharacterLevelProgression
+$recordBooks = $advisors->getRecordBooks(); // Traversable of Necowebs\Destiny\Models\Account\AdvisorRecordBook
 ```
 
 **GetCharacterActivities**
@@ -122,8 +122,8 @@ use Necowebs\Destiny\Services\Character\CharacterActivitiesService;
 
 $activities = (new CharacterActivitiesService())->getCharacterActivities(2, '4611686018450406180', '2305843009310128298');
 
-$dateActivityStarted = $activities->getDateActivityStarted();
-$available = $activities->getAvailable();
+$dateActivityStarted = $activities->getDateActivityStarted(); // "2016-08-16T09:00:00Z"
+$available = $activities->getAvailable(); // Traversable of Necowebs\Destiny\Models\Character\AdvisorActivityData
 ```
 
 **GetCharacterInventorySummary**
@@ -133,8 +133,8 @@ use Necowebs\Destiny\Services\Character\CharacterInventorySummaryService;
 
 $summary = (new CharacterInventorySummaryService())->getCharacterInventorySummary(2, '4611686018450406180', '2305843009310128298');
 
-$items = $this->assertContainsOnlyInstancesOf(Item::class, $summary->getItems());
-$currencies = $summary->getCurrencies();
+$items = $this->assertContainsOnlyInstancesOf(Item::class, $summary->getItems()); // Traversable of Necowebs\Destiny\Models\Account\Item
+$currencies = $summary->getCurrencies(); // Traversable of Necowebs\Destiny\Models\Account\SummaryInventoryCurrency
 ```
 
 **GetCharacterProgression**
@@ -144,12 +144,12 @@ use Necowebs\Destiny\Services\Character\CharacterProgressionService;
 
 $progression = (new CharacterProgressionService())->getCharacterProgression(2, '4611686018450406180', '2305843009310128298');
 
-$progressions = $progression->getProgressions();
-$levelProgression = $progression->getLevelProgression();
-$baseCharacterLevel = $progression->getBaseCharacterLevel();
-$isPrestigeLevel = $progression->getIsPrestigeLevel();
-$factionProgressionHash = $progression->getFactionProgressionHash();
-$percentToNextLevel = $progression->getPercentToNextLevel();
+$progressions = $progression->getProgressions(); // Traversable of Necowebs\Destiny\Models\Account\SummaryCharacterLevelProgression
+$levelProgression = $progression->getLevelProgression(); // Instance of Necowebs\Destiny\Models\Account\SummaryCharacterLevelProgression
+$baseCharacterLevel = $progression->getBaseCharacterLevel(); // 40
+$isPrestigeLevel = $progression->getIsPrestigeLevel(); // false
+$factionProgressionHash = $progression->getFactionProgressionHash(); // 1424722124
+$percentToNextLevel = $progression->getPercentToNextLevel(); // 0
 ```
 
 **GetCharacterSummary**
@@ -159,15 +159,15 @@ use Necowebs\Destiny\Services\Character\CharacterSummaryService;
 
 $summary = (new CharacterSummaryService())->getCharacterSummary(2, '4611686018450406180', '2305843009310128298');
 
-$characterBase = $summary->getCharacterBase();
-$levelProgression = $summary->getLevelProgression();
-$emblemPath = $summary->getEmblemPath();
-$backgroundPath = $summary->getBackgroundPath();
-$emblemHash = $summary->getEmblemHash();
-$characterLevel = $summary->getCharacterLevel();
-$baseCharacterLevel = $summary->getBaseCharacterLevel();
-$isPrestigeLevel = $summary->getIsPrestigeLevel();
-$percentToNextLevel = $summary->getPercentToNextLevel();
+$characterBase = $summary->getCharacterBase(); // Instance of Necowebs\Destiny\Models\Account\SummaryCharacterBase
+$levelProgression = $summary->getLevelProgression(); // Instance of Necowebs\Destiny\Models\Account\SummaryCharacterLevelProgression
+$emblemPath = $summary->getEmblemPath(); // "/common/destiny_content/icons/f2c6a2edc3e5b89092a43e29695e8539.jpg"
+$backgroundPath = $summary->getBackgroundPath(); // "/common/destiny_content/icons/1ee9dd7b47105a319e579b16c7520920.jpg"
+$emblemHash = $summary->getEmblemHash(); // 2596665931
+$characterLevel = $summary->getCharacterLevel(); // 40
+$baseCharacterLevel = $summary->getBaseCharacterLevel(); // 40
+$isPrestigeLevel = $summary->getIsPrestigeLevel(); // false
+$percentToNextLevel = $summary->getPercentToNextLevel(); // 0
 ```
 
 **GetItemDetail**
@@ -177,12 +177,12 @@ use Necowebs\Destiny\Services\Character\ItemDetailService;
 
 $item = (new ItemDetailService())->getItemDetail(2, '4611686018450406180', '2305843009310128298', '6917529062368226431');
 
-$item = $item->getItem();
-$talentNodes = $item->getTalentNodes();
-$statsOnNodes = $item->getStatsOnNodes();
-$characterStatsToDisplay = $item->getCharacterStatsToDisplay();
-$materialItemHashes = $item->getMaterialItemHashes();
-$materialQuantities = $item->getMaterialQuantities();
+$item = $item->getItem(); // Instance of Necowebs\Destiny\Models\Character\AdvisorActivityExtendedOrderItem
+$talentNodes = $item->getTalentNodes(); // Traversable of Necowebs\Destiny\Models\Character\InventoryItemTalentNode
+$statsOnNodes = $item->getStatsOnNodes(); // Traversable of Necowebs\Destiny\Models\Character\InventoryItemNodeStat
+$characterStatsToDisplay = $item->getCharacterStatsToDisplay(); // Traversable of Necowebs\Destiny\Models\Account\SummaryCharacterBaseStat
+$materialItemHashes = $item->getMaterialItemHashes(); // Traversable of int
+$materialQuantities = $item->getMaterialQuantities(); // []
 ```
 
 **GetItemReferenceDetail**
@@ -192,7 +192,7 @@ use Necowebs\Destiny\Services\Character\ItemReferenceDetailService;
 
 $reference = (new ItemReferenceDetailService())->getItemReferenceDetail(2, '4611686018450406180', '2305843009310128298', 1738186005);
 
-$itemHash = $reference->getItemHash();
+$itemHash = $reference->getItemHash(); // 1738186005
 ```
 
 ### Explorer Services
@@ -204,12 +204,13 @@ use Necowebs\Destiny\Services\Explorer\DestinyExplorerItemsService;
 
 $items = (new DestinyExplorerItemsService())->getDestinyExplorerItems(['name' => 'Gjallarhorn']);
 
-$itemHashes = $items->getItemHashes();
-$totalResults = $items->getTotalResults();
-$hasMore = $items->getHasMore();
-$query = $items->getQuery();
-$useTotalResults = $items->getUseTotalResults();
+$itemHashes = $items->getItemHashes(); // Traversable of int
+$totalResults = $items->getTotalResults(); // 1
+$hasMore = $items->getHasMore(); // false
+$query = $items->getQuery(); // Instance of Necowebs\Destiny\Models\Explorer\ItemsQuery
+$useTotalResults = $items->getUseTotalResults(); // true
 ```
+
 **GetDestinyExplorerTalentNodeSteps**
 
 ```php
@@ -217,11 +218,11 @@ use Necowebs\Destiny\Services\Explorer\DestinyExplorerTalentNodeStepsService;
 
 $steps = (new DestinyExplorerTalentNodeStepsService())->getDestinyExplorerTalentNodeSteps(['name' => 'Wolfpack Rounds']);
 
-$stepHashes = $steps->getStepHashes();
-$totalResults = $steps->getTotalResults();
-$hasMore = $steps->getHasMore();
-$query = $steps->getQuery();
-$useTotalResults = $steps->getUseTotalResults();
+$stepHashes = $steps->getStepHashes(); // Traversable of int
+$totalResults = $steps->getTotalResults(); // 1
+$hasMore = $steps->getHasMore(); // false
+$query = $steps->getQuery(); // Instance of Necowebs\Destiny\Models\Explorer\ItemsQuery
+$useTotalResults = $steps->getUseTotalResults(); // true
 ```
 
 ### Manifest Services
@@ -233,18 +234,18 @@ use Necowebs\Destiny\Services\Manifest\ActivityBundleService;
 
 $bundle = (new ActivityBundleService())->getActivityBundle(2659248071);
 
-$bundleHash = $bundle->getBundleHash();
-$activityName = $bundle->getActivityName();
-$activityDescription = $bundle->getActivityDescription();
-$icon = $bundle->getIcon();
-$releaseIcon = $bundle->getReleaseIcon();
-$releaseTime = $bundle->getReleaseTime();
-$destinationHash = $bundle->getDestinationHash();
-$placeHash = $bundle->getPlaceHash();
-$activityTypeHash = $bundle->getActivityTypeHash();
-$activityHashes = $bundle->getActivityHashes();
-$hash = $bundle->getHash();
-$index = $bundle->getIndex();
+$bundleHash = $bundle->getBundleHash(); // 2659248071
+$activityName = $bundle->getActivityName(); // "Vault of Glass"
+$activityDescription = $bundle->getActivityDescription(); // "Beneath Venus, evil stirs."
+$icon = $bundle->getIcon(); // "/img/misc/missing_icon.png"
+$releaseIcon = $bundle->getReleaseIcon(); // "/img/misc/missing_icon.png"
+$releaseTime = $bundle->getReleaseTime(); // 0
+$destinationHash = $bundle->getDestinationHash(); // 518553403
+$placeHash = $bundle->getPlaceHash(); // 3871070152
+$activityTypeHash = $bundle->getActivityTypeHash(); // 2043403989
+$activityHashes = $bundle->getActivityHashes(); // Traversable of int
+$hash = $bundle->getHash(); // 2659248071
+$index = $bundle->getIndex(); // 0
 ```
 
 **GetActivity**
@@ -254,29 +255,29 @@ use Necowebs\Destiny\Services\Manifest\ActivityService;
 
 $activity = (new ActivityService())->getActivity(2659248068);
 
-$activityHash = $activity->getActivityHash();
-$activityName = $activity->getActivityName();
-$activityDescription = $activity->getActivityDescription();
-$icon = $activity->getIcon();
-$releaseIcon = $activity->getReleaseIcon();
-$releaseTime = $activity->getReleaseTime();
-$activityLevel = $activity->getActivityLevel();
-$completionFlagHash = $activity->getCompletionFlagHash();
-$activityPower = $activity->getActivityPower();
-$minParty = $activity->getMinParty();
-$maxParty = $activity->getMaxParty();
-$maxPlayers = $activity->getMaxPlayers();
-$destinationHash = $activity->getDestinationHash();
-$placeHash = $activity->getPlaceHash();
-$activityTypeHash = $activity->getActivityTypeHash();
-$tier = $activity->getTier();
-$pgcrImage = $activity->getPgcrImage();
-$rewards = $activity->getRewards();
-$skulls = $activity->getSkulls();
-$isPlaylist = $activity->getIsPlaylist();
-$isMatchmade = $activity->getIsMatchmade();
-$hash = $activity->getHash();
-$index = $activity->getIndex();
+$activityHash = $activity->getActivityHash(); // 2659248068
+$activityName = $activity->getActivityName(); // "Vault of Glass"
+$activityDescription = $activity->getActivityDescription(); // "Beneath Venus, evil stirs."
+$icon = $activity->getIcon(); // "/common/destiny_content/icons/f2174f9413f37e3720417fffecd5524c.png"
+$releaseIcon = $activity->getReleaseIcon(); // "/img/misc/missing_icon.png"
+$releaseTime = $activity->getReleaseTime(); // 0
+$activityLevel = $activity->getActivityLevel(); // 30
+$completionFlagHash = $activity->getCompletionFlagHash(); // 2100359368
+$activityPower = $activity->getActivityPower(); // 0
+$minParty = $activity->getMinParty(); // 1
+$maxParty = $activity->getMaxParty(); // 6
+$maxPlayers = $activity->getMaxPlayers(); // 6
+$destinationHash = $activity->getDestinationHash(); // 518553403
+$placeHash = $activity->getPlaceHash(); // 3871070152
+$activityTypeHash = $activity->getActivityTypeHash(); // 2043403989
+$tier = $activity->getTier(); // 2
+$pgcrImage = $activity->getPgcrImage(); // "/img/theme/destiny/bgs/pgcrs/raid_vault_of_glass.jpg"
+$rewards = $activity->getRewards(); // Instance of Necowebs\Destiny\Models\Manifest\Reward 
+$skulls = $activity->getSkulls(); // Instance of Necowebs\Destiny\Models\Manifest\Skull
+$isPlaylist = $activity->getIsPlaylist(); // false
+$isMatchmade = $activity->getIsMatchmade(); // false
+$hash = $activity->getHash(); // 2659248068
+$index = $activity->getIndex(); // 0
 ```
 
 **GetActivityType**
@@ -286,24 +287,24 @@ use Necowebs\Destiny\Services\Manifest\ActivityTypeService;
 
 $activityType = (new ActivityTypeService())->getActivityType(3846426416);
 
-$activityTypeHash = $activityType->getActivityTypeHash();
-$identifier = $activityType->getIdentifier();
-$activityTypeName = $activityType->getActivityTypeName();
-$activityTypeDescription = $activityType->getActivityTypeDescription();
-$icon = $activityType->getIcon();
-$activeBackgroundVirtualPath = $activityType->getActiveBackgroundVirtualPath();
-$completedBackgroundVirtualPath = $activityType->getCompletedBackgroundVirtualPath();
-$hiddenOverrideVirtualPath = $activityType->getHiddenOverrideVirtualPath();
-$tooltipBackgroundVirtualPath = $activityType->getTooltipBackgroundVirtualPath();
-$enlargedActiveBackgroundVirtualPath = $activityType->getEnlargedActiveBackgroundVirtualPath();
-$enlargedCompletedBackgroundVirtualPath = $activityType->getEnlargedCompletedBackgroundVirtualPath();
-$enlargedHiddenOverrideVirtualPath = $activityType->getEnlargedHiddenOverrideVirtualPath();
-$enlargedTooltipBackgroundVirtualPath = $activityType->getEnlargedTooltipBackgroundVirtualPath();
-$order = $activityType->getOrder();
-$statGroup = $activityType->getStatGroup();
-$friendlyUrlId = $activityType->getFriendlyUrlId();
-$hash = $activityType->getHash();
-$index = $activityType->getIndex();
+$activityTypeHash = $activityType->getActivityTypeHash(); // 3846426416
+$identifier = $activityType->getIdentifier(); // "ACTIVITY_TYPE_PVP_DOM"
+$activityTypeName = $activityType->getActivityTypeName(); // "Control"
+$activityTypeDescription = $activityType->getActivityTypeDescription(); // "Face your fellow Guardians in open combat. Prove your worth, and you will be rewarded."
+$icon = $activityType->getIcon(); // "/common/destiny_content/icons/icon_pvp_80209e5d3802747a308bbdbe12bee676.png"
+$activeBackgroundVirtualPath = $activityType->getActiveBackgroundVirtualPath(); // "/img/destiny_content/ActivityTypeBackground/Active/crucible.png"
+$completedBackgroundVirtualPath = $activityType->getCompletedBackgroundVirtualPath(); // "/img/destiny_content/ActivityTypeBackground/Completed/crucible.png"
+$hiddenOverrideVirtualPath = $activityType->getHiddenOverrideVirtualPath(); // "/img/destiny_content/ActivityTypeBackground/Hidden/crucible.png"
+$tooltipBackgroundVirtualPath = $activityType->getTooltipBackgroundVirtualPath(); // "/img/destiny_content/ActivityTypeBackground/Tooltip/crucible.png"
+$enlargedActiveBackgroundVirtualPath = $activityType->getEnlargedActiveBackgroundVirtualPath(); // "/img/destiny_content/ActivityTypeBackground/Active/crucible.png"
+$enlargedCompletedBackgroundVirtualPath = $activityType->getEnlargedCompletedBackgroundVirtualPath(); // "/img/destiny_content/ActivityTypeBackground/Completed/crucible.png"
+$enlargedHiddenOverrideVirtualPath = $activityType->getEnlargedHiddenOverrideVirtualPath(); // "/img/destiny_content/ActivityTypeBackground/Hidden/crucible.png"
+$enlargedTooltipBackgroundVirtualPath = $activityType->getEnlargedTooltipBackgroundVirtualPath(); // "/img/destiny_content/ActivityTypeBackground/Tooltip/crucible.png"
+$order = $activityType->getOrder(); // 10
+$statGroup = $activityType->getStatGroup(); // "control"
+$friendlyUrlId = $activityType->getFriendlyUrlId(); // "control"
+$hash = $activityType->getHash(); // 3846426416
+$index = $activityType->getIndex(); // 0
 ```
 
 **GetArtDyeChannel**
@@ -313,10 +314,10 @@ use Necowebs\Destiny\Services\Manifest\ArtDyeChannelService;
 
 $channel = (new ArtDyeChannelService())->getArtDyeChannel(662199250);
 
-$channelHash = $channel->getChannelHash();
-$index = $channel->getIndex();
-$channelName = $channel->getChannelName();
-$hash = $channel->getHash();
+$channelHash = $channel->getChannelHash(); // 662199250
+$index = $channel->getIndex(); // 0
+$channelName = $channel->getChannelName(); // "armor"
+$hash = $channel->getHash(); // 662199250
 ```
 
 **GetClassDefinition**
@@ -326,15 +327,15 @@ use Necowebs\Destiny\Services\Manifest\ClassDefinitionService;
 
 $class = (new ClassDefinitionService())->getClassDefinition(2271682572);
 
-$classHash = $class->getClassHash();
-$classType = $class->getClassType();
-$className = $class->getClassName();
-$classNameMale = $class->getClassNameMale();
-$classNameFemale = $class->getClassNameFemale();
-$classIdentifier = $class->getClassIdentifier();
-$mentorVendorIdentifier = $class->getMentorVendorIdentifier();
-$hash = $class->getHash();
-$index = $class->getIndex();
+$classHash = $class->getClassHash(); // 2271682572
+$classType = $class->getClassType(); // 2
+$className = $class->getClassName(); // "Warlock"
+$classNameMale = $class->getClassNameMale(); // "Warlock"
+$classNameFemale = $class->getClassNameFemale(); // "Warlock"
+$classIdentifier = $class->getClassIdentifier(); // "CLASS_WARLOCK"
+$mentorVendorIdentifier = $class->getMentorVendorIdentifier(); // "VENDOR_WARLOCK_MENTOR"
+$hash = $class->getHash(); // 2271682572
+$index = $class->getIndex(); // 0
 ```
 
 **GetDestination**
@@ -344,14 +345,14 @@ use Necowebs\Destiny\Services\Manifest\DestinationService;
 
 $destination = (new DestinationService())->getDestination(2777041980);
 
-$destinationHash = $destination->getDestinationHash();
-$destinationName = $destination->getDestinationName();
-$destinationDescription = $destination->getDestinationDescription();
-$icon = $destination->getIcon();
-$placeHash = $destination->getPlaceHash();
-$destinationIdentifier = $destination->getDestinationIdentifier();
-$hash = $destination->getHash();
-$index = $destination->getIndex();
+$destinationHash = $destination->getDestinationHash(); // 2777041980
+$destinationName = $destination->getDestinationName(); // "The Crucible"
+$destinationDescription = $destination->getDestinationDescription(); // "Hone your skills and win glory in battle against other Guardians."
+$icon = $destination->getIcon(); // "/common/destiny_content/icons/9a838566008cf8a8298e286d1162b185.jpg"
+$placeHash = $destination->getPlaceHash(); // 4088006058
+$destinationIdentifier = $destination->getDestinationIdentifier(); // "DESTINATION_CRUCIBLE"
+$hash = $destination->getHash(); // 2777041980
+$index = $destination->getIndex(); // 0
 ```
 
 **GetDirectorBook**
@@ -361,19 +362,19 @@ use Necowebs\Destiny\Services\Manifest\DirectorBookService;
 
 $book = (new DirectorBookService())->getDirectorBook(2043310511);
 
-$bookHash = $book->getBookHash();
-$bookName = $book->getBookName();
-$bookDescription = $book->getBookDescription();
-$bookNumber = $book->getBookNumber();
-$nodes = $book->getNodes();
-$connections = $book->getConnections();
-$visible = $book->getVisible();
-$isOverview = $book->getIsOverview();
-$isDefaultExpression = $book->getIsDefaultExpression();
-$isVisibleExpression = $book->getIsVisibleExpression();
-$destinationHash = $book->getDestinationHash();
-$hash = $book->getHash();
-$index = $book->getIndex();
+$bookHash = $book->getBookHash(); // 2043310511
+$bookName = $book->getBookName(); // "Ishtar Sink, Venus"
+$bookDescription = $book->getBookDescription(); // ""
+$bookNumber = $book->getBookNumber(); // "The jungles of Venus conceal great treasures - and terrible power."
+$nodes = $book->getNodes(); // Traversable of Necowebs\Destiny\Models\Manifest\DirectorBookNode
+$connections = $book->getConnections(); // Traversable of Necowebs\Destiny\Models\Manifest\DirectorBookConnection
+$visible = $book->getVisible(); // false
+$isOverview = $book->getIsOverview(); // false
+$isDefaultExpression = $book->getIsDefaultExpression(); // Instance of Necowebs\Destiny\Models\Manifest\DirectorBookExpression
+$isVisibleExpression = $book->getIsVisibleExpression(); // Instance of Necowebs\Destiny\Models\Manifest\DirectorBookExpression
+$destinationHash = $book->getDestinationHash(); // 0
+$hash = $book->getHash(); // 2043310511
+$index = $book->getIndex(); // 0
 ```
 
 **GetGender**
@@ -383,12 +384,12 @@ use Necowebs\Destiny\Services\Manifest\GenderService;
 
 $gender = (new GenderService())->getGender(2204441813);
 
-$genderHash = $gender->getGenderHash();
-$genderType = $gender->getGenderType();
-$genderName = $gender->getGenderName();
-$genderDescription = $gender->getGenderDescription();
-$hash = $gender->getHash();
-$index = $gender->getIndex();
+$genderHash = $gender->getGenderHash(); // 2204441813
+$genderType = $gender->getGenderType(); // 1
+$genderName = $gender->getGenderName(); // "Female"
+$genderDescription = $gender->getGenderDescription(); // ""
+$hash = $gender->getHash(); // 2204441813
+$index = $gender->getIndex(); // 0
 ```
 
 **GetBucket**
@@ -398,19 +399,19 @@ use Necowebs\Destiny\Services\Manifest\InventoryBucketService;
 
 $bucket = (new InventoryBucketService())->getBucket(953998645);
 
-$bucketHash = $bucket->getBucketHash();
-$bucketName = $bucket->getBucketName();
-$bucketDescription = $bucket->getBucketDescription();
-$scope = $bucket->getScope();
-$category = $bucket->getCategory();
-$bucketOrder = $bucket->getBucketOrder();
-$bucketIdentifier = $bucket->getBucketIdentifier();
-$itemCount = $bucket->getItemCount();
-$location = $bucket->getLocation();
-$hasTransferDestination = $bucket->getHasTransferDestination();
-$enabled = $bucket->getEnabled();
-$hash = $bucket->getHash();
-$index = $bucket->getIndex();
+$bucketHash = $bucket->getBucketHash(); // 953998645
+$bucketName = $bucket->getBucketName(); // "Heavy Weapons"
+$bucketDescription = $bucket->getBucketDescription(); // "Machine guns and rocket launchers."
+$scope = $bucket->getScope(); // 0
+$category = $bucket->getCategory(); // 3
+$bucketOrder = $bucket->getBucketOrder(); // 40
+$bucketIdentifier = $bucket->getBucketIdentifier(); // "BUCKET_HEAVY_WEAPON"
+$itemCount = $bucket->getItemCount(); // 10
+$location = $bucket->getLocation(); // 1
+$hasTransferDestination = $bucket->getHasTransferDestination(); // true
+$enabled = $bucket->getEnabled(); // true
+$hash = $bucket->getHash(); // 953998645
+$index = $bucket->getIndex(); // 0
 ```
 
 **GetItem**
@@ -420,56 +421,56 @@ use Necowebs\Destiny\Services\Manifest\InventoryItemService;
 
 $item = (new InventoryItemService())->getItem(1274330687);
 
-$itemHash = $this->assertEquals(1274330687, $item->getItemHash();
-$itemName = $this->assertEquals('Gjallarhorn', $item->getItemName();
-$itemDescription = $this->assertEquals('"If there is beauty in destruction, why not also in its delivery?" - Feizel Crux', $item->getItemDescription();
-$icon = $this->assertEquals('/common/destiny_content/icons/eb8377390504838c0190d8d56e70d28e.jpg', $item->getIcon();
-$hasIcon = $this->assertEquals(true, $item->getHasIcon();
-$secondaryIcon = $this->assertEquals('/img/misc/missing_icon.png', $item->getSecondaryIcon();
-$actionName = $this->assertEquals('Dismantle', $item->getActionName();
-$hasAction = $this->assertEquals(true, $item->getHasAction();
-$deleteOnAction = $this->assertEquals(true, $item->getDeleteOnAction();
-$tierTypeName = $this->assertEquals('Exotic', $item->getTierTypeName();
-$tierType = $this->assertEquals(6, $item->getTierType();
-$itemTypeName = $this->assertEquals('Rocket Launcher', $item->getItemTypeName();
-$bucketTypeHash = $this->assertEquals(953998645, $item->getBucketTypeHash();
-$primaryBaseStatHash = $this->assertEquals(368428387, $item->getPrimaryBaseStatHash();
-$stats = $this->assertContainsOnlyInstancesOf(InventoryItemStat::class, $item->getStats();
-$perkHashes = $this->assertEquals(new Collection('int'), $item->getPerkHashes();
-$specialItemType = $this->assertEquals(0, $item->getSpecialItemType();
-$talentGridHash = $this->assertEquals(2786088834, $item->getTalentGridHash();
-$equippingBlock = $this->assertInstanceOf(InventoryItemEquippingBlock::class, $item->getEquippingBlock();
-$hasGeometry = $this->assertEquals(true, $item->getHasGeometry();
-$statGroupHash = $this->assertEquals(660767731, $item->getStatGroupHash();
-$itemLevels = $this->assertEquals(new Collection('int', [20]), $item->getItemLevels();
-$qualityLevel = $this->assertEquals(70, $item->getQualityLevel();
-$equippable = $this->assertEquals(true, $item->getEquippable();
-$instanced = $this->assertEquals(true, $item->getInstanced();
-$rewardItemHash = $this->assertEquals(0, $item->getRewardItemHash();
-$values = $this->assertEquals([], $item->getValues();
-$itemType = $this->assertEquals(3, $item->getItemType();
-$itemSubType = $this->assertEquals(10, $item->getItemSubType();
-$classType = $this->assertEquals(3, $item->getClassType();
-$sources = $this->assertContainsOnlyInstancesOf(InventoryItemSource::class, $item->getSources();
-$itemCategoryHashes = $this->assertEquals(new Collection('int', [1, 4, 13]), $item->getItemCategoryHashes();
-$sourceHashes = $this->assertEquals(new Collection('int', [113998144, 36493462, 1882189853, 686593720, 3107502809, 3870113141, 541934873, 941581325]), $item->getSourceHashes();
-$nonTransferrable = $this->assertEquals(false, $item->getNonTransferrable();
-$exclusive = $this->assertEquals(0, $item->getExclusive();
-$maxStackSize = $this->assertEquals(1, $item->getMaxStackSize();
-$itemIndex = $this->assertEquals(0, $item->getItemIndex();
-$setItemHashes = $this->assertEquals(new Collection('int'), $item->getSetItemHashes();
-$tooltipStyle = $this->assertEquals('', $item->getTooltipStyle();
-$questlineItemHash = $this->assertEquals(0, $item->getQuestlineItemHash();
-$needsFullCompletion = $this->assertEquals(false, $item->getNeedsFullCompletion();
-$objectiveHashes = $this->assertEquals(new Collection('int'), $item->getObjectiveHashes();
-$allowActions = $this->assertEquals(true, $item->getAllowActions();
-$questTrackingUnlockValueHash = $this->assertEquals(0, $item->getQuestTrackingUnlockValueHash();
-$bountyResetUnlockHash = $this->assertEquals(0, $item->getBountyResetUnlockHash();
-$uniquenessHash = $this->assertEquals(3671135542, $item->getUniquenessHash();
-$showActiveNodesInTooltip = $this->assertEquals(false, $item->getShowActiveNodesInTooltip();
-$damageTypes = $this->assertEquals(new Collection('int', [3]), $item->getDamageTypes();
-$hash = $this->assertEquals(1274330687, $item->getHash();
-$index = $this->assertEquals(0, $item->getIndex();
+$itemHash = $item->getItemHash(); // 1274330687
+$itemName = $item->getItemName(); // "Gjallarhorn"
+$itemDescription = $item->getItemDescription(); // "\"If there is beauty in destruction, why not also in its delivery?\" - Feizel Crux"
+$icon = $item->getIcon(); // "/common/destiny_content/icons/eb8377390504838c0190d8d56e70d28e.jpg"
+$hasIcon = $item->getHasIcon(); // true
+$secondaryIcon = $item->getSecondaryIcon(); // "/img/misc/missing_icon.png"
+$actionName = $item->getActionName(); // "Dismantle"
+$hasAction = $item->getHasAction(); // true
+$deleteOnAction = $item->getDeleteOnAction(); // true
+$tierTypeName = $item->getTierTypeName(); // "Exotic"
+$tierType = $item->getTierType(); // 6
+$itemTypeName = $item->getItemTypeName(); // "Rocket Launcher"
+$bucketTypeHash = $item->getBucketTypeHash(); // 953998645
+$primaryBaseStatHash = $item->getPrimaryBaseStatHash(); // 368428387
+$stats = $item->getStats(); // Traversable of Necowebs\Destiny\Models\Manifest\InventoryItemStat
+$perkHashes = $item->getPerkHashes(); // Traversable of int
+$specialItemType = $item->getSpecialItemType(); // 0
+$talentGridHash = $item->getTalentGridHash(); // 2786088834
+$equippingBlock = $item->getEquippingBlock(); // Instance of Necowebs\Destiny\Models\Manifest\InventoryItemEquippingBlock
+$hasGeometry = $item->getHasGeometry(); // true
+$statGroupHash = $item->getStatGroupHash(); // 660767731
+$itemLevels = $item->getItemLevels(); // Traversable of int
+$qualityLevel = $item->getQualityLevel(); // 70
+$equippable = $item->getEquippable(); // true
+$instanced = $item->getInstanced(); // true
+$rewardItemHash = $item->getRewardItemHash(); // 0
+$values = $item->getValues(); // []
+$itemType = $item->getItemType(); // 3
+$itemSubType = $item->getItemSubType(); // 10
+$classType = $item->getClassType(); // 3
+$sources = $item->getSources(); // Traversable of Necowebs\Destiny\Models\Manifest\InventoryItemSource
+$itemCategoryHashes = $item->getItemCategoryHashes(); // Traversable of int
+$sourceHashes = $item->getSourceHashes(); // Traversable of int
+$nonTransferrable = $item->getNonTransferrable(); // false
+$exclusive = $item->getExclusive(); // 0
+$maxStackSize = $item->getMaxStackSize(); // 1
+$itemIndex = $item->getItemIndex(); // 0
+$setItemHashes = $item->getSetItemHashes(); // Traversable of int
+$tooltipStyle = $item->getTooltipStyle(); // ""
+$questlineItemHash = $item->getQuestlineItemHash(); // 0
+$needsFullCompletion = $item->getNeedsFullCompletion(); // false
+$objectiveHashes = $item->getObjectiveHashes(); // Traversable of int
+$allowActions = $item->getAllowActions(); // true
+$questTrackingUnlockValueHash = $item->getQuestTrackingUnlockValueHash(); // 0
+$bountyResetUnlockHash = $item->getBountyResetUnlockHash(); // 0
+$uniquenessHash = $item->getUniquenessHash(); // 3671135542
+$showActiveNodesInTooltip = $item->getShowActiveNodesInTooltip(); // false
+$damageTypes = $item->getDamageTypes(); // Traversable of int
+$hash = $item->getHash(); // 1274330687
+$index = $item->getIndex(); // 0
 ```
 
 **GetMaterialRequirement**
@@ -479,10 +480,10 @@ use Necowebs\Destiny\Services\Manifest\MaterialRequirementService;
 
 $set = (new MaterialRequirementService())->getMaterialRequirement(1621628784);
 
-$setHash = $set->getSetHash();
-$materials = $set->getMaterials();
-$hash = $set->getHash();
-$index = $set->getIndex();
+$setHash = $set->getSetHash(); // 1621628784
+$materials = $set->getMaterials(); // Traversable of Necowebs\Destiny\Models\Manifest\MaterialRequirementItem
+$hash = $set->getHash(); // 1621628784
+$index = $set->getIndex(); // 0
 ```
 
 **GetPlace**
@@ -492,12 +493,12 @@ use Necowebs\Destiny\Services\Manifest\PlaceService;
 
 $place = (new PlaceService())->getPlace(4088006058);
 
-$placeHash = $place->getPlaceHash();
-$placeName = $place->getPlaceName();
-$placeDescription = $place->getPlaceDescription();
-$icon = $place->getIcon();
-$hash = $place->getHash();
-$index = $place->getIndex();
+$placeHash = $place->getPlaceHash(); // 4088006058
+$placeName = $place->getPlaceName(); // "The Crucible"
+$placeDescription = $place->getPlaceDescription(); // "Hone your skills and win glory in battle against other Guardians."
+$icon = $place->getIcon(); // "/img/misc/missing_icon.png"
+$hash = $place->getHash(); // 4088006058
+$index = $place->getIndex(); // 0
 ```
 
 **GetProgression**
@@ -507,14 +508,14 @@ use Necowebs\Destiny\Services\Manifest\ProgressionService;
 
 $progression = (new ProgressionService())->getProgression(45089664);
 
-$progressionHash = $progression->getProgressionHash();
-$name = $progression->getName();
-$scope = $progression->getScope();
-$repeatLastStep = $progression->getRepeatLastStep();
-$steps = $progression->getSteps();
-$visible = $progression->getVisible();
-$hash = $progression->getHash();
-$index = $progression->getIndex();
+$progressionHash = $progression->getProgressionHash(); // 45089664
+$name = $progression->getName(); // "terminals"
+$scope = $progression->getScope(); // 1
+$repeatLastStep = $progression->getRepeatLastStep(); // true
+$steps = $progression->getSteps(); // Traversable of Necowebs\Destiny\Models\Manifest\Reward
+$visible = $progression->getVisible(); // true
+$hash = $progression->getHash(); // 45089664
+$index = $progression->getIndex(); // 0
 ```
 
 **GetRace**
@@ -524,14 +525,14 @@ use Necowebs\Destiny\Services\Manifest\RaceService;
 
 $race = (new RaceService())->getRace(3887404748);
 
-$raceHash = $race->getRaceHash();
-$raceType = $race->getRaceType();
-$raceName = $race->getRaceName();
-$raceNameMale = $race->getRaceNameMale();
-$raceNameFemale = $race->getRaceNameFemale();
-$raceDescription = $race->getRaceDescription();
-$hash = $race->getHash();
-$index = $race->getIndex();
+$raceHash = $race->getRaceHash(); // 3887404748
+$raceType = $race->getRaceType(); // 0
+$raceName = $race->getRaceName(); // "Human"
+$raceNameMale = $race->getRaceNameMale(); // "Human Male"
+$raceNameFemale = $race->getRaceNameFemale(); // "Human Female"
+$raceDescription = $race->getRaceDescription(); // "Human"
+$hash = $race->getHash(); // 3887404748
+$index = $race->getIndex(); // 0
 ```
 
 **GetSandboxPerk**
@@ -541,14 +542,14 @@ use Necowebs\Destiny\Services\Manifest\SandboxPerkService;
 
 $perk = (new SandboxPerkService())->getSandboxPerk(2425591494);
 
-$perkHash = $perk->getPerkHash();
-$displayName = $perk->getDisplayName();
-$displayDescription = $perk->getDisplayDescription();
-$displayIcon = $perk->getDisplayIcon();
-$isDisplayable = $perk->getIsDisplayable();
-$perkGroups = $perk->getPerkGroups();
-$hash = $perk->getHash();
-$index = $perk->getIndex();
+$perkHash = $perk->getPerkHash(); // 2425591494
+$displayName = $perk->getDisplayName(); // "Grenades and Horseshoes"
+$displayDescription = $perk->getDisplayDescription(); // "Rockets from this weapon will detonate early based on proximity to targets."
+$displayIcon = $perk->getDisplayIcon(); // "/common/destiny_content/icons/6902d5c9cd4d297bab898130de2eb7b5.png"
+$isDisplayable = $perk->getIsDisplayable(); // true
+$perkGroups = $perk->getPerkGroups(); // Instance of Necowebs\Destiny\Models\Manifest\SandboxPerkGroup
+$hash = $perk->getHash(); // 2425591494
+$index = $perk->getIndex(); // 0
 ```
 
 **GetStatGroup**
@@ -558,13 +559,13 @@ use Necowebs\Destiny\Services\Manifest\StatGroupService;
 
 $group = (new StatGroupService())->getStatGroup(1997970403);
 
-$statGroupHash = $group->getStatGroupHash();
-$maximumValue = $group->getMaximumValue();
-$uiPosition = $group->getUiPosition();
-$scaledStats = $group->getScaledStats();
-$overrides = $group->getOverrides();
-$hash = $group->getHash();
-$index = $group->getIndex();
+$statGroupHash = $group->getStatGroupHash(); // 1997970403
+$maximumValue = $group->getMaximumValue(); // 11
+$uiPosition = $group->getUiPosition(); // 0
+$scaledStats = $group->getScaledStats(); // Traversable of Necowebs\Destiny\Models\Manifest\StatGroupScaledStat
+$overrides = $group->getOverrides(); // Traversable of Necowebs\Destiny\Models\Manifest\StatGroupOverride
+$hash = $group->getHash(); // 1997970403
+$index = $group->getIndex(); // 0
 ```
 
 **GetStat**
@@ -574,14 +575,14 @@ use Necowebs\Destiny\Services\Manifest\StatService;
 
 $stat = (new StatService())->getStat(3897883278);
 
-$statHash = $stat->getStatHash();
-$statName = $stat->getStatName();
-$statDescription = $stat->getStatDescription();
-$icon = $stat->getIcon();
-$statIdentifier = $stat->getStatIdentifier();
-$interpolate = $stat->getInterpolate();
-$hash = $stat->getHash();
-$index = $stat->getIndex();
+$statHash = $stat->getStatHash(); // 3897883278
+$statName = $stat->getStatName(); // "Defense"
+$statDescription = $stat->getStatDescription(); // "Reduces incoming damage from your enemies."
+$icon = $stat->getIcon(); // "/img/theme/destiny/icons/icon_defense.png"
+$statIdentifier = $stat->getStatIdentifier(); // "STAT_DEFENSE"
+$interpolate = $stat->getInterpolate(); // false
+$hash = $stat->getHash(); // 3897883278
+$index = $stat->getIndex(); // 0
 ```
 
 **GetTalentGrid**
@@ -591,17 +592,17 @@ use Necowebs\Destiny\Services\Manifest\TalentGridService;
 
 $grid = (new TalentGridService())->getTalentGrid(148625784);
 
-$gridHash = $grid->getGridHash();
-$maxGridLevel = $grid->getMaxGridLevel();
-$gridLevelPerColumn = $grid->getGridLevelPerColumn();
-$progressionHash = $grid->getProgressionHash();
-$nodes = $grid->getNodes();
-$calcMaxGridLevel = $grid->getCalcMaxGridLevel();
-$calcProgressToMaxLevel = $grid->getCalcProgressToMaxLevel();
-$exclusiveSets = $grid->getExclusiveSets();
-$independentNodeIndexes = $grid->getIndependentNodeIndexes();
-$hash = $grid->getHash();
-$index = $grid->getIndex();
+$gridHash = $grid->getGridHash(); // 148625784
+$maxGridLevel = $grid->getMaxGridLevel(); // 0
+$gridLevelPerColumn = $grid->getGridLevelPerColumn(); // 0
+$progressionHash = $grid->getProgressionHash(); // 3605101483
+$nodes = $grid->getNodes(); // Traversable of Necowebs\Destiny\Models\Manifest\TalentGridNode
+$calcMaxGridLevel = $grid->getCalcMaxGridLevel(); // 0
+$calcProgressToMaxLevel = $grid->getCalcProgressToMaxLevel(); // 0
+$exclusiveSets = $grid->getExclusiveSets(); // Traversable of Necowebs\Destiny\Models\Manifest\TalentGridExclusiveSet
+$independentNodeIndexes = $grid->getIndependentNodeIndexes(); // Traversable of int
+$hash = $grid->getHash(); // 148625784
+$index = $grid->getIndex(); // 0
 ```
 
 **GetUnlockFlag**
@@ -611,11 +612,11 @@ use Necowebs\Destiny\Services\Manifest\UnlockFlagService;
 
 $flag = (new UnlockFlagService())->getUnlockFlag(2100359368);
 
-$flagHash = $flag->getFlagHash();
-$isOffer = $flag->getIsOffer();
-$unlockType = $flag->getUnlockType();
-$hash = $flag->getHash();
-$index = $flag->getIndex();
+$flagHash = $flag->getFlagHash(); // 2100359368
+$isOffer = $flag->getIsOffer(); // false
+$unlockType = $flag->getUnlockType(); // 0
+$hash = $flag->getHash(); // 2100359368
+$index = $flag->getIndex(); // 0
 ```
 
 **GetVendor**
@@ -625,13 +626,13 @@ use Necowebs\Destiny\Services\Manifest\VendorService;
 
 $vendor = (new VendorService())->getVendor(1575820975);
 
-$summary = $vendor->getSummary();
-$acceptedItems = $vendor->getAcceptedItems();
-$categories = $vendor->getCategories();
-$failureStrings = $vendor->getFailureStrings();
-$unlockValueHash = $vendor->getUnlockValueHash();
-$hash = $vendor->getHash();
-$index = $vendor->getIndex();
+$summary = $vendor->getSummary(); // Instance of Necowebs\Destiny\Models\Manifest\VendorSummary
+$acceptedItems = $vendor->getAcceptedItems(); // Traversable of int
+$categories = $vendor->getCategories(); // Traversable of Necowebs\Destiny\Models\Manifest\VendorCategory
+$failureStrings = $vendor->getFailureStrings(); // [null]
+$unlockValueHash = $vendor->getUnlockValueHash(); // 0
+$hash = $vendor->getHash(); // 1575820975
+$index = $vendor->getIndex(); // 0
 ```
 
 ### Stats Services
@@ -641,7 +642,7 @@ $index = $vendor->getIndex();
 ```php
 use Necowebs\Destiny\Services\Stats\ActivityHistoryService;
 
-$history = (new ActivityHistoryService())->getActivityHistory(2, '4611686018450406180', '2305843009310128298');
+$history = (new ActivityHistoryService())->getActivityHistory(2, '4611686018450406180', '2305843009310128298'); // Traversable of Necowebs\Destiny\Models\Stats\Activity
 ```
 
 **GetDestinyAggregateActivityStats**
@@ -649,7 +650,7 @@ $history = (new ActivityHistoryService())->getActivityHistory(2, '46116860184504
 ```php
 use Necowebs\Destiny\Services\Stats\DestinyAggregateActivityStatsService;
 
-$stats = (new DestinyAggregateActivityStatsService())->getDestinyAggregateActivityStats(2, '4611686018450406180', '2305843009310128298');
+$stats = (new DestinyAggregateActivityStatsService())->getDestinyAggregateActivityStats(2, '4611686018450406180', '2305843009310128298'); // Traversable of Necowebs\Destiny\Models\Stats\AggregateActivity
 ```
 
 **GetHistoricalStatsDefinition**
@@ -657,7 +658,7 @@ $stats = (new DestinyAggregateActivityStatsService())->getDestinyAggregateActivi
 ```php
 use Necowebs\Destiny\Services\Stats\HistoricalStatsDefinitionService;
 
-$definition = (new HistoricalStatsDefinitionService())->getHistoricalStatsDefinition();
+$definition = (new HistoricalStatsDefinitionService())->getHistoricalStatsDefinition(); // Traversable of Necowebs\Destiny\Models\Stats\Definition
 ```
 
 **GetHistoricalStatsForAccount**
@@ -667,9 +668,9 @@ use Necowebs\Destiny\Services\Stats\TestHistoricalStatsForAccountService;
 
 $account = (new HistoricalStatsForAccountService())->getHistoricalStatsForAccount(2, '4611686018450406180');
 
-$mergedDeletedCharacters = $account->getMergedDeletedCharacters();
-$mergedAllCharacters = $account->getMergedAllCharacters();
-$characters = $account->getCharacters();
+$mergedDeletedCharacters = $account->getMergedDeletedCharacters(); // Instance of Necowebs\Destiny\Models\Stats\AccountCharacter
+$mergedAllCharacters = $account->getMergedAllCharacters(); // Instance of Necowebs\Destiny\Models\Stats\AccountCharacter
+$characters = $account->getCharacters(); // Traversable of Necowebs\Destiny\Models\Stats\AccountCharacter
 ```
 
 **GetHistoricalStats**
@@ -679,12 +680,12 @@ use Necowebs\Destiny\Services\Stats\TestHistoricalStatsService;
 
 $stats = (new HistoricalStatsService())->getHistoricalStats(2, '4611686018450406180', '2305843009310128298');
 
-$allPvP = $stats->getAllPvP();
-$patrol = $stats->getPatrol();
-$raid = $stats->getRaid();
-$story = $stats->getStory();
-$allStrikes = $stats->getAllStrikes();
-$allArena = $stats->getAllArena();
+$allPvP = $stats->getAllPvP(); // Instance of Necowebs\Destiny\Models\Stats\HistoricalActivity
+$patrol = $stats->getPatrol(); // Instance of Necowebs\Destiny\Models\Stats\HistoricalActivity
+$raid = $stats->getRaid(); // Instance of Necowebs\Destiny\Models\Stats\HistoricalActivity
+$story = $stats->getStory(); // Instance of Necowebs\Destiny\Models\Stats\HistoricalActivity
+$allStrikes = $stats->getAllStrikes(); // Instance of Necowebs\Destiny\Models\Stats\HistoricalActivity
+$allArena = $stats->getAllArena(); // Instance of Necowebs\Destiny\Models\Stats\HistoricalActivity
 ```
 
 **GetMembershipIdByDisplayName**
@@ -692,7 +693,7 @@ $allArena = $stats->getAllArena();
 ```php
 use Necowebs\Destiny\Services\Stats\MembershipIdByDisplayNameService;
 
-$membershipId = (new MembershipIdByDisplayNameService())->getMembershipIdByDisplayName(2, 'Hochi_oD');
+$membershipId = (new MembershipIdByDisplayNameService())->getMembershipIdByDisplayName(2, 'Hochi_oD'); // "4611686018450406180"
 ```
 
 **GetPostGameCarnageReport**
@@ -702,10 +703,10 @@ use Necowebs\Destiny\Services\Stats\PostGameCarnageReportService;
 
 $report = (new PostGameCarnageReportService())->getPostGameCarnageReport('5234554709');
 
-$period = $report->getPeriod();
-$activityDetails = $report->getActivityDetails();
-$entries = $report->getEntries();
-$teams = $report->getTeams();
+$period = $report->getPeriod(); // "2016-07-13T23:15:00Z"
+$activityDetails = $report->getActivityDetails(); // Instance of Necowebs\Destiny\Models\Stats\ActivityDetails
+$entries = $report->getEntries(); // Traversable of Necowebs\Destiny\Models\Stats\PostGameCarnageReportEntry
+$teams = $report->getTeams(); // Traversable of Necowebs\Destiny\Models\Stats\PostGameCarnageReportTeam
 ```
 
 **GetUniqueWeaponHistory**
@@ -713,7 +714,7 @@ $teams = $report->getTeams();
 ```php
 use Necowebs\Destiny\Services\Stats\UniqueWeaponHistoryService;
 
-$weapons = (new UniqueWeaponHistoryService())->getUniqueWeaponHistory(2, '4611686018450406180', '2305843009310128298');
+$weapons = (new UniqueWeaponHistoryService())->getUniqueWeaponHistory(2, '4611686018450406180', '2305843009310128298'); // Traversable of Necowebs\Destiny\Models\Stats\PostGameCarnageReportEntryExtendedWeapon
 ```
 
 ### Vanguard Services
@@ -725,10 +726,10 @@ use Necowebs\Destiny\Services\Vanguard\GrimoireByMembershipService;
 
 $grimoire = (new GrimoireByMembershipService())->getGrimoireByMembership(2, '4611686018450406180');
 
-$score = $grimoire->getScore();
-$cardCollection = $grimoire->getCardCollection();
-$cardsToHide = $grimoire->getCardsToHide();
-$bonuses = $grimoire->getBonuses();
+$score = $grimoire->getScore(); // 4620
+$cardCollection = $grimoire->getCardCollection(); // Traversable of Necowebs\Destiny\Models\Vanguard\GrimoireCard
+$cardsToHide = $grimoire->getCardsToHide(); // Traversable of int
+$bonuses = $grimoire->getBonuses(); // Traversable of Necowebs\Destiny\Models\Vanguard\GrimoireBonus
 ```
 
 **GetGrimoireDefinition**
@@ -736,7 +737,7 @@ $bonuses = $grimoire->getBonuses();
 ```php
 use Necowebs\Destiny\Services\Vanguard\GrimoireDefinitionService;
 
-$definition = (new GrimoireDefinitionService())->getGrimoireDefinition();
+$definition = (new GrimoireDefinitionService())->getGrimoireDefinition(); // Traversable of Necowebs\Destiny\Models\Vanguard\GrimoireDefinitionTheme
 ```
 
 ## License
