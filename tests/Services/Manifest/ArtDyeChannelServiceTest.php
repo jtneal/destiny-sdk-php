@@ -19,7 +19,6 @@ class ArtDyeChannelServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(662199250, $channel->getChannelHash());
         $this->assertEquals(0, $channel->getIndex());
-        $this->assertEquals('armor', $channel->getChannelName());
         $this->assertEquals(662199250, $channel->getHash());
     }
 

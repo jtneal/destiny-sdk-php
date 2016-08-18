@@ -27,7 +27,7 @@ class AccountSummaryServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(SummaryInventory::class, $summary->getInventory());
         $this->assertEquals(4620, $summary->getGrimoireScore());
         $this->assertEquals(15, $summary->getVersions());
-        $this->assertEquals(1, $summary->getAccountState());
+        $this->assertEquals(4, $summary->getAccountState());
     }
 
     /**

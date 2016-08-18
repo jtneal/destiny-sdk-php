@@ -22,7 +22,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2659248068, $activity->getActivityHash());
         $this->assertEquals('Vault of Glass', $activity->getActivityName());
         $this->assertEquals('Beneath Venus, evil stirs.', $activity->getActivityDescription());
-        $this->assertEquals('/common/destiny_content/icons/f2174f9413f37e3720417fffecd5524c.png', $activity->getIcon());
+        $this->assertEquals('/common/destiny_content/icons/aeb1b1c238df607729a9ea306426b3b4.png', $activity->getIcon());
         $this->assertEquals('/img/misc/missing_icon.png', $activity->getReleaseIcon());
         $this->assertEquals(0, $activity->getReleaseTime());
         $this->assertEquals(30, $activity->getActivityLevel());

@@ -21,7 +21,7 @@ class SandboxPerkServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2425591494, $perk->getPerkHash());
         $this->assertEquals('Grenades and Horseshoes', $perk->getDisplayName());
         $this->assertEquals('Rockets from this weapon will detonate early based on proximity to targets.', $perk->getDisplayDescription());
-        $this->assertEquals('/common/destiny_content/icons/6902d5c9cd4d297bab898130de2eb7b5.png', $perk->getDisplayIcon());
+        $this->assertEquals('/common/destiny_content/icons/d938527a7b93f552c2acfa4714982e54.png', $perk->getDisplayIcon());
         $this->assertEquals(true, $perk->getIsDisplayable());
         $this->assertInstanceOf(SandboxPerkGroup::class, $perk->getPerkGroups());
         $this->assertEquals(2425591494, $perk->getHash());
